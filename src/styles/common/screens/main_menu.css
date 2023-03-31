@@ -10,7 +10,6 @@
   gap: 20px;
 }
 
-
 .new-game-button,
 .options-button,
 .quit-button {
@@ -18,3 +17,18 @@
   transform: scale(0.5);
 }
 
+.new-game-button:hover {
+  transform: scale(0.55);
+}
+
+.new-game-button:active {
+  transform: scale(0.45);
+}
+
+.options-button:hover {
+  transform: scale(0.55);
+}
+
+.options-button:active {
+  transform: scale(0.45);
+}
