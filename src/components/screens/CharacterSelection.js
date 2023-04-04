@@ -13,26 +13,56 @@ import character1Gif from '../../assets/images/character/character1-gif.gif';
 import character2Gif from '../../assets/images/character/character2-gif.gif';
 import character3Gif from '../../assets/images/character/character3-gif.gif';
 
+// Yellow Knight Cards
+import yellowAttack1 from "../../assets/images/cards/yellowknight/attack1.png";
+import yellowShield1 from "../../assets/images/cards/yellowknight/shield1.png";
+import yellowSpecial1 from "../../assets/images/cards/yellowknight/special1.png";
+
+// Green Archer Cards
+import greenAttack1 from "../../assets/images/cards/greenarcher/attack1.png";
+import greenShield1 from "../../assets/images/cards/greenarcher/shield1.png";
+import greenSpecial1 from "../../assets/images/cards/greenarcher/special1.png";
+
+// Red Mage Cards
+import redAttack1 from "../../assets/images/cards/redmage/attack1.png";
+import redShield1 from "../../assets/images/cards/redmage/shield1.png";
+import redSpecial1 from "../../assets/images/cards/redmage/special1.png";
+
 const CharacterSelection = ({ onSelectCharacter, onBack }) => {
   const [selectedCharacter, setSelectedCharacter] = useState(null);
 
   const characters = [
     {
-      name: 'Warrior',
+      name: 'Yellow Knight',
       image: character1Img,
       gif: character1Gif,
+      startingDeck: [
+        { id: 1, name: "Attack", image: yellowAttack1 },
+        { id: 2, name: "Shield", image: yellowShield1 },
+        { id: 3, name: "Special", image: yellowSpecial1 },
+      ],
       description: 'description...',
     },
     {
-      name: 'Archer',
+      name: 'Green Archer',
       image: character2Img,
       gif: character2Gif,
+      startingDeck: [
+        { id: 4, name: "Attack", image: greenAttack1 },
+        { id: 5, name: "Shield", image: greenShield1 },
+        { id: 6, name: "Special", image: greenSpecial1 },
+      ],
       description: 'description...',
     },
     {
-      name: 'Wizard',
+      name: 'Red Mage',
       image: character3Img,
       gif: character3Gif,
+      startingDeck: [
+        { id: 7, name: "Attack", image: redAttack1 },
+        { id: 8, name: "Shield", image: redShield1 },
+        { id: 9, name: "Special", image: redSpecial1 },
+      ],
       description: 'description...',
     },
   ];
@@ -59,6 +89,20 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
       <h2>{selectedCharacter.name}</h2>
       <img src={selectedCharacter.image} alt={selectedCharacter.name} />
       <p>{selectedCharacter.description}</p>
+
+    <div className="starting-deck">
+      <h3>Starting Cards</h3>
+        {selectedCharacter.startingDeck.map((card) => (
+          <div className="starting-card" key={card.id}>
+            <img 
+            src={card.image} 
+            alt={card.name}
+            style={{ width: '170px', height: 'auto', margin: '5px' }} 
+            />
+          </div>
+        ))}
+    </div>
+
       <button
             className="select-button"
             onClick={confirmSelection}
