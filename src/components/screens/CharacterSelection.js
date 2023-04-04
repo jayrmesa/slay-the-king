@@ -21,19 +21,19 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
       name: 'Warrior',
       image: character1Img,
       gif: character1Gif,
-      description: 'description...',
+      description: 'The Warrior is a noble man with a heart of gold. He can mow down enemies with his sword and block incoming attacks with his shield.',
     },
     {
       name: 'Archer',
       image: character2Img,
       gif: character2Gif,
-      description: 'description...',
+      description: "The Archer is a fast, stealthy woman with enough power to take down anyone who opposes her. Her defense isn't the best so a few hits and she could be out for good",
     },
     {
       name: 'Wizard',
       image: character3Img,
       gif: character3Gif,
-      description: 'description...',
+      description: 'Known for hard hitting spells the Wizard can blast down foes with ease. But be weary, as the Wizard is also very fragile, so any hit could be fatal.',
     },
   ];
 
