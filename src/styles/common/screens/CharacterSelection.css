@@ -1,0 +1,72 @@
+.character-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.character-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.character-details img {
+  width: 400px; 
+  height: 400px; 
+}
+
+.character-list {
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  bottom: 20px;
+}
+
+.character-list img {
+  cursor: pointer;
+  width: 100px;
+  height: auto;
+}
+
+.back-button {
+  cursor: pointer;
+  width: 160px; 
+  height: 150px; 
+  background-color: transparent; 
+  border: none; 
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 20px;
+  left: 100px;
+}
+
+.back-button:hover {
+  transform: scale(0.95);
+}
+
+.back-button:active {
+  transform: scale(0.87);
+}
+
+.select-button {
+  cursor: pointer;
+  width: 160px;  
+  height: 150px;
+  background-color: transparent;
+  border: none;    
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 20px;
+  right: 100px;
+}
