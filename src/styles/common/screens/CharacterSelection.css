@@ -70,3 +70,11 @@
   bottom: 20px;
   right: 100px;
 }
+
+.select-button:hover {
+  transform: scale(0.95);
+}
+
+.select-button:active {
+  transform: scale(0.87);
+}

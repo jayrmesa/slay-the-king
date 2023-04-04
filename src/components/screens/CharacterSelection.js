@@ -63,7 +63,7 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
             className="select-button"
             onClick={confirmSelection}
             style={{ backgroundImage: `url(${selectButtonImage})` }}
-          ></button>
+      ></button>
     </div>
   )}
 
