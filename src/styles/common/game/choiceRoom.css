@@ -30,3 +30,23 @@
   transform: translate(-50%, -50%); /* Adjust the position so that it's truly centered */
 }
 
+.health-bar-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.health-bar {
+  width: 200px;
+  height: auto;
+}
+
+.health-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+}
+

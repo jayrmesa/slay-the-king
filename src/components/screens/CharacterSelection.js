@@ -36,6 +36,8 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
       name: 'Yellow Knight',
       image: character1Img,
       gif: character1Gif,
+      health: 25,
+      maxHealth: 25,
       startingDeck: [
         { id: 1, name: "Attack", image: yellowAttack1 },
         { id: 2, name: "Shield", image: yellowShield1 },
@@ -47,6 +49,8 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
       name: 'Green Archer',
       image: character2Img,
       gif: character2Gif,
+      health: 20,
+      maxHealth: 20,
       startingDeck: [
         { id: 4, name: "Attack", image: greenAttack1 },
         { id: 5, name: "Shield", image: greenShield1 },
@@ -58,6 +62,8 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
       name: 'Red Mage',
       image: character3Img,
       gif: character3Gif,
+      health: 15,
+      maxHealth: 15,
       startingDeck: [
         { id: 7, name: "Attack", image: redAttack1 },
         { id: 8, name: "Shield", image: redShield1 },
