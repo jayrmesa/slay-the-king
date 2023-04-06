@@ -10,11 +10,15 @@ const ChoiceRoom = ({ npcImage, onChoice1, onChoice2, background, selectedCharac
 
   const [displayText, setDisplayText] = useState('Greetings...');
   const [animationKey, setAnimationKey] = useState(0);
+  const [showChoices, setShowChoices] = useState(false);
 
   const handleTalkButtonClick = () => {
     setDisplayText('Choose wisely...');
     setAnimationKey(animationKey + 1);
+    setShowChoices(!showChoices);
   };
+
+  
 
   return (
     <div className="room" style={{ backgroundImage: `url(${background})` }}>
@@ -40,18 +44,21 @@ const ChoiceRoom = ({ npcImage, onChoice1, onChoice2, background, selectedCharac
       </p>
       </div>
 
-      <img
+      {showChoices && (
+        <div className="choices">
+          <button onClick={onChoice1}>Increase Health</button>
+          <button onClick={onChoice2}>Get a Card & Lose Health</button>
+        </div>
+      )}
+
+      {!showChoices && (
+        <img
         className="talk-button"
         src={talkButton}
         alt="Talk"
-        onClick={handleTalkButtonClick }
-      />
-
-
-      <div className="choices">
-        <button onClick={onChoice1}>Increase Health</button>
-        <button onClick={onChoice2}>Get a Card & Lose Health</button>
-      </div>
+        onClick={handleTalkButtonClick}
+        />
+      )}
     </div>
   );
 };
