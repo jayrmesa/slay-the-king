@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from './components/screens/mainMenu';
 import CharacterSelection from './components/screens/CharacterSelection';
 
-import Room from './components/game/choiceRoom';
+import ChoiceRoom from './components/game/choiceRoom';
 import npcGif from './assets/images/npc/npc.gif';
 
 import roomBackground from './assets/images/menu/choiceRoom.png';
@@ -56,7 +56,7 @@ function App() {
         <CharacterSelection onSelectCharacter={onSelectCharacter} onBack={onBack} />
       )}
       {roomVisible && (
-        <Room
+        <ChoiceRoom
           npcImage={npcGif}
           background={roomBackground} 
           onChoice1={handleChoice1}

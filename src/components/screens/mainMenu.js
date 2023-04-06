@@ -3,7 +3,7 @@ import menuBackground from '../../assets/images/menu/menu-background.png';
 import newGameButton from '../../assets/images/menu/new-game-button.png';
 import optionsButton from '../../assets/images/menu/options-button.png';
 import quitButton from '../../assets/images/menu/quit-button.png';
-import '../../styles/common/screens/main_menu.css';
+import '../../styles/screens/mainMenu.css';
 
 
 const Menu = ({ onNewGame, onOptions, onQuit }) => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/common/screens/CharacterSelection.css';
+import '../../styles/screens/CharacterSelection.css';
 
 import character1Img from '../../assets/images/character/character1.png';
 import character2Img from '../../assets/images/character/character2.png';
