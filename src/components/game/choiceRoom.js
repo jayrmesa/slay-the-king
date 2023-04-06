@@ -46,7 +46,7 @@ const ChoiceRoom = ({ npcImage, onChoice1, onChoice2, background, selectedCharac
 
       {showChoices && (
         <div className="choices">
-          <button onClick={onChoice1}>Increase Health</button>
+          <button onClick={onChoice1}>Increase Max Health</button>
           <button onClick={onChoice2}>Get a Card & Lose Health</button>
         </div>
       )}

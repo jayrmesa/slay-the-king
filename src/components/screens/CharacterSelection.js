@@ -73,6 +73,7 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
     },
   ];
 
+
   const selectCharacter = (character) => {
     setSelectedCharacter({
       ...character,
@@ -132,7 +133,6 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
   </div>
   );
 };
-
 
 
 export default CharacterSelection;
