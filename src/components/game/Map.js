@@ -3,6 +3,7 @@ import '../../styles/game/map.css';
 import mapBackground from '../../assets/images/map/map.png';
 import nodeImage from '../../assets/images/map/monster.png';
 
+
 const Map = ({ onNodeClick }) => {
   const [clearedNodes, setClearedNodes] = useState([1, 2, 3]);
 
@@ -70,6 +71,7 @@ const Map = ({ onNodeClick }) => {
           onClick={onClick}
         />
       ))}
+
     </div>
   );
 };
