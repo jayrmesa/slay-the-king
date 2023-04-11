@@ -19,7 +19,7 @@
 }
 
 .starting-deck {
-  flex-wrap: nowrap; /* Add this line to prevent wrapping of the cards */
+  flex-wrap: nowrap; 
   position: absolute;
   top: 110px;
   right: 90px;

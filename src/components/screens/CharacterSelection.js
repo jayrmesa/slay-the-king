@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import '../../styles/screens/CharacterSelection.css';
+import { useNavigate } from 'react-router-dom';
 
+import '../../styles/screens/CharacterSelection.css';
 import character1Img from '../../assets/images/character/character1.png';
 import character2Img from '../../assets/images/character/character2.png';
 import character3Img from '../../assets/images/character/character3.png';
@@ -28,7 +29,8 @@ import redAttack1 from "../../assets/images/cards/redmage/attack1.png";
 import redShield1 from "../../assets/images/cards/redmage/shield1.png";
 import redSpecial1 from "../../assets/images/cards/redmage/special1.png";
 
-const CharacterSelection = ({ onSelectCharacter, onBack }) => {
+const CharacterSelection = () => {
+  const navigate = useNavigate();
   const [selectedCharacter, setSelectedCharacter] = useState(null);
 
   const characters = [
@@ -83,8 +85,13 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
 
   const confirmSelection = () => {
     if (selectedCharacter) {
-      onSelectCharacter(selectedCharacter);
+      // Pass the selected character to the next component 
+      navigate('/choice-room', { state: { selectedCharacter } });
     }
+  };
+
+  const goBack = () => {
+    navigate('/');
   };
 
   return (
@@ -92,45 +99,45 @@ const CharacterSelection = ({ onSelectCharacter, onBack }) => {
       className="character-selection"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      { selectedCharacter && ( <div className="character-details">
-      <h2>{selectedCharacter.name}</h2>
-      <img src={selectedCharacter.image} alt={selectedCharacter.name} />
-      <p>{selectedCharacter.description}</p>
+      {selectedCharacter && (<div className="character-details">
+        <h2>{selectedCharacter.name}</h2>
+        <img src={selectedCharacter.image} alt={selectedCharacter.name} />
+        <p>{selectedCharacter.description}</p>
 
-    <div className="starting-deck">
-      <h3>Starting Cards</h3>
-        {selectedCharacter.startingDeck.map((card) => (
-          <div className="starting-card" key={card.id}>
-            <img 
-            src={card.image} 
-            alt={card.name}
-            style={{ width: '170px', height: 'auto', margin: '5px' }} 
-            />
-          </div>
+        <div className="starting-deck">
+          <h3>Starting Cards</h3>
+          {selectedCharacter.startingDeck.map((card) => (
+            <div className="starting-card" key={card.id}>
+              <img
+                src={card.image}
+                alt={card.name}
+                style={{ width: '170px', height: 'auto', margin: '5px' }}
+              />
+            </div>
+          ))}
+        </div>
+
+        <button
+          className="select-button"
+          onClick={confirmSelection}
+          style={{ backgroundImage: `url(${selectButtonImage})` }}
+        ></button>
+      </div>
+      )}
+
+      <div className="character-list">
+        {characters.map((character) => (
+          <img
+            key={character.name}
+            src={character.image}
+            alt={character.name}
+            onClick={() => selectCharacter(character)}
+          />
         ))}
-    </div>
 
-      <button
-            className="select-button"
-            onClick={confirmSelection}
-            style={{ backgroundImage: `url(${selectButtonImage})` }}
-      ></button>
+      </div>
+      <button className="back-button" onClick={goBack} style={{ backgroundImage: `url(${backButtonImage})` }}></button>
     </div>
-  )}
-
-  <div className="character-list">
-    {characters.map((character) => (
-    <img
-      key={character.name}
-      src={character.image}
-      alt={character.name}
-      onClick={() => selectCharacter(character)}
-    />
-  ))}
-  
-  </div>
-    <button className="back-button" onClick={onBack}style={{ backgroundImage: `url(${backButtonImage})` }}></button>
-  </div>
   );
 };
 
