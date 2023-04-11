@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from 'react';
 import Menu from './components/screens/mainMenu';
 import CharacterSelection from './components/screens/CharacterSelection';
@@ -51,12 +50,7 @@ function App() {
 
   const handleChoice2 = () => {
     console.log('Get a Card & Lose Health');
-    // Add a card to the player's deck and decrease their health
-  };
-
-  const onNodeClick = () => {
-    console.log('Node clicked');
-    // handle node click logic here
+    // Add a card to the players deck and decrease their health
   };
 
   const onBack = () => {
@@ -84,7 +78,7 @@ function App() {
           selectedCharacter={selectedCharacter}
         />
       )}
-      {mapVisible && <Map onNodeClick={onNodeClick} />}
+      {mapVisible && <Map/>}
     </div>
   );
 }
