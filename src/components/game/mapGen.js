@@ -2,6 +2,8 @@ import Sketch from "react-p5";
 import path from 'ngraph.path';
 import createGraph from 'ngraph.graph';
 import Delaunator from 'delaunator';
+import { useNavigate } from 'react-router-dom';
+
 
 const MapGen = () => {
   let canvasSize;
@@ -9,6 +11,10 @@ const MapGen = () => {
   let endPoint;
   const PoissonDiskSampling = window.PoissonDiskSampling
   let graph = createGraph();
+  let activePoints = [];
+  const navigate = useNavigate();
+  let pointEmojis = new Map();
+
 
   function setup(p5, parentRef) {
     canvasSize = p5.min(900, window.innerWidth);
@@ -57,9 +63,10 @@ const MapGen = () => {
   }
 
   function draw(p5) {
-    
+    p5.clear();
+
     p5.noStroke();
-    p5.fill(40, 50, 60, 0,);
+    p5.fill(40, 50, 60, 0);
     p5.rect(0, 0, canvasSize, canvasSize);
     p5.push();
     p5.strokeWeight(10);
@@ -71,7 +78,7 @@ const MapGen = () => {
     p5.push();
     p5.translate(canvasSize * 0.05, canvasSize * 0.05);
     // Lines
-    let activePoints = [];
+    activePoints = [];
     for (let i = 0; i < canvasSize / 50; i++) {
       const pathFinder = path.aStar(graph, {
         distance(fromNode, toNode, link) {
@@ -100,23 +107,27 @@ const MapGen = () => {
     p5.textAlign(p5.CENTER, p5.CENTER);
     for (const p of new Set(activePoints)) {
       const pJSON = JSON.stringify(p);
-      switch (pJSON) {
-        case JSON.stringify(startPoint):
-          p5.text("😀", ...p);
-          break;
-        case JSON.stringify(endPoint):
-          p5.text("😈", ...p);
-          break;
-        default:
-          p5.text(p5.random(Array.from("💀💀💀💰❓")), ...p);
+      let emoji;
+      if (pointEmojis.has(pJSON)) {
+        emoji = pointEmojis.get(pJSON);
+      } else {
+        switch (pJSON) {
+          case JSON.stringify(startPoint):
+            emoji = "😀";
+            break;
+          case JSON.stringify(endPoint):
+            emoji = "😈";
+            break;
+          default:
+            emoji = p5.random(Array.from("💀💀💀💰❓"));
+            pointEmojis.set(pJSON, emoji);
+        }
       }
+      p5.text(emoji, ...p);
     }
-    p5.pop();
 
-    p5.noStroke();
-    p5.fill(40, 50, 60, 0);
-    p5.rect(0, 0, canvasSize, canvasSize);
   }
+
 
   function arrow(p5, x1, y1, x2, y2, arrowSize = 6) {
     let vec = p5.createVector(x2 - x1, y2 - y1);
@@ -150,8 +161,38 @@ const MapGen = () => {
     p5.pop();
   }
 
+  function mousePressed(p5) {
+    const translatedMouseX = p5.mouseX - canvasSize * 0.05;
+    const translatedMouseY = p5.mouseY - canvasSize * 0.05;
+  
+    for (const p of new Set(activePoints)) {
+      const pJSON = JSON.stringify(p);
+  
+      // Get the emoji from the pointEmojis map
+      const emoji = pointEmojis.get(pJSON);
+  
+      // Check if the click is within the bounds of a 💀
+      if (
+        translatedMouseX >= p[0] - 26 &&
+        translatedMouseX <= p[0] + 26 &&
+        translatedMouseY >= p[1] - 26 &&
+        translatedMouseY <= p[1] + 26 &&
+        emoji === "💀"
+      ) {
+        navigate("/battle-room"); // Navigate to the BattleRoom component
+        return false; // Prevent default behavior
+      }
+    }
+  }
+  
+  
+
   return (
-      <Sketch setup={setup} draw={draw} />
+    <Sketch 
+    setup={setup} 
+    draw={draw} 
+    mouseClicked={(p5) => mousePressed(p5)}
+    />
   );
 
 };

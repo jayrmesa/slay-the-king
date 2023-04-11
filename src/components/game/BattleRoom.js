@@ -1,4 +1,3 @@
-// BattleRoom.js
 import React from "react";
 
 function BattleRoom() {
