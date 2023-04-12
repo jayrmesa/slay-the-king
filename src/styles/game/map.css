@@ -10,3 +10,15 @@
   background-position: center;
 }
 
+.character {
+  position: absolute;
+  bottom: 0;
+}
+
+.monster {
+  left: 10%;
+}
+
+.player {
+  right: 10%;
+}

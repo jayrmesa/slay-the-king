@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import '../../styles/game/choiceRoom.css';
@@ -31,7 +31,7 @@ const ChoiceRoom = () => {
   const increaseMaxHealth = () => {
     setCharacter((prevCharacter) => {
       const newMaxHealth = prevCharacter.maxHealth + 10;
-  
+
       return {
         ...prevCharacter,
         maxHealth: newMaxHealth,
@@ -42,8 +42,13 @@ const ChoiceRoom = () => {
   const handleChoice1 = () => {
     console.log('Increase Max Health');
     increaseMaxHealth();
-    navigate("/map");
   };
+
+  useEffect(() => {
+    if (character !== selectedCharacter) {
+      navigate("/map", { state: { selectedCharacter: character } });
+    }
+  }, [character, navigate, selectedCharacter]);
 
   const handleChoice2 = () => {
     console.log('Get a Card & Lose Health');
@@ -52,16 +57,16 @@ const ChoiceRoom = () => {
 
 
   return (
-    <div className="room" style={{ backgroundImage: `url(${roomBackground })` }}>
+    <div className="room" style={{ backgroundImage: `url(${roomBackground})` }}>
       <img className="npc" src={npcGif} alt="NPC" />
 
       <div className="character-container">
         <img className="selected-character" src={selectedCharacter.image} alt={selectedCharacter.name} />
+      </div>
 
-        <div className="health-bar-container">
-          <img className="health-bar" src={healthBar} alt="Health bar" style={{ width: `${(selectedCharacter.health / selectedCharacter.maxHealth) * 100}%` }} />
-          <span className="health-text">{selectedCharacter.health}/{selectedCharacter.maxHealth}</span>
-        </div>
+      <div className="health-bar-container">
+        <img className="health-bar" src={healthBar} alt="Health bar" style={{ width: `${(character.health / character.maxHealth) * 100}%` }} />
+        <span className="health-text">{character.health}/{character.maxHealth}</span>
       </div>
 
       <div className="speech-bubble-container" key={animationKey}>

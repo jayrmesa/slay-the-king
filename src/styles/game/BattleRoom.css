@@ -1,0 +1,38 @@
+.battle-room-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../../assets/images/map/battle.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
+.character {
+  position: absolute;
+  margin-bottom: 200px;
+}
+
+.monster {
+  width: 400px;
+  height: auto;
+}
+
+.player {
+  width: 400px;
+  height: auto;
+}
+
+.health-bar-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  justify-content: center;
+  border: 2px solid black;
+  margin-top: 670px;
+  margin-left: 1160px;
+}
+

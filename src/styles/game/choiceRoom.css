@@ -45,7 +45,9 @@
   position: absolute;
   justify-content: center;
   border: 2px solid black;
-  margin-top: 230px
+  margin-top: 230px;
+  margin-right: 50px;
+
 }
 
 .health-bar {
@@ -57,7 +59,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -54.75%);
+  transform: translate(-50%, -54.85%);
   color: white;
   font-weight: bold;
 }

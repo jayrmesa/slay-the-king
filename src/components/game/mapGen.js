@@ -5,7 +5,7 @@ import Delaunator from 'delaunator';
 import { useNavigate } from 'react-router-dom';
 
 
-const MapGen = () => {
+const MapGen = ({ selectedCharacter }) => {
   let canvasSize;
   let startPoint;
   let endPoint;
@@ -179,12 +179,11 @@ const MapGen = () => {
         translatedMouseY <= p[1] + 26 &&
         emoji === "💀"
       ) {
-        navigate("/battle-room"); // Navigate to the BattleRoom component
+        navigate("/battle-room", { state: { selectedCharacter } }); // Navigate to the BattleRoom component
         return false; // Prevent default behavior
       }
     }
   }
-  
   
 
   return (
