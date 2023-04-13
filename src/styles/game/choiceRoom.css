@@ -39,14 +39,14 @@
   margin-right: 100px;
 }
 
-.health-bar-container {
+.health-bar-choice {
   display: flex;
   align-items: center;
   position: absolute;
   justify-content: center;
   border: 2px solid black;
-  margin-top: 230px;
-  margin-right: 50px;
+  margin-top: 680px;
+  margin-left: 1060px;
 
 }
 
@@ -115,7 +115,7 @@
 .speech-text {
   position: absolute;
   top: 170px;
-  left: 100px;
+  left: 110px;
   width: 250px;
   font-size: 35px;
   color:white;

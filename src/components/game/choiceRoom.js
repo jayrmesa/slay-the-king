@@ -64,7 +64,7 @@ const ChoiceRoom = () => {
         <img className="selected-character" src={selectedCharacter.image} alt={selectedCharacter.name} />
       </div>
 
-      <div className="health-bar-container">
+      <div className="health-bar-choice">
         <img className="health-bar" src={healthBar} alt="Health bar" style={{ width: `${(character.health / character.maxHealth) * 100}%` }} />
         <span className="health-text">{character.health}/{character.maxHealth}</span>
       </div>

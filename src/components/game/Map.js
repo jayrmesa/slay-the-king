@@ -16,7 +16,7 @@ const Map = ({ onNodeClick }) => {
       setClearedNodes((prevClearedNodes) => [...prevClearedNodes, ...nextNodes]);
 
       // Check if the node has a monster
-      if (node >= 4 && node <= 15) {
+      if (node >= 1 && node <= 13) {
         navigate("/battle-room", { state: { selectedCharacter } });
       }
     }
