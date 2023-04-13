@@ -1,24 +1,101 @@
-.canvas-container {
+.map-container {
   display: flex;
   justify-content: center;
   height: 100vh;
-  padding-top: 50px; 
-  padding-bottom: 50px; 
+  padding-top: 50px;
+  padding-bottom: 70px;
+  background-position: center;
   background-image: url('../../assets/images/map/map.png');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
 }
 
-.character {
+.map-node {
+  cursor: pointer;
   position: absolute;
-  bottom: 0;
 }
 
-.monster {
-  left: 10%;
+.start-node {
+  bottom: 20px;
+  left: calc(50%);
 }
 
-.player {
-  right: 10%;
+.node-2 {
+  bottom: 150px;
+  left: calc(50% - 300px);
+}
+
+.node-3 {
+  bottom: 150px;
+  left: calc(50% + 300px);
+}
+
+.node-4{
+  bottom: 300px;
+  left: calc(50% - 600px);
+}
+
+.node-5 {
+  bottom: 310px;
+  left: calc(50% - 200px);
+}
+
+.node-6{
+  bottom: 300px;
+  left: calc(50% + 500px);
+}
+
+.node-7 {
+  bottom: 400px;
+  left: calc(50% + 250px);
+}
+
+.node-8 {
+  bottom: 500px;
+  left: calc(50% - 400px);
+}
+
+.node-9{
+  bottom: 360px;
+  left: calc(50% + 25px);
+}
+
+.node-10 {
+  bottom: 470px;
+  left: calc(50% - 180px);
+}
+
+.node-11 {
+  bottom: 600px;
+  left: calc(50% + 50px);
+}
+
+.node-12 {
+  bottom: 650px;
+  left: calc(50% - 200px);
+}
+
+.node-13 {
+  bottom: 630px;
+  left: calc(50% + 300px);
+}
+
+.node-3-3 {
+  bottom: 400px;
+  left: calc(50% + 250px);
+}
+
+.node-3-4 {
+  bottom: 670px;
+  left: calc(50% + 250px);
+}
+
+.final-boss-node {
+  bottom: 780px;
+  left: calc(50% - 25px);
+}
+
+.map-node:not(.cleared) {
+  opacity: 0.5;
+  pointer-events: none;
 }

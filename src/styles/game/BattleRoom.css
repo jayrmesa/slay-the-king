@@ -1,4 +1,5 @@
 .battle-room-container {
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
@@ -19,11 +20,15 @@
 .monster {
   width: 400px;
   height: auto;
+  left: 10%;
+  bottom: 10%;
 }
 
 .player {
   width: 400px;
   height: auto;
+  right: 10%;
+  bottom: 10%;
 }
 
 .health-bar-container {
@@ -32,7 +37,59 @@
   position: absolute;
   justify-content: center;
   border: 2px solid black;
-  margin-top: 670px;
-  margin-left: 1160px;
+  width: 250px;
 }
+
+.health-bar-container.monster {
+  margin-bottom: 300px;
+  left: 14%;
+}
+
+.health-bar-container.player {
+  margin-bottom: 250px;
+  right: 11%;
+}
+
+.card-deck {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: 50px;
+}
+
+.battle-room-container .card {
+  width: 140px;
+  height: auto;
+  margin: 0 5px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.monster-attack {
+  position: absolute;
+  top: 35%;
+  left: 21%;
+  font-size: 50px;
+  font-weight: bold;
+  z-index: 10;
+  transition: opacity 0.5s;
+  color: red;
+}
+
+
+
 

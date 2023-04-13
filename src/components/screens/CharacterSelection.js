@@ -14,20 +14,8 @@ import character1Gif from '../../assets/images/character/character1-gif.gif';
 import character2Gif from '../../assets/images/character/character2-gif.gif';
 import character3Gif from '../../assets/images/character/character3-gif.gif';
 
-// Yellow Knight Cards
-import yellowAttack1 from "../../assets/images/cards/yellowknight/attack1.png";
-import yellowShield1 from "../../assets/images/cards/yellowknight/shield1.png";
-import yellowSpecial1 from "../../assets/images/cards/yellowknight/special1.png";
+import cardDecks from '../common/cardDecks';
 
-// Green Archer Cards
-import greenAttack1 from "../../assets/images/cards/greenarcher/attack1.png";
-import greenShield1 from "../../assets/images/cards/greenarcher/shield1.png";
-import greenSpecial1 from "../../assets/images/cards/greenarcher/special1.png";
-
-// Red Mage Cards
-import redAttack1 from "../../assets/images/cards/redmage/attack1.png";
-import redShield1 from "../../assets/images/cards/redmage/shield1.png";
-import redSpecial1 from "../../assets/images/cards/redmage/special1.png";
 
 const CharacterSelection = () => {
   const navigate = useNavigate();
@@ -40,11 +28,7 @@ const CharacterSelection = () => {
       gif: character1Gif,
       health: 25,
       maxHealth: 25,
-      startingDeck: [
-        { id: 1, name: "Attack", image: yellowAttack1 },
-        { id: 2, name: "Shield", image: yellowShield1 },
-        { id: 3, name: "Special", image: yellowSpecial1 },
-      ],
+      startingDeck: cardDecks.character1,
       description: 'description...',
     },
     {
@@ -53,11 +37,7 @@ const CharacterSelection = () => {
       gif: character2Gif,
       health: 20,
       maxHealth: 20,
-      startingDeck: [
-        { id: 4, name: "Attack", image: greenAttack1 },
-        { id: 5, name: "Shield", image: greenShield1 },
-        { id: 6, name: "Special", image: greenSpecial1 },
-      ],
+      startingDeck: cardDecks.character2,
       description: 'description...',
     },
     {
@@ -66,14 +46,11 @@ const CharacterSelection = () => {
       gif: character3Gif,
       health: 15,
       maxHealth: 15,
-      startingDeck: [
-        { id: 7, name: "Attack", image: redAttack1 },
-        { id: 8, name: "Shield", image: redShield1 },
-        { id: 9, name: "Special", image: redSpecial1 },
-      ],
+      startingDeck: cardDecks.character3,
       description: 'description...',
     },
   ];
+  
 
 
   const selectCharacter = (character) => {
