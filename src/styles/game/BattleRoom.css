@@ -18,17 +18,17 @@
 }
 
 .monster {
-  width: 400px;
+  width: 20vw;
   height: auto;
   left: 10%;
   bottom: 10%;
 }
 
 .player {
-  width: 400px;
+  width: 22vw;
   height: auto;
-  right: 10%;
-  bottom: 10%;
+  right: 11%;
+  bottom: 7%;
 }
 
 .health-bar-container {
@@ -46,7 +46,7 @@
 }
 
 .health-bar-container.player {
-  margin-bottom: 250px;
+  margin-bottom: 280px;
   right: 13%;
 }
 
@@ -92,17 +92,41 @@
 
 
 .character.player-attack {
-  width: 400px;
+  width: 22vw;
   height: auto;
-  right: 10%;
-  bottom: 10%;
+  right: 11%;
+  bottom: 7%;
 }
 
 .character.player-hit {
-  width: 400px;
+  width: 22vw;
   height: auto;
-  right: 10%;
-  bottom: 10%;
+  right: 11%;
+  bottom: 7%;
 }
 
 
+.character-shadow::before {
+  content: "";
+  position: absolute;
+  z-index: -1; 
+  width: 5vw;
+  height: 2vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  left: -30%;
+  bottom: -185%;
+  transform: translateX(-50%);
+}
+
+.player-shadow {
+  content: "";
+  position: absolute;
+  width: 6vw;
+  height: 2vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 60%;
+  right: 14%;
+  bottom: 41%;
+  transform: translateX(-50%);
+}

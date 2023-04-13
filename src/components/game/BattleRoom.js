@@ -16,8 +16,8 @@ function BattleRoom() {
 
   const [character, setCharacter] = useState(selectedCharacter);
 
-  const [monsterHealth, setMonsterHealth] = useState(10);
-  const monsterMaxHealth = 10;
+  const [monsterHealth, setMonsterHealth] = useState(12);
+  const monsterMaxHealth = 12;
 
   const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterGif);
 
@@ -26,7 +26,7 @@ function BattleRoom() {
   const [showAttackGif, setShowAttackGif] = useState(false);
   const [playerHitGif, setPlayerHitGif] = useState(null);
   const [showPlayerHitGif, setShowPlayerHitGif] = useState(false);
-  const [monsterAttack] = useState(Math.floor(Math.random() * 4) + 1);
+  const [monsterAttack] = useState(Math.floor(Math.random() * 7) + 3);
 
   useEffect(() => {
     setCharacter(selectedCharacter);
@@ -37,11 +37,12 @@ function BattleRoom() {
   }, [selectedCharacter]);
 
   const handleMonsterAttack = async () => {
+
     // Show the monster's attack GIF
     setMonsterCurrentGif(monsterAttackGif);
 
     // Wait for the attack animation to finish
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 350));
 
     // Show the player's hit gif
     setShowPlayerHitGif(true);
@@ -73,14 +74,14 @@ function BattleRoom() {
     setShowAttackGif(true);
 
     // Wait for the attack animation to finish
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     // Update the monster's health and show the hit GIF
     setMonsterHealth((prevHealth) => prevHealth - damage);
     setMonsterCurrentGif(monsterHitGif);
 
     // Wait for the hit animation to finish
-    await new Promise((resolve) => setTimeout(resolve, 400));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     // Revert monster's gif to idle and hide the attack GIF
     setMonsterCurrentGif(monsterGif);
@@ -104,6 +105,7 @@ function BattleRoom() {
   return (
     <div className="battle-room-container">
       <img className="character monster" src={monsterCurrentGif} alt="Monster" />
+
       {!showAttackGif && !showPlayerHitGif && (
         <img
           className="character player"
@@ -125,6 +127,7 @@ function BattleRoom() {
           alt={`${selectedCharacter.name} hit`}
         />
       )}
+      <div className="player-shadow"></div>
 
       <div className="health-bar-container monster">
         <img
@@ -154,7 +157,7 @@ function BattleRoom() {
         </span>
       </div>
 
-      <span className="monster-attack">
+      <span className="monster-attack character-shadow">
         {monsterAttack}
       </span>
 
