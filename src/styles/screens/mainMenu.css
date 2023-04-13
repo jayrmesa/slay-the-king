@@ -32,3 +32,11 @@
 .options-button:active {
   transform: scale(0.45);
 }
+
+.quit-button:hover {
+  transform: scale(0.55);
+}
+
+.quit-button:active {
+  transform: scale(0.45);
+}

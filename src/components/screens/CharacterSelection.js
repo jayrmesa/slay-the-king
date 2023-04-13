@@ -45,7 +45,7 @@ const CharacterSelection = () => {
         { id: 2, name: "Shield", image: yellowShield1 },
         { id: 3, name: "Special", image: yellowSpecial1 },
       ],
-      description: 'description...',
+      description: 'The Yellow Knight is a noble man with a heart of gold. He can mow down enemies with his sword and block incoming attacks with his shield.',
     },
     {
       name: 'Green Archer',
@@ -58,7 +58,7 @@ const CharacterSelection = () => {
         { id: 5, name: "Shield", image: greenShield1 },
         { id: 6, name: "Special", image: greenSpecial1 },
       ],
-      description: 'description...',
+      description: "The Green Archer is a fast, stealthy woman with enough power to take down anyone who opposes her. Her defense isn't the best so a few hits and she could be out for good",
     },
     {
       name: 'Red Mage',
@@ -71,7 +71,7 @@ const CharacterSelection = () => {
         { id: 8, name: "Shield", image: redShield1 },
         { id: 9, name: "Special", image: redSpecial1 },
       ],
-      description: 'description...',
+      description: 'Known for hard hitting spells the Red Mage can blast down foes with ease. But be weary, as the Red Mage is also very fragile, so any hit could be fatal.',
     },
   ];
 
