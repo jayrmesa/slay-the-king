@@ -61,7 +61,7 @@ const ChoiceRoom = () => {
       <img className="npc" src={npcGif} alt="NPC" />
 
       <div className="character-container">
-        <img className="selected-character" src={selectedCharacter.image} alt={selectedCharacter.name} />
+        <img className="selected-character" src={selectedCharacter.idleGif} alt={selectedCharacter.name} />
       </div>
 
       <div className="health-bar-choice">

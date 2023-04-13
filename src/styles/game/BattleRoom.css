@@ -91,5 +91,18 @@
 }
 
 
+.character.player-attack {
+  width: 400px;
+  height: auto;
+  right: 10%;
+  bottom: 10%;
+}
+
+.character.player-hit {
+  width: 400px;
+  height: auto;
+  right: 10%;
+  bottom: 10%;
+}
 
 

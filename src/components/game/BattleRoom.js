@@ -5,6 +5,9 @@ import '../../styles/game/BattleRoom.css';
 import monsterGif from '../../assets/images/Monster/idle.gif';
 import healthBar from '../../assets/images/ui/healthBar.png';
 
+import monsterAttackGif from "../../assets/images/Monster/attack.gif";
+import monsterHitGif from "../../assets/images/Monster/hit.gif";
+
 
 function BattleRoom() {
   const location = useLocation();
@@ -15,44 +18,113 @@ function BattleRoom() {
 
   const [monsterHealth, setMonsterHealth] = useState(10);
   const monsterMaxHealth = 10;
+
+  const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterGif);
+
   const [playerTurn, setPlayerTurn] = useState(true);
-  const [monsterAttack, setMonsterAttack] = useState(Math.floor(Math.random() * 4) + 1);
+  const [playerAttackGif, setPlayerAttackGif] = useState(null);
+  const [showAttackGif, setShowAttackGif] = useState(false);
+  const [playerHitGif, setPlayerHitGif] = useState(null);
+  const [showPlayerHitGif, setShowPlayerHitGif] = useState(false);
+  const [monsterAttack] = useState(Math.floor(Math.random() * 4) + 1);
 
   useEffect(() => {
-    if (!playerTurn) {
-      setTimeout(() => {
-        const randomAttack = Math.floor(Math.random() * 4) + 1;
-        console.log(`Monster deals ${monsterAttack} damage.`);
-
-        // Update player's health 
-        setCharacter((prevCharacter) => ({
-          ...prevCharacter,
-          health: prevCharacter.health - monsterAttack,
-        }));
-
-        // Update the monster's attack for the next turn
-        setMonsterAttack(randomAttack);
-
-        setPlayerTurn(true);
-      }, 1000);
+    setCharacter(selectedCharacter);
+    if (selectedCharacter) {
+      setPlayerAttackGif(selectedCharacter.attackGif);
+      setPlayerHitGif(selectedCharacter.hitGif);
     }
-  }, [playerTurn]);
+  }, [selectedCharacter]);
 
+  const handleMonsterAttack = async () => {
+    // Show the monster's attack GIF
+    setMonsterCurrentGif(monsterAttackGif);
+
+    // Wait for the attack animation to finish
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    // Show the player's hit gif
+    setShowPlayerHitGif(true);
+
+    // Wait for the hit animation to finish
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    // Hide the player's hit gif
+    setShowPlayerHitGif(false);
+
+    // Update the player's health
+    setCharacter((prevCharacter) => ({
+      ...prevCharacter,
+      health: prevCharacter.health - monsterAttack,
+    }));
+
+    // Revert the monster's GIF to idle
+    setMonsterCurrentGif(monsterGif);
+
+    // Set the player's turn back to true
+    setPlayerTurn(true);
+  };
+
+
+  const handlePlayerAttack = async (damage) => {
+    if (damage === null) return;
+
+    setPlayerAttackGif(selectedCharacter.attackGif);
+    setShowAttackGif(true);
+
+    // Wait for the attack animation to finish
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    // Update the monster's health and show the hit GIF
+    setMonsterHealth((prevHealth) => prevHealth - damage);
+    setMonsterCurrentGif(monsterHitGif);
+
+    // Wait for the hit animation to finish
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    // Revert monster's gif to idle and hide the attack GIF
+    setMonsterCurrentGif(monsterGif);
+    setShowAttackGif(false);
+
+    // Call the monster's attack
+    setPlayerTurn(false);
+    handleMonsterAttack();
+  };
 
   const handleCardAttack = (card) => {
     if (!playerTurn) return;
 
     const damage = card.attack;
     console.log(`Card deals ${damage} damage.`);
-    setMonsterHealth((prevHealth) => prevHealth - damage);
-    setPlayerTurn(false);
+
+    handlePlayerAttack(damage);
   };
 
 
   return (
     <div className="battle-room-container">
-      <img className="character monster" src={monsterGif} alt="Monster" />
-      <img className="character player" src={character.image} alt={character.name} />
+      <img className="character monster" src={monsterCurrentGif} alt="Monster" />
+      {!showAttackGif && !showPlayerHitGif && (
+        <img
+          className="character player"
+          src={selectedCharacter.idleGif}
+          alt={selectedCharacter.name}
+        />
+      )}
+      {showAttackGif && (
+        <img
+          className="character player-attack"
+          src={playerAttackGif}
+          alt={`${selectedCharacter.name} attack`}
+        />
+      )}
+      {showPlayerHitGif && (
+        <img
+          className="character player-hit"
+          src={playerHitGif}
+          alt={`${selectedCharacter.name} hit`}
+        />
+      )}
 
       <div className="health-bar-container monster">
         <img
