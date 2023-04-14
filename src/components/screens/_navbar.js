@@ -7,21 +7,31 @@ import deck from '../../assets/images/ui/deck.png';
 const Navbar = () => {
   return (<nav>
             <ul className="navlist">
-              <li className="navlist-item"><img
+              <li className="navlist-item">
+                <img
                 src={healthBar}
                 alt={"Health Bar"}
                 style={{ width: '170px', height: 'auto', margin: '5px' }}
-              /></li>
-              <li className="navlist-item"><img
+                />
+              </li>
+              <li className="navlist-item">
+              <a href="/deck">
+                <img
                 src={deck}
                 alt={"Deck"}
                 style={{ width: '40px', height: 'auto', margin: '5px' }}
-              /></li>
-              <li className="navlist-item"><img
+                />
+              </a>
+              </li>
+              <li className="navlist-item">
+              <a href="/options">
+                <img
                 src={settings}
                 alt={"Settings"}
                 style={{ width: '40px', height: 'auto', margin: '5px' }}
-              /></li>
+                />
+              </a>
+              </li>
             </ul>
           </nav>)
 }

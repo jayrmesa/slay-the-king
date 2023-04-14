@@ -6,6 +6,7 @@ import ChoiceRoom from './components/game/choiceRoom';
 import Map from './components/game/Map';
 import Navbar from './components/screens/_navbar';
 import Options from './components/screens/options';
+import Deck from './components/screens/deck';
 import BattleRoom from "./components/game/BattleRoom";
 
 import './App.css';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/map" element={<Map />} />
           <Route path="/battle-room" element={<BattleRoom />} />
           <Route path="/options" element={<Options />} />
+          <Route path="/deck" element={<Deck />} />
         </Routes>
       </Router>
     </div>
