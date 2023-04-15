@@ -27,6 +27,7 @@ function BattleRoom() {
   const [playerHitGif, setPlayerHitGif] = useState(null);
   const [showPlayerHitGif, setShowPlayerHitGif] = useState(false);
   const [monsterAttack] = useState(Math.floor(Math.random() * 7) + 3);
+  
 
   useEffect(() => {
     setCharacter(selectedCharacter);
@@ -67,10 +68,10 @@ function BattleRoom() {
   };
 
 
-  const handlePlayerAttack = async (damage) => {
+  const handlePlayerAttack = async (damage, special = false) => {
     if (damage === null) return;
 
-    setPlayerAttackGif(selectedCharacter.attackGif);
+    setPlayerAttackGif(special ? selectedCharacter.specialAttackGif : selectedCharacter.attackGif);
     setShowAttackGif(true);
 
     // Wait for the attack animation to finish
@@ -92,13 +93,43 @@ function BattleRoom() {
     handleMonsterAttack();
   };
 
-  const handleCardAttack = (card) => {
+  const handleSpecialAttack = (card) => {
     if (!playerTurn) return;
-
+  
     const damage = card.attack;
     console.log(`Card deals ${damage} damage.`);
+  
+    handlePlayerAttack(damage, true);
+  };
 
-    handlePlayerAttack(damage);
+  const handleCardAttack = (card) => {
+    if (!playerTurn) return;
+  
+    if (card.type === 'defend') {
+      handleDefendCard(card);
+    } else {
+      const damage = card.attack;
+      console.log(`Card deals ${damage} damage.`);
+  
+      handlePlayerAttack(damage, card.type === 'special');
+    }
+  };
+
+  const handleDefendCard = (card) => {
+    if (!playerTurn) return;
+  
+    const defense = card.defense;
+    console.log(`Card provides ${defense} defense.`);
+  
+    // Update the player's health
+    setCharacter((prevCharacter) => ({
+      ...prevCharacter,
+      health: Math.min(prevCharacter.health + defense, prevCharacter.maxHealth),
+    }));
+  
+    // Call the monster's attack
+    setPlayerTurn(false);
+    handleMonsterAttack();
   };
 
 

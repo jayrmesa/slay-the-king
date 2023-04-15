@@ -22,6 +22,11 @@ import yellowHit1 from '../../assets/images/character/yellowHit1.gif';
 import greenHit1 from '../../assets/images/character/greenHit1.gif';
 import redHit1 from '../../assets/images/character/redHit1.gif';
 
+import yellowSpecialAttack1 from '../../assets/images/character/yellowSpecialAttack1.gif';
+import greenSpecialAttack1 from '../../assets/images/character/greenSpecialAttack1.gif';
+import redSpecialAttack1 from '../../assets/images/character/redSpecialAttack1.gif';
+
+
 import cardDecks from '../common/cardDecks';
 
 
@@ -35,9 +40,11 @@ const CharacterSelection = () => {
       image: character1Img,
       idleGif: character1Gif,
       attackGif: yellowAttack1,
+      specialAttackGif: yellowSpecialAttack1,
       hitGif: yellowHit1,
       health: 25,
       maxHealth: 25,
+      defense: 0,
       startingDeck: cardDecks.character1,
       description: 'description...',
     },
@@ -46,9 +53,11 @@ const CharacterSelection = () => {
       image: character2Img,
       idleGif: character2Gif,
       attackGif: greenAttack1,
+      specialAttackGif: greenSpecialAttack1,
       hitGif: greenHit1,
       health: 20,
       maxHealth: 20,
+      defense: 0,
       startingDeck: cardDecks.character2,
       description: 'description...',
     },
@@ -57,9 +66,11 @@ const CharacterSelection = () => {
       image: character3Img,
       idleGif: character3Gif,
       attackGif: redAttack1,
+      specialAttackGif: redSpecialAttack1,
       hitGif: redHit1,
       health: 15,
       maxHealth: 15,
+      defense: 0,
       startingDeck: cardDecks.character3,
       description: 'description...',
     },
@@ -71,6 +82,7 @@ const CharacterSelection = () => {
       ...character,
       idleGif: character.idleGif,
       attackGif: character.attackGif,
+      specialAttackGif: character.specialAttackGif,
     });
   };
   
