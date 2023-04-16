@@ -35,7 +35,7 @@
   left: calc(50% );
 }
 
-.map-node:not(.cleared) {
+.map-node:not(.clickable) {
   opacity: 0.5;
   pointer-events: none;
 }
@@ -50,8 +50,4 @@
   transform: translate(-50%, -50%);
   color: red;
 }
-
-
-
-
 

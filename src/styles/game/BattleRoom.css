@@ -51,6 +51,21 @@
   right: 15%;
 }
 
+.player-shield-container {
+  display: flex; 
+  position: absolute;
+  justify-content: left;
+  align-items: center;
+  right: 15%;
+  bottom: 32%;
+  width: 250px;
+}
+
+
+.player-shield {
+  width: 40px;
+}
+
 .card-deck {
   display: flex;
   justify-content: center;
@@ -105,7 +120,6 @@
   right: 11%;
   bottom: 7%;
 }
-
 
 .character-shadow::before {
   content: "";
@@ -164,3 +178,4 @@
 .reward-cards .card {
   cursor: pointer;
 }
+

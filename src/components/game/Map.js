@@ -7,38 +7,31 @@ import bossImage from '../../assets/images/map/boss.png';
 import { useLocation, useNavigate } from "react-router-dom";
 
 
-const Map = () => {
+const Map = ({ clearedNodes, currentNode }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const selectedCharacter = location.state?.selectedCharacter;
-  const [clearedNodes, setClearedNodes] = useState([1]);
-
 
   const handleNodeClick = (node) => {
-    if (clearedNodes.includes(node)) {
-      const nextNodes = getNextNodes(node);
-      setClearedNodes((prevClearedNodes) => [...prevClearedNodes, ...nextNodes]);
-
       // Navigate to the respective room based on the node
-      if (node === 1)
-      navigate("/battle-room", { state: { selectedCharacter } });    
-      // Add navigation for other rooms 
-    }
-  };
-
-
-  const getNextNodes = (currentNode) => {
-    switch (currentNode) {
-      case 1:
-        return [2];
-      case 2:
-        return [3];
-      case 3:
-        return [4];
-      default:
-        return [];
-    }
-  };
+      switch (node) {
+        case 1:
+          navigate("/battle-room", { state: { selectedCharacter } });
+          break;
+        case 2:
+          navigate("/battle-room", { state: { selectedCharacter } });
+          break;
+        case 3:
+          navigate("/battle-room", { state: { selectedCharacter } });
+          break;
+        case 4:
+          navigate("/battle-room", { state: { selectedCharacter } });
+          break;
+        default:
+          navigate("/battle-room", { state: { selectedCharacter } });
+          break;
+      }
+  }
 
   const nodes = [
     { node: 1, className: "start-node", onClick: () => handleNodeClick(1), image: monsterImage },
@@ -52,7 +45,7 @@ const Map = () => {
       {nodes.map(({ node, className, onClick, image }) => (
         <img
           key={node}
-          className={`map-node ${className}${clearedNodes.includes(node) ? ' cleared' : ''}`}
+          className={`map-node ${className}${node === currentNode ? ' clickable' : ''}`}
           src={image}
           alt={`Node ${node}`}
           onClick={onClick}
@@ -60,6 +53,6 @@ const Map = () => {
       ))}
     </div>
   );
-};
+}
 
 export default Map;
