@@ -121,7 +121,6 @@
   bottom: 7%;
 }
 
-
 .character-shadow::before {
   content: "";
   position: absolute;

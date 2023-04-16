@@ -54,7 +54,7 @@ function BattleRoom({ clearRoom, currentNode }) {
     }
   }, [selectedCharacter]);
 
-  const handleMonsterAttack = async (defense) => {
+  const handleMonsterAttack = async (defense = 0) => {
 
     // Show the monster's attack GIF
     setMonsterCurrentGif(monsterAttackGif);
