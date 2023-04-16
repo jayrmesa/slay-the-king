@@ -11,7 +11,6 @@ import monsterHitGif from "../../assets/images/Monster/hit.gif";
 import { cardDecks, rewardCards } from '../common/cardDecks';
 
 
-
 function BattleRoom() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -140,8 +139,6 @@ function BattleRoom() {
     setShowVictoryPanel(false);
     navigate("/map", { state: { selectedCharacter: character } });
   };
-
-
 
   return (
     <div className="battle-room-container">

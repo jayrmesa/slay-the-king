@@ -73,7 +73,6 @@ const CharacterSelection = () => {
     },
   ];
   
-
   const selectCharacter = (character) => {
     setSelectedCharacter({
       ...character,
@@ -82,7 +81,6 @@ const CharacterSelection = () => {
       specialAttackGif: character.specialAttackGif,
     });
   };
-  
   
   const confirmSelection = () => {
     if (selectedCharacter) {
