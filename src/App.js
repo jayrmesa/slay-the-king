@@ -5,7 +5,9 @@ import CharacterSelection from './components/screens/CharacterSelection';
 import ChoiceRoom from './components/game/choiceRoom';
 import Map from './components/game/Map';
 import BattleRoom from "./components/game/BattleRoom";
+
 import GameOver from './components/GameOver';
+import LoginRegister from "./components/login";
 
 import './App.css';
 
@@ -24,14 +26,19 @@ function App() {
 
   return (
     <div className="App">
-        
+
+      {/* login and register page */}
+      <h1>Login / Register Component</h1>
+      <LoginRegister />
+
+        {/* game over page */}
       <h1>Game Over</h1>
       {gameOver ? (
         <GameOver score={score} exitGame={handleExitGame} playAgain={handlePlayAgain} />
       ) : (
         <button onClick={() => setGameOver(true)}>Game Over</button>
       )}
-  
+
       <Router>
         <Routes>
           <Route path="/" element={<Menu />} />
