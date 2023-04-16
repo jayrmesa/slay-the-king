@@ -17,7 +17,7 @@ const Menu = () => {
 
   const showOptions = () => {
     console.log('Showing options...');
-    // show game options here
+    navigate('/options')
   };
 
   const onQuit = () => {

@@ -45,7 +45,7 @@ const CharacterSelection = () => {
       health: 25,
       maxHealth: 25,
       startingDeck: cardDecks.character1,
-      description: 'description...',
+      description: 'The Yellow Knight is a noble man with a heart of gold. He can mow down enemies with his sword and block incoming attacks with his shield.',
     },
     {
       name: 'Green Archer',
@@ -57,7 +57,7 @@ const CharacterSelection = () => {
       health: 20,
       maxHealth: 20,
       startingDeck: cardDecks.character2,
-      description: 'description...',
+      description: "The Green Archer is a fast, stealthy woman with enough power to take down anyone who opposes her. Her defense isn't the best so a few hits and she could be out for good",
     },
     {
       name: 'Red Mage',
@@ -69,7 +69,7 @@ const CharacterSelection = () => {
       health: 15,
       maxHealth: 15,
       startingDeck: cardDecks.character3,
-      description: 'description...',
+      description: 'Known for hard hitting spells the Red Mage can blast down foes with ease. But be weary, as the Red Mage is also very fragile, so any hit could be fatal.',
     },
   ];
   
