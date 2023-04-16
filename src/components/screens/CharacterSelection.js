@@ -27,7 +27,7 @@ import greenSpecialAttack1 from '../../assets/images/character/greenSpecialAttac
 import redSpecialAttack1 from '../../assets/images/character/redSpecialAttack1.gif';
 
 
-import cardDecks from '../common/cardDecks';
+import { cardDecks, rewardCards } from '../common/cardDecks';
 
 
 const CharacterSelection = () => {
@@ -44,7 +44,6 @@ const CharacterSelection = () => {
       hitGif: yellowHit1,
       health: 25,
       maxHealth: 25,
-      defense: 0,
       startingDeck: cardDecks.character1,
       description: 'description...',
     },
@@ -57,7 +56,6 @@ const CharacterSelection = () => {
       hitGif: greenHit1,
       health: 20,
       maxHealth: 20,
-      defense: 0,
       startingDeck: cardDecks.character2,
       description: 'description...',
     },
@@ -70,7 +68,6 @@ const CharacterSelection = () => {
       hitGif: redHit1,
       health: 15,
       maxHealth: 15,
-      defense: 0,
       startingDeck: cardDecks.character3,
       description: 'description...',
     },

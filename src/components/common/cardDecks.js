@@ -13,6 +13,11 @@ import redAttack1 from "../../assets/images/cards/redmage/attack1.png";
 import redShield1 from "../../assets/images/cards/redmage/shield1.png";
 import redSpecial1 from "../../assets/images/cards/redmage/special1.png";
 
+//rewards
+import reward1 from "../../assets/images/cards/rewards/reward1.png";
+import reward2 from "../../assets/images/cards/rewards/reward2.png";
+import reward3 from "../../assets/images/cards/rewards/reward3.png";
+
 const cardDecks = {
   character1: [
     { id: 1, 
@@ -34,17 +39,51 @@ const cardDecks = {
     // ... Add more cards up to 10 for character 1
   ],
   character2: [
-    { id: 11, image: greenAttack1, attack: 6, type: 'attack' },
-    { id: 12, image: greenSpecial1, attack: 12, type: 'special' },
-    { id: 13, image: greenShield1, attack: 0, type: 'defend', defense: 4 },
+    { id: 11, 
+      image: greenAttack1, 
+      attack: 6, 
+      type: 'attack' 
+    },
+    { id: 12, 
+      image: greenSpecial1, 
+      attack: 12, 
+      type: 'special' 
+    },
+    { id: 13, 
+      image: greenShield1, 
+      attack: 0, 
+      type: 'defend', 
+      defense: 4 },
     // ... Add more cards up to 10 for character 2
   ],
   character3: [
-    { id: 21, image: redAttack1, attack: 7, type: 'attack' },
-    { id: 22, image: redSpecial1, attack: 14, type: 'special' },
-    { id: 23, image: redShield1, attack: 0, type: 'defend', defense: 3 },
+    { id: 21, 
+      image: redAttack1, 
+      attack: 7, 
+      type: 'attack' 
+    },
+    { id: 22, 
+      image: redSpecial1, 
+      attack: 14, 
+      type: 'special' 
+    },
+    { id: 23, 
+      image: redShield1, 
+      attack: 0, 
+      type: 'defend', 
+      defense: 3 
+    },
     // ... Add more cards up to 10 for character 3
   ],
 };
 
-export default cardDecks;
+const rewardCards = [
+  // Add the new card objects here
+  // Example:
+  { id: 31, image: reward1, attack: 8, type: 'attack' },
+  { id: 32, image: reward2, attack: 0, type: 'heal', heal: 5 },
+  { id: 33, image: reward3, attack: 8, type: 'defend', defense: 8 },
+  // ...
+];
+
+export { cardDecks, rewardCards };
