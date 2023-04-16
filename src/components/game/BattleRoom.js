@@ -14,6 +14,16 @@ import { cardDecks, rewardCards } from '../common/cardDecks';
 
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
+const generatePlayerShield = (shieldValue) => {
+  const shieldArray = [];
+  for (let i = 1; i <= shieldValue; i++ )
+  {
+    shieldArray.push(i);
+  }
+
+  return shieldArray;
+}
+
 function BattleRoom({ clearRoom, currentNode }) {
   const location = useLocation();
   const navigate = useNavigate();
@@ -44,7 +54,7 @@ function BattleRoom({ clearRoom, currentNode }) {
     }
   }, [selectedCharacter]);
 
-  const handleMonsterAttack = async () => {
+  const handleMonsterAttack = async (defense) => {
 
     // Show the monster's attack GIF
     setMonsterCurrentGif(monsterAttackGif);
@@ -64,7 +74,7 @@ function BattleRoom({ clearRoom, currentNode }) {
     setMonsterAttack(generateMonsterDamage(3, 7));
 
     // Calculate the damage dealt after accounting for the shield
-    const damageDealt = Math.max(monsterAttack - playerShield, 0);
+    const damageDealt = Math.max(monsterAttack - defense, 0);
 
     // Update the player's shield
     setPlayerShield((prevShield) => Math.max(prevShield - monsterAttack, 0));
@@ -77,7 +87,9 @@ function BattleRoom({ clearRoom, currentNode }) {
 
     // Revert the monster's GIF to idle
     setMonsterCurrentGif(monsterGif);
-
+    
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    setPlayerShield(0);
     // Set the player's turn back to true
     setPlayerTurn(true);
   };
@@ -129,15 +141,12 @@ function BattleRoom({ clearRoom, currentNode }) {
   const handleDefendCard = (card) => {
     if (!playerTurn) return;
 
-    const defense = card.defense;
-    console.log(`Card provides ${defense} defense.`);
-
     // Update the player's shield
-    setPlayerShield((prevShield) => prevShield + defense);
+    setPlayerShield(card.defense);
 
     // Call the monster's attack
     setPlayerTurn(false);
-    handleMonsterAttack();
+    handleMonsterAttack(card.defense);
   };
 
   const handleRewardCardPick = (card) => {
@@ -206,19 +215,16 @@ function BattleRoom({ clearRoom, currentNode }) {
         </span>
       </div>
 
-      {playerShield > 0 && (
-        <div className="player-shield">
+      <div className="player-shield-container">
+        {generatePlayerShield(playerShield).map((shieldValue) => (
           <img
-            className="block"
+            key = {shieldValue}
+            className="player-shield"
             src={block}
             alt="Shield Icon"
-            style={{
-              bottom: `calc(${(playerShield / character.maxHealth) * 100}% + 10px)`
-            }}
           />
-          <span className="shield-text">{playerShield}</span>
-        </div>
-      )}
+        ))}
+      </div>
 
       <span className="monster-attack character-shadow">
         {monsterAttack}
