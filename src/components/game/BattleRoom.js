@@ -8,10 +8,13 @@ import healthBar from '../../assets/images/ui/healthBar.png';
 import monsterAttackGif from "../../assets/images/Monster/attack.gif";
 import monsterHitGif from "../../assets/images/Monster/hit.gif";
 
+import block from "../../assets/images/ui/block.png";
+
 import { cardDecks, rewardCards } from '../common/cardDecks';
 
+const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
-function BattleRoom() {
+function BattleRoom({ clearRoom, currentNode }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,13 +24,15 @@ function BattleRoom() {
   const [monsterHealth, setMonsterHealth] = useState(12);
   const monsterMaxHealth = 12;
   const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterGif);
-  const [monsterAttack] = useState(Math.floor(Math.random() * 7) + 3);
+  const [monsterAttack, setMonsterAttack] = useState(generateMonsterDamage(3, 7));
 
   const [playerTurn, setPlayerTurn] = useState(true);
   const [playerAttackGif, setPlayerAttackGif] = useState(null);
   const [showAttackGif, setShowAttackGif] = useState(false);
   const [playerHitGif, setPlayerHitGif] = useState(null);
   const [showPlayerHitGif, setShowPlayerHitGif] = useState(false);
+
+  const [playerShield, setPlayerShield] = useState(0);
 
   const [showVictoryPanel, setShowVictoryPanel] = useState(false);
 
@@ -56,10 +61,18 @@ function BattleRoom() {
     // Hide the player's hit gif
     setShowPlayerHitGif(false);
 
+    setMonsterAttack(generateMonsterDamage(3, 7));
+
+    // Calculate the damage dealt after accounting for the shield
+    const damageDealt = Math.max(monsterAttack - playerShield, 0);
+
+    // Update the player's shield
+    setPlayerShield((prevShield) => Math.max(prevShield - monsterAttack, 0));
+
     // Update the player's health
     setCharacter((prevCharacter) => ({
       ...prevCharacter,
-      health: prevCharacter.health - monsterAttack,
+      health: prevCharacter.health - damageDealt,
     }));
 
     // Revert the monster's GIF to idle
@@ -119,11 +132,8 @@ function BattleRoom() {
     const defense = card.defense;
     console.log(`Card provides ${defense} defense.`);
 
-    // Update the player's health
-    setCharacter((prevCharacter) => ({
-      ...prevCharacter,
-      health: Math.min(prevCharacter.health + defense, prevCharacter.maxHealth),
-    }));
+    // Update the player's shield
+    setPlayerShield((prevShield) => prevShield + defense);
 
     // Call the monster's attack
     setPlayerTurn(false);
@@ -137,6 +147,7 @@ function BattleRoom() {
     }));
 
     setShowVictoryPanel(false);
+    clearRoom();
     navigate("/map", { state: { selectedCharacter: character } });
   };
 
@@ -194,6 +205,20 @@ function BattleRoom() {
           {character.health}/{character.maxHealth}
         </span>
       </div>
+
+      {playerShield > 0 && (
+        <div className="player-shield">
+          <img
+            className="block"
+            src={block}
+            alt="Shield Icon"
+            style={{
+              bottom: `calc(${(playerShield / character.maxHealth) * 100}% + 10px)`
+            }}
+          />
+          <span className="shield-text">{playerShield}</span>
+        </div>
+      )}
 
       <span className="monster-attack character-shadow">
         {monsterAttack}

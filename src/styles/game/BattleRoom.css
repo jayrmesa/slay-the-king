@@ -164,3 +164,30 @@
 .reward-cards .card {
   cursor: pointer;
 }
+
+
+.player-shield {
+display: flex;
+align-items: center;
+position: absolute;
+justify-content: center;
+width: 250px;
+
+}
+
+.block {
+  position: absolute;
+  width: 50px;
+  right: 15%;
+}
+
+.shield-text {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  font-size: 16px;
+  font-weight: bold;
+  bottom: 0;
+  text-shadow: 1px 1px 2px #000000;
+  color: #4615b8;
+}
