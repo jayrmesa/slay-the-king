@@ -79,7 +79,6 @@ const cardDecks = {
 
 const rewardCards = [
   // Add the new card objects here
-  // Example:
   { id: 31, image: reward1, attack: 8, type: 'attack' },
   { id: 32, image: reward2, attack: 0, type: 'heal', heal: 5 },
   { id: 33, image: reward3, attack: 8, type: 'defend', defense: 8 },
