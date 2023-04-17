@@ -10,7 +10,6 @@ import monsterHitGif from "../../assets/images/Monster/hit.gif";
 
 import block from "../../assets/images/ui/block.png";
 
-import { cardDecks, rewardCards } from '../common/cardDecks';
 
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
@@ -45,6 +44,8 @@ function BattleRoom({ clearRoom, currentNode }) {
   const [playerShield, setPlayerShield] = useState(0);
 
   const [showVictoryPanel, setShowVictoryPanel] = useState(false);
+  const [rewardCards, setRewardCards] = useState([]);
+
 
   useEffect(() => {
     setCharacter(selectedCharacter);
@@ -53,6 +54,20 @@ function BattleRoom({ clearRoom, currentNode }) {
       setPlayerHitGif(selectedCharacter.hitGif);
     }
   }, [selectedCharacter]);
+
+  const fetchRewardCards = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/reward-cards');
+      const data = await response.json();
+      setRewardCards(data);
+    } catch (error) {
+      console.error('Error fetching reward cards:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchRewardCards();
+  }, []);
 
   const handleMonsterAttack = async (defense = 0) => {
 

@@ -20,4 +20,19 @@ router.get('/characters', async (req, res) => {
   }
 });
 
+router.get('/reward-cards', async (req, res) => {
+  const client = new Client({ connectionString });
+  await client.connect();
+
+  try {
+    const result = await client.query('SELECT * FROM reward_cards');
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching reward cards:', error);
+    res.status(500).json({ error: 'An error occurred while fetching reward cards' });
+  } finally {
+    await client.end();
+  }
+});
+
 module.exports = router;

@@ -6,9 +6,9 @@ import backgroundImage from '../../assets/images/menu/background.png';
 import backButtonImage from '../../assets/images/menu/back-button.png';
 import selectButtonImage from '../../assets/images/menu/select-button.png';
 
-const CharacterSelection = () => {
+const CharacterSelection = ({ setSelectedCharacter }) => {
   const navigate = useNavigate();
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [selectedCharacter] = useState(null);
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
@@ -29,8 +29,9 @@ const CharacterSelection = () => {
 
   const confirmSelection = () => {
     if (selectedCharacter) {
+      setSelectedCharacter(selectedCharacter);
       // Pass the selected character to the next component 
-      navigate('/choice-room', { state: { selectedCharacter } });
+      navigate('/choice-room');
     }
   };
 

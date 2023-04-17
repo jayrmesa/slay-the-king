@@ -17,7 +17,7 @@ const connObj = {
 
 const runMigrations = async db => {
 	const migrations = await fs.readdir(SCHEMA_PATH);
-	for (migration of migrations) {
+	for (let migration of migrations) {
 		const sql = await fs.readFile(`${SCHEMA_PATH}/${migration}`, 'utf8');
 		console.log(`\t Running ${migration}`);
 		await db.query(sql);
@@ -26,7 +26,7 @@ const runMigrations = async db => {
 
 const runSeeds = async db => {
 	const seeds = await fs.readdir(SEEDS_PATH);
-	for (seed of seeds) {
+	for (let seed of seeds) {
 		const sql = await fs.readFile(`${SEEDS_PATH}/${seed}`, 'utf8');
 		console.log(`\t Running ${seed}`);
 		await db.query(sql);
@@ -38,21 +38,22 @@ const resetDB = async () => {
 
   try {
     console.log("Running DB Reset...");
-    console.log("Establishing DB connection: ");
+    console.log("DB connecting... ");
     await client.connect();
-    console.log("connection established!\n");
+    console.log("Connected!\n");
 
-    console.log("-- Running Migrations --\n");
+    console.log("-- Running Schema --\n");
     await runMigrations(client);
     console.log('\n');
     console.log("-- Running Seeds --\n");
     await runSeeds(client);
     console.log('\n');
-    console.log("-- COMPLETED --");
+    console.log("-- DONE --");
   } catch (e) {
     console.log("ERROR OCCURED:\n", e);
   } finally {
     client.end();
   }
 };
+
 resetDB();

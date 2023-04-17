@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import '../../styles/game/choiceRoom.css';
 import healthBar from '../../assets/images/ui/healthBar.png';
@@ -10,12 +10,9 @@ import npcGif from '../../assets/images/npc/npc.gif';
 import roomBackground from '../../assets/images/menu/choiceRoom.png';
 
 
-const ChoiceRoom = () => {
+const ChoiceRoom = ({ selectedCharacter }) => {
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const selectedCharacter = location.state.selectedCharacter;
   const [character, setCharacter] = useState(selectedCharacter);
 
   const [displayText, setDisplayText] = useState('Greetings...');
