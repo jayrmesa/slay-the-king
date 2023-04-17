@@ -3,7 +3,7 @@ VALUES
   (1, 1, '/public/images/cards/yellowknight/attack1.png', 5, 'attack', NULL),
   (2, 1, '/public/images/cards/yellowknight/special1.png', 7, 'special', NULL),
   (3, 1, '/public/images/cards/yellowknight/shield1.png', 0, 'defend', 5),
-  -- more cards for other characters
+  -- more cards for characters
   (11, 2, '/public/images/cards/greenarcher/attack1.png', 6, 'attack', NULL),
   (12, 2, '/public/images/cards/greenarcher/special1.png', 12, 'special', NULL),
   (13, 2, '/public/images/cards/greenarcher/shield1.png', 0, 'defend', 4),

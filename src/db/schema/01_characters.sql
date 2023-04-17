@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS characters CASCADE;
+
 CREATE TABLE characters (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
