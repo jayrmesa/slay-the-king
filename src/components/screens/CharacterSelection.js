@@ -6,9 +6,9 @@ import backgroundImage from '../../assets/images/menu/background.png';
 import backButtonImage from '../../assets/images/menu/back-button.png';
 import selectButtonImage from '../../assets/images/menu/select-button.png';
 
-const CharacterSelection = ({ setSelectedCharacter }) => {
+const CharacterSelection = () => {
   const navigate = useNavigate();
-  const [selectedCharacter] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const CharacterSelection = ({ setSelectedCharacter }) => {
 
         <div className="starting-deck">
           <h3>Starting Cards</h3>
-          {selectedCharacter.startingDeck.map((card) => (
+          {selectedCharacter.cards.map((card) => (
             <div className="starting-card" key={card.id}>
               <img
                 src={card.image}
@@ -85,6 +85,5 @@ const CharacterSelection = ({ setSelectedCharacter }) => {
     </div>
   );
 };
-
 
 export default CharacterSelection;

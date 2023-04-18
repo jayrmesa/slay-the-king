@@ -16,7 +16,7 @@ router.get('/characters', async (req, res) => {
     console.error('Error fetching characters:', error);
     res.status(500).json({ error: 'An error occurred while fetching characters' });
   } finally {
-    await client.end();
+    client.end();
   }
 });
 
@@ -31,7 +31,7 @@ router.get('/reward-cards', async (req, res) => {
     console.error('Error fetching reward cards:', error);
     res.status(500).json({ error: 'An error occurred while fetching reward cards' });
   } finally {
-    await client.end();
+   client.end();
   }
 });
 

@@ -34,6 +34,7 @@ const runSeeds = async db => {
 };
 
 const resetDB = async () => {
+
   const client = new Client(connObj);
 
   try {
@@ -45,9 +46,11 @@ const resetDB = async () => {
     console.log("-- Running Schema --\n");
     await runMigrations(client);
     console.log('\n');
+
     console.log("-- Running Seeds --\n");
     await runSeeds(client);
     console.log('\n');
+
     console.log("-- DONE --");
   } catch (e) {
     console.log("ERROR OCCURED:\n", e);

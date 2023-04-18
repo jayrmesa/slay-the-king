@@ -12,7 +12,7 @@ const pool = new Pool({
 
 pool.connect()
   .then(() => {
-    console.log("Database connection established.");
+    console.log("Database connected");
   })
   .catch(err => {
     throw new Error(err);
