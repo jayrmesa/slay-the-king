@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../styles/screens/CharacterSelection.css';
 import backgroundImage from '../../assets/images/menu/background.png';
 import backButtonImage from '../../assets/images/menu/back-button.png';
 import selectButtonImage from '../../assets/images/menu/select-button.png';
+
+
+axios.defaults.baseURL = 'http://localhost:3000'
 
 const CharacterSelection = () => {
   const navigate = useNavigate();
@@ -12,9 +16,16 @@ const CharacterSelection = () => {
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
-    fetch('/api/characters')
-      .then((response) => response.json())
-      .then((data) => setCharacters(data))
+    axios.get('/characters', {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+      .then((response) => {
+        console.log("response:", response.data);
+        setCharacters(response.data);
+      })
       .catch((error) => console.error('Error fetching characters:', error));
   }, []);
 
@@ -73,8 +84,8 @@ const CharacterSelection = () => {
       <div className="character-list">
         {characters.map((character) => (
           <img
-            key={character.name}
-            src={character.image}
+            key={character.id}
+            src={character.image_url}
             alt={character.name}
             onClick={() => selectCharacter(character)}
           />

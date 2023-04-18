@@ -6,9 +6,14 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.3.5",
+    "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
+    "debug": "~2.6.9",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
     "pg": "^8.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -22,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "node server/index.js",
+    "server": "node ./server/bin/www",
     "db:reset": "node src/db/scripts/resetdb.js"
   },
   "eslintConfig": {
