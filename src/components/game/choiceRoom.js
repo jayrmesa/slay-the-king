@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import '../../styles/game/choiceRoom.css';
 import healthBar from '../../assets/images/ui/healthBar.png';
@@ -10,9 +10,12 @@ import npcGif from '../../assets/images/npc/npc.gif';
 import roomBackground from '../../assets/images/menu/choiceRoom.png';
 
 
-const ChoiceRoom = ({ selectedCharacter }) => {
+const ChoiceRoom = () => {
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const selectedCharacter = location.state.selectedCharacter;
   const [character, setCharacter] = useState(selectedCharacter);
 
   const [displayText, setDisplayText] = useState('Greetings...');
@@ -62,8 +65,8 @@ const ChoiceRoom = ({ selectedCharacter }) => {
       </div>
 
       <div className="health-bar-choice">
-        <img className="health-bar" src={healthBar} alt="Health bar" style={{ width: `${(character.health / character.maxHealth) * 100}%` }} />
-        <span className="health-text">{character.health}/{character.maxHealth}</span>
+        <img className="health-bar" src={healthBar} alt="Health bar" style={{ width: `${(character.health / character.max_health) * 100}%` }} />
+        <span className="health-text">{character.health}/{character.max_health}</span>
       </div>
 
       <div className="speech-bubble-container" key={animationKey}>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios'; 
 
 import '../../styles/game/BattleRoom.css';
 import monsterGif from '../../assets/images/Monster/idle.gif';
@@ -29,7 +30,7 @@ function BattleRoom({ clearRoom, currentNode }) {
 
   const { selectedCharacter } = location.state || {};
   const [character, setCharacter] = useState(selectedCharacter);
-
+  
   const [monsterHealth, setMonsterHealth] = useState(12);
   const monsterMaxHealth = 12;
   const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterGif);
@@ -55,19 +56,20 @@ function BattleRoom({ clearRoom, currentNode }) {
     }
   }, [selectedCharacter]);
 
-  const fetchRewardCards = async () => {
-    try {
-      const response = await fetch('http://localhost:5000/api/reward-cards');
-      const data = await response.json();
-      setRewardCards(data);
-    } catch (error) {
-      console.error('Error fetching reward cards:', error);
-    }
-  };
-
   useEffect(() => {
-    fetchRewardCards();
+    axios.get('/reward-cards', {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+      .then((response) => {
+        console.log("response:", response.data);
+        setRewardCards(response.data);
+      })
+      .catch((error) => console.error('Error fetching cards:', error));
   }, []);
+
 
   const handleMonsterAttack = async (defense = 0) => {
 
@@ -222,11 +224,11 @@ function BattleRoom({ clearRoom, currentNode }) {
           src={healthBar}
           alt="Health bar"
           style={{
-            width: `${(character.health / character.maxHealth) * 100}%`,
+            width: `${(character.health / character.max_health) * 100}%`,
           }}
         />
         <span className="health-text">
-          {character.health}/{character.maxHealth}
+          {character.health}/{character.max_health}
         </span>
       </div>
 
@@ -250,7 +252,7 @@ function BattleRoom({ clearRoom, currentNode }) {
           <img
             key={card.id}
             className="card"
-            src={card.image}
+            src={card.image_url}
             alt={`Card ${card.id}`}
             onClick={() => handleCardAttack(card)}
           />
@@ -265,7 +267,7 @@ function BattleRoom({ clearRoom, currentNode }) {
               <img
                 key={card.id}
                 className="card"
-                src={card.image}
+                src={card.image_url}
                 alt={`Card ${card.id}`}
                 onClick={() => handleRewardCardPick(card)}
               />

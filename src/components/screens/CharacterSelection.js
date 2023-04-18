@@ -32,9 +32,10 @@ const CharacterSelection = () => {
   const selectCharacter = (character) => {
     setSelectedCharacter({
       ...character,
-      idleGif: character.idleGif,
-      attackGif: character.attackGif,
-      specialAttackGif: character.specialAttackGif,
+      idleGif: character.idle_gif,
+      attackGif: character.attack_gif,
+      specialAttackGif: character.special_attack_gif,
+      hitGif: character.hit_gif,
     });
   };
 
@@ -42,7 +43,8 @@ const CharacterSelection = () => {
     if (selectedCharacter) {
       setSelectedCharacter(selectedCharacter);
       // Pass the selected character to the next component 
-      navigate('/choice-room');
+      navigate('/choice-room', { state: { selectedCharacter } });
+
     }
   };
 
@@ -62,10 +64,10 @@ const CharacterSelection = () => {
 
         <div className="starting-deck">
           <h3>Starting Cards</h3>
-          {selectedCharacter.cards.map((card) => (
+          {selectedCharacter && selectedCharacter.startingDeck && selectedCharacter.startingDeck.map((card) => (
             <div className="starting-card" key={card.id}>
               <img
-                src={card.image}
+                src={card.image_url}
                 alt={card.name}
                 style={{ width: '170px', height: 'auto', margin: '5px' }}
               />
