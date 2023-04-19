@@ -3,9 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import '../../styles/game/TreasureRoom.css';
 import healthBar from '../../assets/images/ui/healthBar.png';
-import speechBubble2 from '../../assets/images/ui/speechBubble2.png';
+import speechBubble2 from '../../assets/images/ui/speechBubble.png';
 import talkButton2 from '../../assets/images/ui/talkButton.png';
-import talkButton3 from '../../assets/images/ui/talkButton.png';
 
 import chest from '../../assets/images/npc/chest.png';
 import chestGif from '../../assets/images/npc/chestOpen.gif';
@@ -64,7 +63,6 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
     navigate('/map', { state: { selectedCharacter: character } });
   };
 
-
   return (
     <div className="room2" style={{ backgroundImage: `url(${roomBackground})` }}>
       <img
@@ -81,16 +79,16 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
         />
       </div>
 
-      <div className="health-bar-choice">
+      <div className="health-bar-choice1">
         <img
-          className="health-bar"
+          className="health-bar1"
           src={healthBar}
           alt="Health bar"
           style={{
             width: `${(character.health / character.max_health) * 100}%`,
           }}
         />
-        <span className="health-text">
+        <span className="health-text1">
           {character.health}/{character.max_health}
         </span>
       </div>
@@ -131,7 +129,7 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
       {(displayText === 'Wazah!' || displayText === 'Weak..') && (
         <img
           className="talk-button3"
-          src={talkButton3}
+          src={talkButton2}
           alt="Talk"
           onClick={goToMap}
         />

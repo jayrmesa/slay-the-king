@@ -7,6 +7,7 @@ import Map from './components/game/Map';
 import Options from './components/screens/options';
 import BattleRoom from "./components/game/BattleRoom";
 import TreasureRoom from "./components/game/TreasureRoom";
+import EventRoom from "./components/game/EventRoom";
 
 import './App.css';
 
@@ -44,6 +45,10 @@ function App() {
           <Route
             path="/treasure-room"
             element={<TreasureRoom clearRoom={clearCurrentNode} />}
+          />
+          <Route
+            path="/event-room"
+            element={<EventRoom clearRoom={clearCurrentNode} />}
           />
           <Route path="/options" element={<Options />} />
         </Routes>

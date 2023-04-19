@@ -19,10 +19,10 @@
 }
 
 .monster {
-  width: 20vw;
+  width: 22vw;
   height: auto;
-  left: 10%;
-  bottom: 10%;
+  left: 11%;
+  bottom: 7%;
 }
 
 .player {
@@ -42,8 +42,8 @@
 }
 
 .health-bar-container.monster {
-  margin-bottom: 300px;
-  left: 14%;
+  margin-bottom: 280px;
+  left: 15%;
 }
 
 .health-bar-container.player {
@@ -60,7 +60,6 @@
   bottom: 32%;
   width: 250px;
 }
-
 
 .player-shield {
   width: 40px;
@@ -121,30 +120,6 @@
   bottom: 7%;
 }
 
-.character-shadow::before {
-  content: "";
-  position: absolute;
-  z-index: -1; 
-  width: 5vw;
-  height: 2vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  left: -30%;
-  bottom: -185%;
-  transform: translateX(-50%);
-}
-
-.player-shadow {
-  content: "";
-  position: absolute;
-  width: 9vw;
-  height: 2vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 60%;
-  right: 13%;
-  bottom: 39%;
-  transform: translateX(-50%);
-}
 
 .victory-panel {
   position: absolute;
