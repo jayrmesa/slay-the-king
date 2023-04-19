@@ -30,11 +30,11 @@ const ChoiceRoom = () => {
 
   const increaseMaxHealth = () => {
     setCharacter((prevCharacter) => {
-      const newMaxHealth = prevCharacter.maxHealth + 10;
-
+      const newMaxHealth = prevCharacter.max_health + 10;
+      
       return {
         ...prevCharacter,
-        maxHealth: newMaxHealth,
+        max_health: newMaxHealth,
       };
     });
   };
