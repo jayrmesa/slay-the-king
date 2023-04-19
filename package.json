@@ -7,8 +7,10 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "delaunator": "^5.0.0",
+    "express": "^4.18.2",
     "ngraph.graph": "^20.0.1",
     "ngraph.path": "^1.4.0",
+    "nodemon": "^2.0.22",
     "poisson-disk-sampling": "^2.3.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -21,6 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:backend": "nodemon server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
