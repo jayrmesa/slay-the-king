@@ -31,8 +31,8 @@ function BattleRoom({ clearRoom, currentNode }) {
   const { selectedCharacter } = location.state || {};
   const [character, setCharacter] = useState(selectedCharacter);
   
-  const [monsterHealth, setMonsterHealth] = useState(12);
-  const monsterMaxHealth = 12;
+  const [monsterHealth, setMonsterHealth] = useState(18);
+  const monsterMaxHealth = 18;
   const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterGif);
   const [monsterAttack, setMonsterAttack] = useState(generateMonsterDamage(3, 7));
 
@@ -202,7 +202,6 @@ function BattleRoom({ clearRoom, currentNode }) {
           alt={`${selectedCharacter.name} hit`}
         />
       )}
-      <div className="player-shadow"></div>
 
       <div className="health-bar-container monster">
         <img
@@ -243,7 +242,7 @@ function BattleRoom({ clearRoom, currentNode }) {
         ))}
       </div>
 
-      <span className="monster-attack character-shadow">
+      <span className="monster-attack">
         {monsterAttack}
       </span>
 

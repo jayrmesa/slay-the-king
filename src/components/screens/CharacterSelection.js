@@ -8,7 +8,7 @@ import backButtonImage from '../../assets/images/menu/back-button.png';
 import selectButtonImage from '../../assets/images/menu/select-button.png';
 
 
-axios.defaults.baseURL = 'http://localhost:3000'
+// axios.defaults.baseURL = 'http://localhost:3000'
 
 const CharacterSelection = () => {
   const navigate = useNavigate();
