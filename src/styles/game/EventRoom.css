@@ -100,10 +100,10 @@
 .player-speech-text {
   position: absolute;
   top: 160px;
-  right: 150px;
+  right: 30px;
   width: 250px;
   font-size: 35px;
-  color:white;
+  color: #bb4242;
   font-weight: 800;
 }
 

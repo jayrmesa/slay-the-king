@@ -19,13 +19,14 @@ const EventRoom = () => {
   const selectedCharacter = location.state.selectedCharacter;
   const [character, setCharacter] = useState(selectedCharacter);
 
-  const [displayText, setDisplayText] = useState('Traitor!');
+  const [allyDisplayText, setAllyDisplayText] = useState('Traitor!');
+  const [playerDisplayText, setPlayerDisplayText] = useState('')
   const [step, setStep] = useState(0);
   const [isBattleStarted, setIsBattleStarted] = useState(false);
 
   const handleTalkButtonClick = () => {
     if (step === 0) {
-      setDisplayText('Wait...');
+      setPlayerDisplayText('Wait!');
       setShowPlayerSpeechBubble(true);
       setStep(1);
     } else if (step === 1) {
@@ -41,7 +42,7 @@ const EventRoom = () => {
           <div className="speech-bubble-container3">
             <img className="speech-bubble3" src={speechBubble} alt="Speech bubble" />
             <p className="speech-text3">
-              {[...displayText].map((char, index) => (
+              {[...allyDisplayText].map((char, index) => (
                 <span key={index}>
                   {char === ' ' ? '\u00A0' : char}
                 </span>
@@ -52,7 +53,7 @@ const EventRoom = () => {
             <div className="player-speech-bubble-container">
               <img className="player-speech-bubble" src={playerSpeechBubble} alt="Player speech bubble" />
               <p className="player-speech-text">
-                {[...displayText].map((char, index) => (
+                {[...playerDisplayText].map((char, index) => (
                   <span key={index}>
                     {char === ' ' ? '\u00A0' : char}
                   </span>
