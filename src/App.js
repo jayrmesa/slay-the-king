@@ -16,8 +16,8 @@ function App() {
   return (
       
     <div className="App">
-      <Navbar/>
       <Router>
+        <Navbar/>
         <Routes>
           <Route path="/" element={<Menu />} />
           <Route path="/character-selection" element={<CharacterSelection />} />
