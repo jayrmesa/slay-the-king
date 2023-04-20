@@ -36,18 +36,18 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
     const randomReward = Math.random() < 0.5;
 
     if (randomReward) {
-      setRewardMessage('Healed by 5');
+      setRewardMessage('Healed by 10');
       setShowChoices(!showChoices);
       setCharacter((prevCharacter) => ({
         ...prevCharacter,
-        health: prevCharacter.health + 5,
+        health: prevCharacter.health + 10,
       }));
     } else {
-      setRewardMessage('Attack increased by 5');
+      setRewardMessage('Attack increased by 3');
       // Increase the attack of the character's startingDeck card
       setCharacter((prevCharacter) => ({
         ...prevCharacter,
-        attack: prevCharacter.startingDeck.attack + 5,
+        attack: prevCharacter.startingDeck.attack + 3,
       }));
     }
   };
