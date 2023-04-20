@@ -55,6 +55,8 @@ function BattleRoom({ clearRoom,
   const [showVictoryPanel, setShowVictoryPanel] = useState(false);
   const [rewardCards, setRewardCards] = useState([]);
 
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 
   useEffect(() => {
     setCharacter(selectedCharacter);
@@ -85,13 +87,13 @@ function BattleRoom({ clearRoom,
     setMonsterCurrentGif(monsterAttackGif);
 
     // Wait for the attack animation to finish
-    await new Promise((resolve) => setTimeout(resolve, 350));
+    await delay(350);
 
     // Show the player's hit gif
     setShowPlayerHitGif(true);
 
     // Wait for the hit animation to finish
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await delay(300);
 
     // Hide the player's hit gif
     setShowPlayerHitGif(false);
@@ -127,7 +129,7 @@ function BattleRoom({ clearRoom,
     setShowAttackGif(true);
 
     // Wait for the attack animation to finish
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await delay(500);
 
     if (monsterHealth - damage <= 0) {
       setMonsterHealth(0);
@@ -138,7 +140,7 @@ function BattleRoom({ clearRoom,
       setMonsterCurrentGif(monsterHitGif);
 
       // Wait for the hit animation to finish
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await delay(500);
 
       // Revert monster's gif to idle and hide the attack GIF
       setMonsterCurrentGif(monsterIdleGif);
@@ -174,15 +176,26 @@ function BattleRoom({ clearRoom,
     handleMonsterAttack(card.defense);
   };
 
-  const handleRewardCardPick = (card) => {
-    setCharacter((prevCharacter) => ({
-      ...prevCharacter,
-      startingDeck: [...prevCharacter.startingDeck, card],
-    }));
+  const handleRewardCardPick = (card, callback) => {
+    setCharacter((prevCharacter) => {
+      const updatedCharacter = {
+        ...prevCharacter,
+        startingDeck: [...prevCharacter.startingDeck, card],
+      };
+  
+      if (callback) {
+        callback(updatedCharacter);
+      }
+  
+      return updatedCharacter;
+    });
 
     setShowVictoryPanel(false);
     clearRoom();
-    navigate("/map", { state: { selectedCharacter: character } });
+  };
+
+  const navigateToMap = (updatedCharacter) => {
+    navigate("/map", { state: { selectedCharacter: updatedCharacter } });
   };
 
   return (
@@ -276,7 +289,7 @@ function BattleRoom({ clearRoom,
                 className="card"
                 src={card.image_url}
                 alt={`Card ${card.id}`}
-                onClick={() => handleRewardCardPick(card)}
+                onClick={() => handleRewardCardPick(card, navigateToMap)}
               />
             ))}
           </div>
