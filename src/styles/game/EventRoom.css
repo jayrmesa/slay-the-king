@@ -77,35 +77,25 @@
 
 .speech-text3 {
   position: absolute;
-  top: 160px;
-  left: 150px;
+  top: 185px;
+  left: 120px;
   width: 250px;
-  font-size: 35px;
+  font-size: 25px;
   color:white;
-  font-weight: 800;
+  font-weight: 660;
 }
 
-.player-speech-bubble-container {
+.speech-text3-traitor {
+  font-size: 24px;
+  color: white;
   position: absolute;
-  top: 100px;
-  right: 10%;
-  transform: translateX(-50%);
+  top: 50%;
+  left: 50%;
+  font-size: 45px;
+  font-weight: 660;
+  transform: translate(-50%, -50%);
 }
 
-.player-speech-bubble {
-  width: 450px;
-  height: auto;
-}
-
-.player-speech-text {
-  position: absolute;
-  top: 160px;
-  right: 30px;
-  width: 250px;
-  font-size: 35px;
-  color: #bb4242;
-  font-weight: 800;
-}
 
 .talk-button {
   display: flex;

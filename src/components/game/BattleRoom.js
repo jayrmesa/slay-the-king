@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from 'axios'; 
+import axios from 'axios';
 
 import '../../styles/game/BattleRoom.css';
 import monsterGif from '../../assets/images/Monster/idle.gif';
 import healthBar from '../../assets/images/ui/healthBar.png';
+import defaultMonsterAttackGif from "../../assets/images/Monster/attack.gif";
+import defaultMonsterHitGif from "../../assets/images/Monster/hit.gif";
 
-import monsterAttackGif from "../../assets/images/Monster/attack.gif";
-import monsterHitGif from "../../assets/images/Monster/hit.gif";
+
 
 import block from "../../assets/images/ui/block.png";
 
@@ -16,24 +17,28 @@ const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - mi
 
 const generatePlayerShield = (shieldValue) => {
   const shieldArray = [];
-  for (let i = 1; i <= shieldValue; i++ )
-  {
+  for (let i = 1; i <= shieldValue; i++) {
     shieldArray.push(i);
   }
 
   return shieldArray;
 }
 
-function BattleRoom({ clearRoom, currentNode }) {
+function BattleRoom({ clearRoom,
+  currentNode,
+  monsterIdleGif = monsterGif,
+  monsterAttackGif = defaultMonsterAttackGif,
+  monsterHitGif = defaultMonsterHitGif }) {
+
   const location = useLocation();
   const navigate = useNavigate();
 
   const { selectedCharacter } = location.state || {};
   const [character, setCharacter] = useState(selectedCharacter);
-  
+
   const [monsterHealth, setMonsterHealth] = useState(18);
   const monsterMaxHealth = 18;
-  const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterGif);
+  const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterIdleGif);
   const [monsterAttack, setMonsterAttack] = useState(generateMonsterDamage(3, 7));
 
   const [playerTurn, setPlayerTurn] = useState(true);
@@ -103,8 +108,8 @@ function BattleRoom({ clearRoom, currentNode }) {
     }));
 
     // Revert the monster's GIF to idle
-    setMonsterCurrentGif(monsterGif);
-    
+    setMonsterCurrentGif(monsterIdleGif);
+
     await new Promise((resolve) => setTimeout(resolve, 300));
     setPlayerShield(0);
     // Set the player's turn back to true
@@ -133,7 +138,7 @@ function BattleRoom({ clearRoom, currentNode }) {
       await new Promise((resolve) => setTimeout(resolve, 500));
 
       // Revert monster's gif to idle and hide the attack GIF
-      setMonsterCurrentGif(monsterGif);
+      setMonsterCurrentGif(monsterIdleGif);
       setShowAttackGif(false);
 
       // Call the monster's attack
@@ -234,7 +239,7 @@ function BattleRoom({ clearRoom, currentNode }) {
       <div className="player-shield-container">
         {generatePlayerShield(playerShield).map((shieldValue) => (
           <img
-            key = {shieldValue}
+            key={shieldValue}
             className="player-shield"
             src={block}
             alt="Shield Icon"

@@ -3,31 +3,36 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import '../../styles/game/EventRoom.css';
 import speechBubble from '../../assets/images/ui/speechBubble.png';
-import playerSpeechBubble from '../../assets/images/ui/speechBubble2.png';
 import healthBar from '../../assets/images/ui/healthBar.png';
 import talkButton from '../../assets/images/ui/talkButton.png';
 import allyIdle from '../../assets/images/npc/ally.gif';
 import roomBackground from '../../assets/images/menu/eventRoom.png';
 
+import allyAttackGif from '../../assets/images/npc/allyAttack.gif';
+import allyHitGif from '../../assets/images/npc/allyHit.gif';
+
+
+
+
 import BattleRoom from './BattleRoom';
 
-const EventRoom = () => {
+const EventRoom = ({ clearRoom, currentNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [showPlayerSpeechBubble, setShowPlayerSpeechBubble] = useState(false);
   const selectedCharacter = location.state.selectedCharacter;
   const [character, setCharacter] = useState(selectedCharacter);
 
-  const [allyDisplayText, setAllyDisplayText] = useState('Traitor!');
-  const [playerDisplayText, setPlayerDisplayText] = useState('')
+  const [allyDisplayText, setAllyDisplayText] = useState('Hey, I know you...');
+  const [traitorTextVisible, setTraitorTextVisible] = useState(false);
+
   const [step, setStep] = useState(0);
   const [isBattleStarted, setIsBattleStarted] = useState(false);
 
   const handleTalkButtonClick = () => {
     if (step === 0) {
-      setPlayerDisplayText('Wait!');
-      setShowPlayerSpeechBubble(true);
+      setAllyDisplayText('');
+      setTraitorTextVisible(true);
       setStep(1);
     } else if (step === 1) {
       setIsBattleStarted(true);
@@ -48,19 +53,12 @@ const EventRoom = () => {
                 </span>
               ))}
             </p>
+            {traitorTextVisible && (
+              <div className="speech-text3-traitor">
+                Traitor!
+              </div>
+            )}
           </div>
-          {showPlayerSpeechBubble && (
-            <div className="player-speech-bubble-container">
-              <img className="player-speech-bubble" src={playerSpeechBubble} alt="Player speech bubble" />
-              <p className="player-speech-text">
-                {[...playerDisplayText].map((char, index) => (
-                  <span key={index}>
-                    {char === ' ' ? '\u00A0' : char}
-                  </span>
-                ))}
-              </p>
-            </div>
-          )}
           <div className="character-container2">
             <img
               className="selected character2"
@@ -92,15 +90,20 @@ const EventRoom = () => {
 
       {isBattleStarted && (
         <BattleRoom
-          clearRoom={() => setIsBattleStarted(false)}
-          currentNode={null} // Replace with the current node if needed
+          clearRoom={() => {
+            setIsBattleStarted(false);
+            clearRoom();
+          }}
+          selectedCharacter={selectedCharacter}
+          monsterIdleGif={allyIdle}
+          monsterAttackGif={allyAttackGif}
+          monsterHitGif={allyHitGif}
         />
       )}
+
     </div>
   );
 };
 
 export default EventRoom;
-
-
 
