@@ -9,8 +9,6 @@ import defaultMonsterAttackGif from "../../assets/images/Monster/attack.gif";
 import defaultMonsterHitGif from "../../assets/images/Monster/hit.gif";
 import battleBackground from '../../assets/images/map/battle.png';
 
-
-
 import block from "../../assets/images/ui/block.png";
 
 
@@ -30,7 +28,9 @@ function BattleRoom({ clearRoom,
   monsterIdleGif = monsterGif,
   monsterAttackGif = defaultMonsterAttackGif,
   monsterHitGif = defaultMonsterHitGif,
-  backgroundStyle = battleBackground, }) {
+  backgroundStyle = { backgroundImage: `url(${battleBackground})` },
+  initialMonsterHealth = 12,
+}) {
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -38,8 +38,9 @@ function BattleRoom({ clearRoom,
   const { selectedCharacter } = location.state || {};
   const [character, setCharacter] = useState(selectedCharacter);
 
-  const [monsterHealth, setMonsterHealth] = useState(12);
-  const monsterMaxHealth = 12;
+  const [monsterHealth, setMonsterHealth] = useState(initialMonsterHealth);
+  const monsterMaxHealth = initialMonsterHealth;
+
   const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterIdleGif);
   const [monsterAttack, setMonsterAttack] = useState(generateMonsterDamage(3, 7));
 

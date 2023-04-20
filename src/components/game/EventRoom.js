@@ -27,6 +27,7 @@ const EventRoom = ({ clearRoom, currentNode }) => {
   const [step, setStep] = useState(0);
   const [isBattleStarted, setIsBattleStarted] = useState(false);
 
+  
   const handleTalkButtonClick = () => {
     if (step === 0) {
       setAllyDisplayText('');
@@ -105,6 +106,7 @@ const EventRoom = ({ clearRoom, currentNode }) => {
           monsterAttackGif={allyAttackGif}
           monsterHitGif={allyHitGif}
           backgroundStyle={backgroundStyle}
+          initialMonsterHealth={20}
         />
       )}
 
