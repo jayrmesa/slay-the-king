@@ -21,6 +21,7 @@ const Register = () => {
   };
 
   return (
+    <div className='background'>
     <div className="container">
       <h1>Resigter </h1>
       <input
@@ -40,6 +41,7 @@ const Register = () => {
         <button onClick={handleExist}>Exist</button>
       </div>
     </div>
+        </div>
   );
 };
 

@@ -13,33 +13,10 @@ import Register from "./components/register";
 import './App.css';
 
 function App() {
-  const [gameOver, setGameOver] = useState(false);
-  const score = 100;
 
-  const handleExitGame = () => {
-    setGameOver(false);
-  }
-
-  const handlePlayAgain = () => {
-    setGameOver(false);
-    // Reset game state or start a new game
-  }
 
   return (
     <div className="App">
-
-
-      {/* <Login /> */}
-
-
-      {/* <h1>Game Over</h1>
-      {gameOver ? (
-        <GameOver score={score} exitGame={handleExitGame} playAgain={handlePlayAgain} />
-      ) : (
-        <button onClick={() => setGameOver(true)}>Game Over</button>
-      )} */}
-
-      {/* <Register /> */}
 
       <Router>
         <Routes>

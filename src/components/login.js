@@ -21,6 +21,7 @@ const Login = () => {
   };
 
   return (
+    <div className='background'>
       <div className="container">
         <h1>Login </h1>
         <input
@@ -39,7 +40,9 @@ const Login = () => {
           <button onClick={handleRegister}>Register</button>
           <button onClick={handleLogin}>Login</button>
         </div>
-      </div>      
+      </div>
+    </div>
+
 
   );
 };
