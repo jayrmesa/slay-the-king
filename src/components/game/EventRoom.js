@@ -12,8 +12,6 @@ import allyAttackGif from '../../assets/images/npc/allyAttack.gif';
 import allyHitGif from '../../assets/images/npc/allyHit.gif';
 
 
-
-
 import BattleRoom from './BattleRoom';
 
 const EventRoom = ({ clearRoom, currentNode }) => {
@@ -38,6 +36,14 @@ const EventRoom = ({ clearRoom, currentNode }) => {
       setIsBattleStarted(true);
     }
   };
+
+  const backgroundStyle = {
+    backgroundImage: `url(${roomBackground})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center center",
+  };
+  
 
   return (
     <div className="room3" style={{ backgroundImage: `url(${roomBackground})` }}>
@@ -98,6 +104,7 @@ const EventRoom = ({ clearRoom, currentNode }) => {
           monsterIdleGif={allyIdle}
           monsterAttackGif={allyAttackGif}
           monsterHitGif={allyHitGif}
+          backgroundStyle={backgroundStyle}
         />
       )}
 
