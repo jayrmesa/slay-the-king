@@ -1,6 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import './gameover.css';
 const GameOver = (props) => {
-  const {score, exitGame, playAgain} = props
+  const {score} = props
+
+  const navigate = useNavigate();
+
+  const playAgain = () => {
+    navigate('/map')
+  }
+
+  const exitGame = () => {
+    navigate('/')
+  }
+
+
   return (
     <div className="game-over-container">
       <h2 className="game-over-title">Game Over!</h2>
