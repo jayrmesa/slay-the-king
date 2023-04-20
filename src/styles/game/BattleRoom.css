@@ -75,8 +75,8 @@
   padding-bottom: 50px;
 }
 
-.battle-room-container .card {
-  width: 140px;
+.battle-room-container .card1 {
+  width: 160px;
   height: auto;
   margin: 0 5px;
 }
@@ -125,29 +125,40 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.9);
+  width: 80%;
+  max-width: 400px;
   padding: 20px;
+  background-color: rgba(187, 66, 66);
+  border: 2px solid #bb4242;
   border-radius: 10px;
-  width: 50%;
-  text-align: center;
-  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .victory-panel h2 {
-  margin: 0 0 10px;
-  font-size: 24px;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  /* margin-bottom: 20px; */
+  text-align: center;
 }
 
 .victory-panel p {
   margin: 0 0 20px;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 25px;
 }
 
-.reward-cards {
+/* .reward-cards {
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-}
+} */
 
 .reward-cards .card {
   cursor: pointer;

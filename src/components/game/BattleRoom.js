@@ -258,7 +258,7 @@ function BattleRoom({ clearRoom,
         {character.startingDeck.map((card) => (
           <img
             key={card.id}
-            className="card"
+            className="card1"
             src={card.image_url}
             alt={`Card ${card.id}`}
             onClick={() => handleCardAttack(card)}

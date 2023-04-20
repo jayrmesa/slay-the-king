@@ -169,3 +169,43 @@
 .talk-button:active {
   transform: scale(0.90);
 }
+
+/* Reward panel styles */
+.reward-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: rgba(187, 66, 66);
+  border: 2px solid #bb4242;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reward-panel h2 {
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.reward-cards {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.card {
+  max-width: 100px;
+  cursor: pointer;
+}

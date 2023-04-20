@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../styles/game/choiceRoom.css';
 import healthBar from '../../assets/images/ui/healthBar.png';
@@ -22,6 +23,24 @@ const ChoiceRoom = () => {
   const [animationKey, setAnimationKey] = useState(0);
   const [showChoices, setShowChoices] = useState(false);
 
+  const [rewardCards, setRewardCards] = useState([]);
+  const [showRewardPanel, setShowRewardPanel] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("/reward-cards", {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log("response:", response.data);
+        setRewardCards(response.data);
+      })
+      .catch((error) => console.error("Error fetching cards:", error));
+  }, []);
+
+
   const handleTalkButtonClick = () => {
     setDisplayText('Choose wisely...');
     setAnimationKey(animationKey + 1);
@@ -31,7 +50,7 @@ const ChoiceRoom = () => {
   const increaseMaxHealth = () => {
     setCharacter((prevCharacter) => {
       const newMaxHealth = prevCharacter.max_health + 10;
-      
+
       return {
         ...prevCharacter,
         max_health: newMaxHealth,
@@ -51,10 +70,27 @@ const ChoiceRoom = () => {
   }, [character, navigate, selectedCharacter]);
 
   const handleChoice2 = () => {
-    console.log('Get a Card & Lose Health');
-    // Add a card to the players deck and decrease their health
+    console.log("Get a Card & Lose Health");
+    // Show the reward panel
+    setShowRewardPanel(true);
   };
 
+  const handleRewardCardPick = (card) => {
+    // Add the selected card to the player's starting deck
+    setCharacter((prevCharacter) => ({
+      ...prevCharacter,
+      startingDeck: [...prevCharacter.startingDeck, card],
+    }));
+
+    // Decrease the player's health by 5
+    setCharacter((prevCharacter) => ({
+      ...prevCharacter,
+      health: prevCharacter.health - 5,
+    }));
+
+    // Hide the reward panel
+    setShowRewardPanel(false);
+  };
 
   return (
     <div className="room" style={{ backgroundImage: `url(${roomBackground})` }}>
@@ -84,6 +120,23 @@ const ChoiceRoom = () => {
         <div className="choices">
           <button onClick={handleChoice1}>Increase Max Health</button>
           <button onClick={handleChoice2}>Get a Card & Lose Health</button>
+        </div>
+      )}
+
+      {showRewardPanel && (
+        <div className="reward-panel">
+          <h2>Select a Card</h2>
+          <div className="reward-cards">
+            {rewardCards.map((card) => (
+              <img
+                key={card.id}
+                className="card"
+                src={card.image_url}
+                alt={`Card ${card.id}`}
+                onClick={() => handleRewardCardPick(card)}
+              />
+            ))}
+          </div>
         </div>
       )}
 
