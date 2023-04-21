@@ -30,11 +30,11 @@ const ChoiceRoom = () => {
 
   const increaseMaxHealth = () => {
     setCharacter((prevCharacter) => {
-      const newMaxHealth = prevCharacter.maxHealth + 10;
-
+      const newMaxHealth = prevCharacter.max_health + 10;
+      
       return {
         ...prevCharacter,
-        maxHealth: newMaxHealth,
+        max_health: newMaxHealth,
       };
     });
   };
@@ -65,8 +65,8 @@ const ChoiceRoom = () => {
       </div>
 
       <div className="health-bar-choice">
-        <img className="health-bar" src={healthBar} alt="Health bar" style={{ width: `${(character.health / character.maxHealth) * 100}%` }} />
-        <span className="health-text">{character.health}/{character.maxHealth}</span>
+        <img className="health-bar" src={healthBar} alt="Health bar" style={{ width: `${(character.health / character.max_health) * 100}%` }} />
+        <span className="health-text">{character.health}/{character.max_health}</span>
       </div>
 
       <div className="speech-bubble-container" key={animationKey}>

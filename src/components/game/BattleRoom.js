@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios'; 
 
 import '../../styles/game/BattleRoom.css';
 import monsterGif from '../../assets/images/Monster/idle.gif';
@@ -9,8 +10,8 @@ import monsterAttackGif from "../../assets/images/Monster/attack.gif";
 import monsterHitGif from "../../assets/images/Monster/hit.gif";
 
 import block from "../../assets/images/ui/block.png";
+import { json } from "body-parser";
 
-import { cardDecks, rewardCards } from '../common/cardDecks';
 
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
@@ -30,9 +31,9 @@ function BattleRoom({ clearRoom, currentNode }) {
 
   const { selectedCharacter } = location.state || {};
   const [character, setCharacter] = useState(selectedCharacter);
-
-  const [monsterHealth, setMonsterHealth] = useState(12);
-  const monsterMaxHealth = 12;
+  
+  const [monsterHealth, setMonsterHealth] = useState(18);
+  const monsterMaxHealth = 18;
   const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterGif);
   const [monsterAttack, setMonsterAttack] = useState(generateMonsterDamage(3, 7));
 
@@ -45,6 +46,11 @@ function BattleRoom({ clearRoom, currentNode }) {
   const [playerShield, setPlayerShield] = useState(0);
 
   const [showVictoryPanel, setShowVictoryPanel] = useState(false);
+  const [rewardCards, setRewardCards] = useState([]);
+
+
+  
+
 
   useEffect(() => {
     setCharacter(selectedCharacter);
@@ -53,6 +59,21 @@ function BattleRoom({ clearRoom, currentNode }) {
       setPlayerHitGif(selectedCharacter.hitGif);
     }
   }, [selectedCharacter]);
+
+  useEffect(() => {
+    axios.get('/reward-cards', {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+      .then((response) => {
+        console.log("response:", response.data);
+        setRewardCards(response.data);
+      })
+      .catch((error) => console.error('Error fetching cards:', error));
+  }, []);
+
 
   const handleMonsterAttack = async (defense = 0) => {
 
@@ -185,7 +206,6 @@ function BattleRoom({ clearRoom, currentNode }) {
           alt={`${selectedCharacter.name} hit`}
         />
       )}
-      <div className="player-shadow"></div>
 
       <div className="health-bar-container monster">
         <img
@@ -207,11 +227,11 @@ function BattleRoom({ clearRoom, currentNode }) {
           src={healthBar}
           alt="Health bar"
           style={{
-            width: `${(character.health / character.maxHealth) * 100}%`,
+            width: `${(character.health / character.max_health) * 100}%`,
           }}
         />
         <span className="health-text">
-          {character.health}/{character.maxHealth}
+          {character.health}/{character.max_health}
         </span>
       </div>
 
@@ -226,7 +246,7 @@ function BattleRoom({ clearRoom, currentNode }) {
         ))}
       </div>
 
-      <span className="monster-attack character-shadow">
+      <span className="monster-attack">
         {monsterAttack}
       </span>
 
@@ -235,7 +255,7 @@ function BattleRoom({ clearRoom, currentNode }) {
           <img
             key={card.id}
             className="card"
-            src={card.image}
+            src={card.image_url}
             alt={`Card ${card.id}`}
             onClick={() => handleCardAttack(card)}
           />
@@ -250,7 +270,7 @@ function BattleRoom({ clearRoom, currentNode }) {
               <img
                 key={card.id}
                 className="card"
-                src={card.image}
+                src={card.image_url}
                 alt={`Card ${card.id}`}
                 onClick={() => handleRewardCardPick(card)}
               />

@@ -19,10 +19,10 @@ const Map = ({ clearedNodes, currentNode }) => {
           navigate("/battle-room", { state: { selectedCharacter } });
           break;
         case 2:
-          navigate("/battle-room", { state: { selectedCharacter } });
+          navigate("/treasure-room", { state: { selectedCharacter } });
           break;
         case 3:
-          navigate("/battle-room", { state: { selectedCharacter } });
+          navigate("/event-room", { state: { selectedCharacter } });
           break;
         case 4:
           navigate("/battle-room", { state: { selectedCharacter } });

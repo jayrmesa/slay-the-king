@@ -8,7 +8,7 @@ import Button from "./components/screens/saveButton"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Button />
+    <App />
   </React.StrictMode>
 );
 
