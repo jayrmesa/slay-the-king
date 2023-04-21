@@ -108,24 +108,9 @@ const EventRoom = ({ clearRoom, currentNode }) => {
           monsterHitGif={allyHitGif}
           backgroundStyle={backgroundStyle}
           initialMonsterHealth={20}
+          isAlly={true}
         />
       )}
-
-      <img
-        className="speech-bubble2"
-        src={showNewSpeechBubble ? newSpeechBubble : speechBubble}
-        alt="Speech Bubble"
-      />
-      <img
-        className="talk-button"
-        src={talkButton}
-        alt="Talk"
-        onClick={
-          allyLowHealth
-            ? handleAllyLowHealthConversation
-            : handleTalkButtonClick
-        }
-      />
     </div>
   );
 };

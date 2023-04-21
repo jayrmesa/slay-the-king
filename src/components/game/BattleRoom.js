@@ -32,6 +32,7 @@ function BattleRoom({ clearRoom,
   monsterHitGif = defaultMonsterHitGif,
   backgroundStyle = { backgroundImage: `url(${battleBackground})` },
   initialMonsterHealth = 12,
+  isAlly,
 }) {
 
   const location = useLocation();
@@ -245,10 +246,10 @@ function BattleRoom({ clearRoom,
     if (allyDisplayText === 'Stop!') {
       setAllyDisplayText("I'm not your enemy");
     } else if (allyDisplayText === "I'm not your enemy") {
-      setAllyDisplayText('Join me!');
+      setAllyDisplayText('Lets defeat the king!');
       setShowNewSpeechBubble(true);
-    } else if (allyDisplayText === 'Join me!') {
-      navigateToMap();
+    } else if (allyDisplayText === 'Lets defeat the king!') {
+      setShowVictoryPanel(true);
     }
   };
 
@@ -322,20 +323,26 @@ function BattleRoom({ clearRoom,
       </span>
 
       <img
-        className="speech-bubble"
+        className="speech-bubble4"
         src={allSpeechBubble}
         alt="Speech Bubble"
         style={{ display: showNewSpeechBubble ? 'block' : 'none' }}
         onClick={allyLowHpConvo}
       />
-      {showNewSpeechBubble && (
-        <img
-          className="talk-button"
-          src={talkButton}
-          alt="Talk Button"
-          onClick={allyLowHpConvo}
-        />
+      {isAlly && showNewSpeechBubble && (
+        <>
+          <div className="speech-bubble-content">
+            <div className="ally-text">{allyDisplayText}</div>
+          </div>
+          <img
+            className="talk-button"
+            src={talkButton}
+            alt="Talk Button"
+            onClick={allyLowHpConvo}
+          />
+        </>
       )}
+
 
       <div className="card-deck" style={{ display: showNewSpeechBubble ? 'none' : 'flex' }}>
         {character.startingDeck.map((card) => (
