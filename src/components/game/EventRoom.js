@@ -27,7 +27,8 @@ const EventRoom = ({ clearRoom, currentNode }) => {
   const [step, setStep] = useState(0);
   const [isBattleStarted, setIsBattleStarted] = useState(false);
 
-  
+
+
   const handleTalkButtonClick = () => {
     if (step === 0) {
       setAllyDisplayText('');
@@ -44,7 +45,7 @@ const EventRoom = ({ clearRoom, currentNode }) => {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
   };
-  
+
 
   return (
     <div className="room3" style={{ backgroundImage: `url(${roomBackground})` }}>
@@ -110,6 +111,21 @@ const EventRoom = ({ clearRoom, currentNode }) => {
         />
       )}
 
+      <img
+        className="speech-bubble2"
+        src={showNewSpeechBubble ? newSpeechBubble : speechBubble}
+        alt="Speech Bubble"
+      />
+      <img
+        className="talk-button"
+        src={talkButton}
+        alt="Talk"
+        onClick={
+          allyLowHealth
+            ? handleAllyLowHealthConversation
+            : handleTalkButtonClick
+        }
+      />
     </div>
   );
 };

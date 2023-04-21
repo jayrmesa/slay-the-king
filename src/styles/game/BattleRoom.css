@@ -81,16 +81,28 @@
   margin: 0 5px;
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+.card1 {
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Card hover effect */
+.card1:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Card pressed effect */
+.card1:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Card on cooldown */
+.card1.cooldown {
+  filter: grayscale(100%);
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .monster-attack {
@@ -152,13 +164,6 @@
   color: white;
   margin-bottom: 25px;
 }
-
-/* .reward-cards {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-} */
 
 .reward-cards .card {
   cursor: pointer;

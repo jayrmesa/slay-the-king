@@ -54,6 +54,7 @@ const ChoiceRoom = () => {
       return {
         ...prevCharacter,
         max_health: newMaxHealth,
+        health: newMaxHealth,
       };
     });
   };

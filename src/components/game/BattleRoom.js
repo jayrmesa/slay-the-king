@@ -8,8 +8,10 @@ import healthBar from '../../assets/images/ui/healthBar.png';
 import defaultMonsterAttackGif from "../../assets/images/Monster/attack.gif";
 import defaultMonsterHitGif from "../../assets/images/Monster/hit.gif";
 import battleBackground from '../../assets/images/map/battle.png';
+import talkButton from '../../assets/images/ui/talkButton.png';
 
 import block from "../../assets/images/ui/block.png";
+import allSpeechBubble from '../../assets/images/ui/speechBubble2.png';
 
 
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
@@ -54,6 +56,14 @@ function BattleRoom({ clearRoom,
 
   const [showVictoryPanel, setShowVictoryPanel] = useState(false);
   const [rewardCards, setRewardCards] = useState([]);
+
+  const [attackCardCooldown, setAttackCardCooldown] = useState(0);
+  const [defendCardCooldown, setDefendCardCooldown] = useState(0);
+  const [specialCardCooldown, setSpecialCardCooldown] = useState(0);
+
+  const [showNewSpeechBubble, setShowNewSpeechBubble] = useState(false);
+  const [allyDisplayText, setAllyDisplayText] = useState('');
+
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -136,7 +146,18 @@ function BattleRoom({ clearRoom,
       setShowVictoryPanel(true);
     } else {
       // Update the monster's health and show the hit GIF
-      setMonsterHealth((prevHealth) => prevHealth - damage);
+      setMonsterHealth((prevHealth) => {
+        const updatedMonsterHealth = prevHealth - damage;
+
+        // Check if monster's health is at 50% or less
+        if (updatedMonsterHealth <= monsterMaxHealth * 0.5) {
+          setShowNewSpeechBubble(true);
+          setAllyDisplayText('Stop!');
+        }
+
+        return updatedMonsterHealth;
+      });
+
       setMonsterCurrentGif(monsterHitGif);
 
       // Wait for the hit animation to finish
@@ -150,19 +171,40 @@ function BattleRoom({ clearRoom,
       setPlayerTurn(false);
       handleMonsterAttack();
     }
+
+    // Set the attack or special card cooldown
+    if (special) {
+      setSpecialCardCooldown(2);
+    } else {
+      setAttackCardCooldown(1);
+    }
   };
 
   const handleCardAttack = (card) => {
     if (!playerTurn) return;
 
-    if (card.type === 'defend') {
+    if (
+      (card.type === "attack" && attackCardCooldown > 0) ||
+      (card.type === "defend" && defendCardCooldown > 0) ||
+      (card.type === "special" && specialCardCooldown > 0)
+    ) {
+      return;
+    }
+
+
+    if (card.type === "defend") {
       handleDefendCard(card);
     } else {
       const damage = card.attack;
       console.log(`Card deals ${damage} damage.`);
-
-      handlePlayerAttack(damage, card.type === 'special');
+      handlePlayerAttack(damage, card.type === "special");
     }
+
+    // Decrement the cooldowns at the end of each turn
+    setAttackCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setDefendCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setSpecialCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+
   };
 
   const handleDefendCard = (card) => {
@@ -174,6 +216,7 @@ function BattleRoom({ clearRoom,
     // Call the monster's attack
     setPlayerTurn(false);
     handleMonsterAttack(card.defense);
+    setDefendCardCooldown(1);
   };
 
   const handleRewardCardPick = (card, callback) => {
@@ -182,11 +225,11 @@ function BattleRoom({ clearRoom,
         ...prevCharacter,
         startingDeck: [...prevCharacter.startingDeck, card],
       };
-  
+
       if (callback) {
         callback(updatedCharacter);
       }
-  
+
       return updatedCharacter;
     });
 
@@ -196,6 +239,17 @@ function BattleRoom({ clearRoom,
 
   const navigateToMap = (updatedCharacter) => {
     navigate("/map", { state: { selectedCharacter: updatedCharacter } });
+  };
+
+  const allyLowHpConvo = async () => {
+    if (allyDisplayText === 'Stop!') {
+      setAllyDisplayText("I'm not your enemy");
+    } else if (allyDisplayText === "I'm not your enemy") {
+      setAllyDisplayText('Join me!');
+      setShowNewSpeechBubble(true);
+    } else if (allyDisplayText === 'Join me!') {
+      navigateToMap();
+    }
   };
 
   return (
@@ -267,11 +321,27 @@ function BattleRoom({ clearRoom,
         {monsterAttack}
       </span>
 
-      <div className="card-deck">
+      <img
+        className="speech-bubble"
+        src={allSpeechBubble}
+        alt="Speech Bubble"
+        style={{ display: showNewSpeechBubble ? 'block' : 'none' }}
+        onClick={allyLowHpConvo}
+      />
+      {showNewSpeechBubble && (
+        <img
+          className="talk-button"
+          src={talkButton}
+          alt="Talk Button"
+          onClick={allyLowHpConvo}
+        />
+      )}
+
+      <div className="card-deck" style={{ display: showNewSpeechBubble ? 'none' : 'flex' }}>
         {character.startingDeck.map((card) => (
           <img
             key={card.id}
-            className="card1"
+            className={`card1 ${card.type === 'attack' && attackCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'defend' && defendCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'special' && specialCardCooldown > 0 ? 'cooldown' : ''}`}
             src={card.image_url}
             alt={`Card ${card.id}`}
             onClick={() => handleCardAttack(card)}
