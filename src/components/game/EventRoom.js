@@ -26,9 +26,7 @@ const EventRoom = ({ clearRoom, currentNode }) => {
 
   const [step, setStep] = useState(0);
   const [isBattleStarted, setIsBattleStarted] = useState(false);
-
-
-
+  
   const handleTalkButtonClick = () => {
     if (step === 0) {
       setAllyDisplayText('');
@@ -100,14 +98,14 @@ const EventRoom = ({ clearRoom, currentNode }) => {
         <BattleRoom
           clearRoom={() => {
             setIsBattleStarted(false);
-            clearRoom();
+            // clearRoom();
           }}
           selectedCharacter={selectedCharacter}
-          monsterIdleGif={allyIdle}
-          monsterAttackGif={allyAttackGif}
-          monsterHitGif={allyHitGif}
+          allyIdle={allyIdle}
+          allyAttackGif={allyAttackGif}
+          allyHitGif={allyHitGif}
           backgroundStyle={backgroundStyle}
-          initialMonsterHealth={20}
+          initialMonsterHealth={30}
           isAlly={true}
         />
       )}

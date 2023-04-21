@@ -5,13 +5,14 @@ import axios from 'axios';
 import '../../styles/game/BattleRoom.css';
 import monsterGif from '../../assets/images/Monster/idle.gif';
 import healthBar from '../../assets/images/ui/healthBar.png';
-import defaultMonsterAttackGif from "../../assets/images/Monster/attack.gif";
-import defaultMonsterHitGif from "../../assets/images/Monster/hit.gif";
+import monsterAttackGif from "../../assets/images/Monster/attack.gif";
+import monsterHitGif from "../../assets/images/Monster/hit.gif";
 import battleBackground from '../../assets/images/map/battle.png';
 import talkButton from '../../assets/images/ui/talkButton.png';
 
 import block from "../../assets/images/ui/block.png";
 import allSpeechBubble from '../../assets/images/ui/speechBubble2.png';
+
 
 
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
@@ -27,12 +28,12 @@ const generatePlayerShield = (shieldValue) => {
 
 function BattleRoom({ clearRoom,
   currentNode,
-  monsterIdleGif = monsterGif,
-  monsterAttackGif = defaultMonsterAttackGif,
-  monsterHitGif = defaultMonsterHitGif,
+  allyIdle = monsterGif,
+  allyAttackGif = monsterAttackGif,
+  allyHitGif = monsterHitGif,
   backgroundStyle = { backgroundImage: `url(${battleBackground})` },
   initialMonsterHealth = 12,
-  isAlly,
+  isAlly
 }) {
 
   const location = useLocation();
@@ -44,7 +45,7 @@ function BattleRoom({ clearRoom,
   const [monsterHealth, setMonsterHealth] = useState(initialMonsterHealth);
   const monsterMaxHealth = initialMonsterHealth;
 
-  const [monsterCurrentGif, setMonsterCurrentGif] = useState(monsterIdleGif);
+  const [monsterCurrentGif, setMonsterCurrentGif] = useState(allyIdle);
   const [monsterAttack, setMonsterAttack] = useState(generateMonsterDamage(3, 7));
 
   const [playerTurn, setPlayerTurn] = useState(true);
@@ -68,10 +69,19 @@ function BattleRoom({ clearRoom,
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  const preloadImage = (url) => {
+    const img = new Image();
+    img.src = url;
+  };
 
   useEffect(() => {
     setCharacter(selectedCharacter);
     if (selectedCharacter) {
+      preloadImage(selectedCharacter.attackGif);
+      preloadImage(selectedCharacter.hitGif);
+      preloadImage(selectedCharacter.idleGif);
+
+
       setPlayerAttackGif(selectedCharacter.attackGif);
       setPlayerHitGif(selectedCharacter.hitGif);
     }
@@ -95,7 +105,7 @@ function BattleRoom({ clearRoom,
   const handleMonsterAttack = async (defense = 0) => {
 
     // Show the monster's attack GIF
-    setMonsterCurrentGif(monsterAttackGif);
+    setMonsterCurrentGif(allyAttackGif);
 
     // Wait for the attack animation to finish
     await delay(350);
@@ -124,7 +134,7 @@ function BattleRoom({ clearRoom,
     }));
 
     // Revert the monster's GIF to idle
-    setMonsterCurrentGif(monsterIdleGif);
+    setMonsterCurrentGif(allyIdle);
 
     await new Promise((resolve) => setTimeout(resolve, 300));
     setPlayerShield(0);
@@ -159,13 +169,13 @@ function BattleRoom({ clearRoom,
         return updatedMonsterHealth;
       });
 
-      setMonsterCurrentGif(monsterHitGif);
+      setMonsterCurrentGif(allyHitGif);
 
       // Wait for the hit animation to finish
       await delay(500);
 
       // Revert monster's gif to idle and hide the attack GIF
-      setMonsterCurrentGif(monsterIdleGif);
+      setMonsterCurrentGif(allyIdle);
       setShowAttackGif(false);
 
       // Call the monster's attack
@@ -184,6 +194,11 @@ function BattleRoom({ clearRoom,
   const handleCardAttack = (card) => {
     if (!playerTurn) return;
 
+    // Decrement the cooldowns at the beginning of each turn
+    setAttackCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setDefendCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setSpecialCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+
     if (
       (card.type === "attack" && attackCardCooldown > 0) ||
       (card.type === "defend" && defendCardCooldown > 0) ||
@@ -192,7 +207,6 @@ function BattleRoom({ clearRoom,
       return;
     }
 
-
     if (card.type === "defend") {
       handleDefendCard(card);
     } else {
@@ -200,13 +214,8 @@ function BattleRoom({ clearRoom,
       console.log(`Card deals ${damage} damage.`);
       handlePlayerAttack(damage, card.type === "special");
     }
-
-    // Decrement the cooldowns at the end of each turn
-    setAttackCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
-    setDefendCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
-    setSpecialCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
-
   };
+
 
   const handleDefendCard = (card) => {
     if (!playerTurn) return;
@@ -217,8 +226,11 @@ function BattleRoom({ clearRoom,
     // Call the monster's attack
     setPlayerTurn(false);
     handleMonsterAttack(card.defense);
+
+    // Set the defend card cooldown after the action
     setDefendCardCooldown(1);
   };
+
 
   const handleRewardCardPick = (card, callback) => {
     setCharacter((prevCharacter) => {
@@ -322,27 +334,30 @@ function BattleRoom({ clearRoom,
         {monsterAttack}
       </span>
 
-      <img
-        className="speech-bubble4"
-        src={allSpeechBubble}
-        alt="Speech Bubble"
-        style={{ display: showNewSpeechBubble ? 'block' : 'none' }}
-        onClick={allyLowHpConvo}
-      />
-      {isAlly && showNewSpeechBubble && (
-        <>
-          <div className="speech-bubble-content">
-            <div className="ally-text">{allyDisplayText}</div>
-          </div>
-          <img
-            className="talk-button"
-            src={talkButton}
-            alt="Talk Button"
-            onClick={allyLowHpConvo}
-          />
-        </>
-      )}
-
+      {
+        isAlly && showNewSpeechBubble && (
+          <>
+            <div className="speech-bubble-container4">
+              <img className="speech-bubble4" src={allSpeechBubble} alt="Speech Bubble" />
+              <div className="ally-text">
+                {allyDisplayText === 'Stop!' ? (
+                  <span className="stop-text">Stop!</span>
+                ) : (
+                  [...allyDisplayText].map((char, index) => (
+                    <span key={index}>{char === ' ' ? '\u00A0' : char}</span>
+                  ))
+                )}
+              </div>
+            </div>
+            <img
+              className="talk-button"
+              src={talkButton}
+              alt="Talk Button"
+              onClick={allyLowHpConvo}
+            />
+          </>
+        )
+      }
 
       <div className="card-deck" style={{ display: showNewSpeechBubble ? 'none' : 'flex' }}>
         {character.startingDeck.map((card) => (
@@ -355,24 +370,26 @@ function BattleRoom({ clearRoom,
           />
         ))}
       </div>
-      {showVictoryPanel && (
-        <div className="victory-panel">
-          <h2>Victory!</h2>
-          <p>Select your reward:</p>
-          <div className="reward-cards">
-            {rewardCards.map((card) => (
-              <img
-                key={card.id}
-                className="card"
-                src={card.image_url}
-                alt={`Card ${card.id}`}
-                onClick={() => handleRewardCardPick(card, navigateToMap)}
-              />
-            ))}
+      {
+        showVictoryPanel && (
+          <div className="victory-panel">
+            <h2>Victory!</h2>
+            <p>Select your reward:</p>
+            <div className="reward-cards">
+              {rewardCards.map((card) => (
+                <img
+                  key={card.id}
+                  className="card"
+                  src={card.image_url}
+                  alt={`Card ${card.id}`}
+                  onClick={() => handleRewardCardPick(card, navigateToMap)}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )
+      }
+    </div >
   );
 }
 
