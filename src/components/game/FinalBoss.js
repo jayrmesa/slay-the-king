@@ -7,8 +7,6 @@ import healthBar from '../../assets/images/ui/healthBar.png';
 
 import allyIdle from '../../assets/images/ally/allyIdle.gif';
 import allyAttack from '../../assets/images/ally/allyAttack.gif';
-import allyHit from '../../assets/images/ally/allyHit.gif';
-import allySpecial from '../../assets/images/ally/allySpecial.gif';
 
 import bossIdle from '../../assets/images/Monster/BossIdle.gif';
 import bossAttackGif from '../../assets/images/Monster/BossAttack.gif';
@@ -21,6 +19,8 @@ import talkButton from '../../assets/images/ui/talkButton.png';
 import block from "../../assets/images/ui/block.png";
 
 const generateBossDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+
+const generateAllyDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 const generatePlayerShield = (shieldValue) => {
   const shieldArray = [];
@@ -45,7 +45,8 @@ const FinalBoss = () => {
   const [bossHealth, setBossHealth] = useState(50);
   const bossMaxHealth = 50;
   const [bossGif, setBossGif] = useState(bossIdle);
-  const [bossAttack, setBossAttack] = useState(generateBossDamage(4, 10));
+  const [bossAttack, setBossAttack] = useState(generateBossDamage(3, 12));
+
 
   //Player
   const [playerTurn, setPlayerTurn] = useState(true);
@@ -61,8 +62,7 @@ const FinalBoss = () => {
   //Ally
   const [allyAttackGif, setAllyAttackGif] = useState(null);
   const [showAllyAttack, setAllyShowAttack] = useState(false);
-  const [allyHit, setAllyHitGif] = useState(null);
-  const [showAllyHit, setShowAllyHit] = useState(false);
+  const [allyAttackDamage, setallyAttackDamage] = useState(generateAllyDamage(4, 8));
 
   //shakeScreen
   const [shakeScreen, setShakeScreen] = useState(false);
@@ -70,6 +70,8 @@ const FinalBoss = () => {
 
   const [showBattleElements, setShowBattleElements] = useState(false);
   const [hideSpeechBubble, setHideSpeechBubble] = useState(false);
+
+  const [bossFurious, setBossFurious] = useState(false);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -99,6 +101,13 @@ const FinalBoss = () => {
     }
   }, [bossSpeech]);
 
+  useEffect(() => {
+    if (bossHealth === 0) {
+      navigate('/victory');
+    }
+  }, [bossHealth, navigate]);
+  
+
   const handleTalkButtonClick = () => {
     if (bossSpeech === 'So you made it') {
       setBossSpeech('Such a waste');
@@ -108,6 +117,8 @@ const FinalBoss = () => {
       setHideSpeechBubble(true);
     }
   };
+
+  const extraFuriousDamage = 5;
 
   const handleBossAttack = async (defense = 0) => {
     // Show the Boss attack 
@@ -125,7 +136,8 @@ const FinalBoss = () => {
     // Hide the player's hit gif
     setShowPlayerHit(false);
 
-    setBossAttack(generateBossDamage(4, 10));
+    const newBossAttack = generateBossDamage(3, 12) + (bossFurious ? extraFuriousDamage : 0);
+    setBossAttack(newBossAttack);
 
     // Calculate the damage dealt after accounting for the shield
     const damageDealt = Math.max(bossAttack - defense, 0);
@@ -148,44 +160,98 @@ const FinalBoss = () => {
     setPlayerTurn(true);
   };
 
+  const handleAllyAttack = async () => {
+    setAllyShowAttack(true); // Add this line
+    setAllyAttackGif(allyAttack);
+
+    // Wait for the attack animation to finish
+    await delay(700);
+
+    // Hide the attack GIF
+    setAllyShowAttack(false);
+
+    // Reset the attack animation
+    setAllyAttackGif(null);
+    await delay(50);
+
+    setallyAttackDamage(generateAllyDamage(4, 8));
+
+    // Update the monster's health and show the hit GIF
+    setBossHealth((prevHealth) => {
+      const updatedBossHealth = prevHealth - allyAttackDamage;
+      if (updatedBossHealth / bossMaxHealth <= 0.4 && !bossFurious) {
+        setBossFurious(true);
+        setShakeScreen(true);
+
+        setTimeout(() => {
+          setShakeScreen(false);
+        }, 1000);
+      }
+      return updatedBossHealth;
+    });
+
+    setBossGif(bossHitGif);
+
+    // Wait for the hit animation to finish
+    await delay(750);
+
+    // Revert monster's gif to idle
+    setBossGif(bossIdle);
+  };
+
+
+
   const handlePlayerAttack = async (damage, special = false) => {
     if (damage === null) return;
-  
+
     setPlayerAttack(special ? selectedCharacter.specialAttackGif : selectedCharacter.attackGif);
     setShowAttackGif(true);
-  
+
+    const attackAnimationDelay = special ? 2050 : 800;
+
     // Wait for the attack animation to finish
-    await delay(800);
-  
+    await delay(attackAnimationDelay);
+
     // Hide the attack GIF
     setShowAttackGif(false);
-  
+
     // Reset the attack animation
     setPlayerAttack(null);
     await delay(50);
-  
+
     if (bossHealth - damage <= 0) {
       setBossHealth(0);
     } else {
-      // Update the monster's health and show the hit GIF
+      // Update the monster's health 
       setBossHealth((prevHealth) => {
         const updatedBossHealth = prevHealth - damage;
+        if (updatedBossHealth / bossMaxHealth <= 0.4 && !bossFurious) {
+          setBossFurious(true);
+          setShakeScreen(true);
+
+          setTimeout(() => {
+            setShakeScreen(false);
+          }, 1000);
+        }
         return updatedBossHealth;
       });
-  
+
       setBossGif(bossHitGif);
-  
+
       // Wait for the hit animation to finish
       await delay(750);
-  
+
       // Revert monster's gif to idle
       setBossGif(bossIdle);
-  
+
+      // Call the ally's attack
+      await handleAllyAttack();
+
       // Call the monster's attack
       setPlayerTurn(false);
       handleBossAttack();
     }
-  
+
     // Set the attack or special card cooldown
     if (special) {
       setSpecialCardCooldown(2);
@@ -193,8 +259,8 @@ const FinalBoss = () => {
       setAttackCardCooldown(1);
     }
   };
-  
-  
+
+
   const handleCardAttack = (card) => {
     if (!playerTurn) return;
 
@@ -240,13 +306,27 @@ const FinalBoss = () => {
       className={`final-boss-container${shakeScreen ? ' shake' : ''}`}
       style={{ backgroundImage: `url(${bossBackground})` }}
     >
-
       <img
         className="character-boss"
         src={showBossAttack ? bossSpecialGif : bossGif}
         alt="Boss"
       />
-      <img className="character-ally" src={allyIdle} alt="Ally" />
+
+      {!showAllyAttack && (
+        <img
+          className="character-ally"
+          src={allyIdle}
+          aalt="Ally"
+        />
+      )}
+
+      {showAllyAttack && (
+        <img
+          className="character-ally-attack"
+          src={allyAttackGif}
+          alt="Ally attack"
+        />
+      )}
 
       {selectedCharacter && !showAttack && !showPlayerHit && (
         <img
@@ -269,6 +349,7 @@ const FinalBoss = () => {
           alt={`${selectedCharacter.name} hit`}
         />
       )}
+
 
       <div className="player-shield-container">
         {generatePlayerShield(playerShield).map((shieldValue) => (
@@ -309,7 +390,6 @@ const FinalBoss = () => {
         </span>
       </div>
 
-
       <div className={`speech-bubble-container${(showBattleElements || hideSpeechBubble) ? ' hidden' : ''}`}>
         <img className="speech-bubble" src={speechBubble} alt="Speech Bubble" />
         <div className="boss-text">
@@ -322,6 +402,18 @@ const FinalBoss = () => {
       {showBattleElements && (
         <span className="boss-attack">
           {bossAttack}
+        </span>
+      )}
+
+      {bossFurious && (
+        <div className="boss-furious-notification">
+          One-eye King is now furious
+        </div>
+      )}
+
+      {showBattleElements && (
+        <span className="ally-attack">
+          {allyAttackDamage}
         </span>
       )}
 

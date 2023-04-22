@@ -114,7 +114,7 @@ function BattleRoom({ clearRoom,
     setShowPlayerHitGif(true);
 
     // Wait for the hit animation to finish
-    await delay(300);
+    await delay(500);
 
     // Hide the player's hit gif
     setShowPlayerHitGif(false);
@@ -150,7 +150,7 @@ function BattleRoom({ clearRoom,
     setShowAttackGif(true);
 
     // Wait for the attack animation to finish
-    await delay(800);
+    await delay(500);
 
     if (monsterHealth - damage <= 0) {
       setMonsterHealth(0);
@@ -172,7 +172,7 @@ function BattleRoom({ clearRoom,
       setMonsterCurrentGif(allyHitGif);
 
       // Wait for the hit animation to finish
-      await delay(750);
+      await delay(500);
 
       // Revert monster's gif to idle and hide the attack GIF
       setMonsterCurrentGif(allyIdle);

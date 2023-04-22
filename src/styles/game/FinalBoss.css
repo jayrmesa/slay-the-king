@@ -14,7 +14,7 @@
 .character-boss {
   width: 35vw;
   height: auto;
-  left: 11%;
+  margin-right: 52%;
   margin-top: 3%;
 }
 
@@ -28,8 +28,28 @@
 .character-ally {
   width: 22vw;
   height: auto;
-  margin-right: 15%;
-  margin-top: 23%;
+  position: absolute;
+  right: 23%;
+  bottom: 15%;
+}
+
+.character-ally-attack {
+  width: 22vw;
+  height: auto;
+  position: absolute;
+  right: 23%;
+  bottom: 15%;
+}
+
+.ally-attack {
+  position: absolute;
+  top: 48%;
+  right: 33%;
+  font-size: 35px;
+  font-weight: bold;
+  z-index: 10;
+  transition: opacity 0.5s;
+  color: red;
 }
 
 .health-bar-boss {
@@ -126,3 +146,14 @@
   display: none;
 }
 
+.boss-furious-notification {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  color: #ff0000;
+  font-weight: bold;
+  text-align: center;
+  z-index: 10;
+}
