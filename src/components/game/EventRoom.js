@@ -98,15 +98,15 @@ const EventRoom = ({ clearRoom, currentNode }) => {
         <BattleRoom
           clearRoom={() => {
             setIsBattleStarted(false);
-            // clearRoom();
+            clearRoom(); 
           }}
-          selectedCharacter={selectedCharacter}
           allyIdle={allyIdle}
           allyAttackGif={allyAttackGif}
           allyHitGif={allyHitGif}
           backgroundStyle={backgroundStyle}
           initialMonsterHealth={30}
           isAlly={true}
+          inEventRoom={true}
         />
       )}
     </div>

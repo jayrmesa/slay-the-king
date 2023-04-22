@@ -8,13 +8,13 @@ import Options from './components/screens/options';
 import BattleRoom from "./components/game/BattleRoom";
 import TreasureRoom from "./components/game/TreasureRoom";
 import EventRoom from "./components/game/EventRoom";
+import FinalBoss from "./components/game/FinalBoss";
 
 import './App.css';
 
 function App() {
   const [clearedNodes, setClearedNodes] = useState([]);
   const [currentNode, setCurrentNode] = useState(1);
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
 
   const clearCurrentNode = () => {
     setClearedNodes(prev => [...prev, currentNode]);
@@ -28,11 +28,11 @@ function App() {
           <Route path="/" element={<Menu />} />
           <Route
             path="/character-selection"
-            element={<CharacterSelection setSelectedCharacter={setSelectedCharacter} />}
+            element={<CharacterSelection />}
           />
           <Route
             path="/choice-room"
-            element={<ChoiceRoom selectedCharacter={selectedCharacter} />}
+            element={<ChoiceRoom />}
           />
           <Route
             path="/map"
@@ -49,6 +49,10 @@ function App() {
           <Route
             path="/event-room"
             element={<EventRoom clearRoom={clearCurrentNode} />}
+          />
+          <Route
+            path="/final-boss"
+            element={<FinalBoss clearRoom={clearCurrentNode} />}
           />
           <Route path="/options" element={<Options />} />
         </Routes>

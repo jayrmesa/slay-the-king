@@ -40,7 +40,7 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
       setShowChoices(!showChoices);
       setCharacter((prevCharacter) => ({
         ...prevCharacter,
-        health: prevCharacter.health + 5,
+        health: prevCharacter.health + 10,
       }));
     } else {
       setRewardMessage('Attack increased by 3');

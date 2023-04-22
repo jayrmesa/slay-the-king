@@ -14,7 +14,6 @@ import block from "../../assets/images/ui/block.png";
 import allSpeechBubble from '../../assets/images/ui/speechBubble2.png';
 
 
-
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 const generatePlayerShield = (shieldValue) => {
@@ -33,7 +32,8 @@ function BattleRoom({ clearRoom,
   allyHitGif = monsterHitGif,
   backgroundStyle = { backgroundImage: `url(${battleBackground})` },
   initialMonsterHealth = 12,
-  isAlly
+  isAlly,
+  inEventRoom
 }) {
 
   const location = useLocation();
@@ -136,7 +136,7 @@ function BattleRoom({ clearRoom,
     // Revert the monster's GIF to idle
     setMonsterCurrentGif(allyIdle);
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await delay(300);
     setPlayerShield(0);
     // Set the player's turn back to true
     setPlayerTurn(true);
@@ -150,7 +150,7 @@ function BattleRoom({ clearRoom,
     setShowAttackGif(true);
 
     // Wait for the attack animation to finish
-    await delay(500);
+    await delay(800);
 
     if (monsterHealth - damage <= 0) {
       setMonsterHealth(0);
@@ -172,7 +172,7 @@ function BattleRoom({ clearRoom,
       setMonsterCurrentGif(allyHitGif);
 
       // Wait for the hit animation to finish
-      await delay(500);
+      await delay(750);
 
       // Revert monster's gif to idle and hide the attack GIF
       setMonsterCurrentGif(allyIdle);
@@ -248,12 +248,14 @@ function BattleRoom({ clearRoom,
 
     setShowVictoryPanel(false);
     clearRoom();
+    
   };
+  
 
   const navigateToMap = (updatedCharacter) => {
     navigate("/map", { state: { selectedCharacter: updatedCharacter } });
   };
-
+  
   const allyLowHpConvo = async () => {
     if (allyDisplayText === 'Stop!') {
       setAllyDisplayText("I'm not your enemy");
@@ -261,7 +263,8 @@ function BattleRoom({ clearRoom,
       setAllyDisplayText('Lets defeat the king!');
       setShowNewSpeechBubble(true);
     } else if (allyDisplayText === 'Lets defeat the king!') {
-      setShowVictoryPanel(true);
+      clearRoom();
+      navigateToMap(character);
     }
   };
 
@@ -359,7 +362,7 @@ function BattleRoom({ clearRoom,
         )
       }
 
-      <div className="card-deck" style={{ display: showNewSpeechBubble ? 'none' : 'flex' }}>
+      <div className="card-deck" style={{ display: (showNewSpeechBubble && inEventRoom) ? 'none' : 'flex' }}>
         {character.startingDeck.map((card) => (
           <img
             key={card.id}
