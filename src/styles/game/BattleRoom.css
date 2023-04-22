@@ -47,6 +47,7 @@
 
 .health-bar-container.player {
   margin-bottom: 280px;
+  width: 250px;
   right: 15%;
 }
 
