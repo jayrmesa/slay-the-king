@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios'; 
 
@@ -10,7 +10,6 @@ import monsterAttackGif from "../../assets/images/Monster/attack.gif";
 import monsterHitGif from "../../assets/images/Monster/hit.gif";
 
 import block from "../../assets/images/ui/block.png";
-import { json } from "body-parser";
 
 
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min

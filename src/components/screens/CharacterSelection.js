@@ -12,7 +12,7 @@ import selectButtonImage from '../../assets/images/menu/select-button.png';
 
 const CharacterSelection = () => {
   const navigate = useNavigate();
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState((localStorage.getItem("saveState") ? localStorage.getItem("saveState").selectedCharacter : null));
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
