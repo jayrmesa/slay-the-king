@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Menu from './components/screens/mainMenu';
 import CharacterSelection from './components/screens/CharacterSelection';
@@ -20,6 +20,7 @@ function App() {
     setClearedNodes(prev => [...prev, currentNode]);
     setCurrentNode(prev => prev + 1);
   };
+
 
   return (
     <div className="App">
@@ -50,7 +51,14 @@ function App() {
             path="/event-room"
             element={<EventRoom clearRoom={clearCurrentNode} />}
           />
-          <Route path="/options" element={<Options />} />
+          <Route path="/options" element={<Options 
+           selectedCharacter={selectedCharacter}
+           currentNode={currentNode} 
+           clearedNodes={clearedNodes}
+           setClearedNodes={setClearedNodes}
+           setSelectedCharacter={setSelectedCharacter}
+           setCurrentNode={setCurrentNode}/>} 
+           />
         </Routes>
       </Router>
     </div>

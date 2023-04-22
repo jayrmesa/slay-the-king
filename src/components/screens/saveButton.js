@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-export default function Button(props) {
+export default function SaveButton(props) {
+  console.log(props);
+  
+  const saveGame = {
+
+
+  };
 
   const handleSave = () => {
-    const saveGame = {
 
-    };
-    
+    console.log("saved");
 
     const saveStateString = JSON.stringify(saveGame);
     localStorage.setItem("saveState", saveStateString);
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const loadSaveStateString = localStorage.getItem("saveState");
     const loadSaveState = JSON.parse(loadSaveStateString);
-   }, [])
-
-
-
+  }, []);
 
 
   return (
