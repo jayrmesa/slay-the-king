@@ -1,19 +1,16 @@
 import React, { useEffect } from "react";
 
 export default function SaveButton(props) {
-  console.log(props);
-  
-  const saveGame = {
+  const {clearedNodes, currentNode, selectedCharacter} = props
 
-
-  };
+  const contentToStore = JSON.stringify({
+    clearedNodes, currentNode, selectedCharacter
+  });
 
   const handleSave = () => {
 
     console.log("saved");
-
-    const saveStateString = JSON.stringify(saveGame);
-    localStorage.setItem("saveState", saveStateString);
+    localStorage.setItem("saveState", contentToStore);
   };
 
   useEffect(() => {
