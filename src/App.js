@@ -12,9 +12,9 @@ import EventRoom from "./components/game/EventRoom";
 import './App.css';
 
 function App() {
-  const [clearedNodes, setClearedNodes] = useState([]);
-  const [currentNode, setCurrentNode] = useState(1);
-  const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [clearedNodes, setClearedNodes] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").clearedNodes : []);
+  const [currentNode, setCurrentNode] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").currentNode : 1 );
+  const [selectedCharacter, setSelectedCharacter] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").selectedCharacter : null);
 
   const clearCurrentNode = () => {
     setClearedNodes(prev => [...prev, currentNode]);
