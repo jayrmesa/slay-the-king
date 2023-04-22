@@ -8,8 +8,9 @@
   background-image: url("../../assets/images/map/battle.png");
   background-size: cover;
   background-position: center;
+  background-size: 100% 100%;
+  background-color:darkslategray;
   background-repeat: no-repeat;
-  
 }
 
 .character {
@@ -47,7 +48,22 @@
 
 .health-bar-container.player {
   margin-bottom: 280px;
-  right: 13%;
+  right: 15%;
+}
+
+.player-shield-container {
+  display: flex; 
+  position: absolute;
+  justify-content: left;
+  align-items: center;
+  right: 15%;
+  bottom: 32%;
+  width: 250px;
+}
+
+
+.player-shield {
+  width: 40px;
 }
 
 .card-deck {
@@ -105,7 +121,6 @@
   bottom: 7%;
 }
 
-
 .character-shadow::before {
   content: "";
   position: absolute;
@@ -122,11 +137,45 @@
 .player-shadow {
   content: "";
   position: absolute;
-  width: 6vw;
+  width: 9vw;
   height: 2vh;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 60%;
-  right: 14%;
-  bottom: 41%;
+  right: 13%;
+  bottom: 39%;
   transform: translateX(-50%);
 }
+
+.victory-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+  text-align: center;
+  z-index: 10;
+}
+
+.victory-panel h2 {
+  margin: 0 0 10px;
+  font-size: 24px;
+}
+
+.victory-panel p {
+  margin: 0 0 20px;
+}
+
+.reward-cards {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.reward-cards .card {
+  cursor: pointer;
+}
+

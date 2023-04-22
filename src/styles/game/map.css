@@ -16,86 +16,38 @@
 }
 
 .start-node {
-  bottom: 20px;
+  bottom: 100px;
   left: calc(50%);
 }
 
 .node-2 {
-  bottom: 150px;
-  left: calc(50% - 300px);
+  bottom: 300px;
+  left: calc(50%);
 }
 
 .node-3 {
-  bottom: 150px;
-  left: calc(50% + 300px);
-}
-
-.node-4{
-  bottom: 300px;
-  left: calc(50% - 600px);
-}
-
-.node-5 {
-  bottom: 310px;
-  left: calc(50% - 200px);
-}
-
-.node-6{
-  bottom: 300px;
-  left: calc(50% + 500px);
-}
-
-.node-7 {
-  bottom: 400px;
-  left: calc(50% + 250px);
-}
-
-.node-8 {
   bottom: 500px;
-  left: calc(50% - 400px);
-}
-
-.node-9{
-  bottom: 360px;
-  left: calc(50% + 25px);
-}
-
-.node-10 {
-  bottom: 470px;
-  left: calc(50% - 180px);
-}
-
-.node-11 {
-  bottom: 600px;
-  left: calc(50% + 50px);
-}
-
-.node-12 {
-  bottom: 650px;
-  left: calc(50% - 200px);
-}
-
-.node-13 {
-  bottom: 630px;
-  left: calc(50% + 300px);
-}
-
-.node-3-3 {
-  bottom: 400px;
-  left: calc(50% + 250px);
-}
-
-.node-3-4 {
-  bottom: 670px;
-  left: calc(50% + 250px);
+  left: calc(50%);
 }
 
 .final-boss-node {
-  bottom: 780px;
-  left: calc(50% - 25px);
+  bottom: 700px;
+  left: calc(50% );
 }
 
-.map-node:not(.cleared) {
+.map-node:not(.clickable) {
   opacity: 0.5;
   pointer-events: none;
 }
+
+.map-node.cleared::after {
+  content: "X";
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: red;
+}
+

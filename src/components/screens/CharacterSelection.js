@@ -1,84 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import '../../styles/screens/CharacterSelection.css';
-import character1Img from '../../assets/images/character/character1.png';
-import character2Img from '../../assets/images/character/character2.png';
-import character3Img from '../../assets/images/character/character3.png';
-
 import backgroundImage from '../../assets/images/menu/background.png';
 import backButtonImage from '../../assets/images/menu/back-button.png';
 import selectButtonImage from '../../assets/images/menu/select-button.png';
 
-import character1Gif from '../../assets/images/character/character1.gif';
-import character2Gif from '../../assets/images/character/character2.gif';
-import character3Gif from '../../assets/images/character/character3.gif';
 
-import yellowAttack1 from '../../assets/images/character/yellowAttack1.gif';
-import greenAttack1 from '../../assets/images/character/greenAttack1.gif';
-import redAttack1 from '../../assets/images/character/redAttack1.gif';
-
-import yellowHit1 from '../../assets/images/character/yellowHit1.gif';
-import greenHit1 from '../../assets/images/character/greenHit1.gif';
-import redHit1 from '../../assets/images/character/redHit1.gif';
-
-import cardDecks from '../common/cardDecks';
-
+axios.defaults.baseURL = 'http://localhost:3000'
 
 const CharacterSelection = () => {
   const navigate = useNavigate();
   const [selectedCharacter, setSelectedCharacter] = useState(null);
+  const [characters, setCharacters] = useState([]);
 
-  const characters = [
-    {
-      name: 'Yellow Knight',
-      image: character1Img,
-      idleGif: character1Gif,
-      attackGif: yellowAttack1,
-      hitGif: yellowHit1,
-      health: 25,
-      maxHealth: 25,
-      startingDeck: cardDecks.character1,
-      description: 'description...',
-    },
-    {
-      name: 'Green Archer',
-      image: character2Img,
-      idleGif: character2Gif,
-      attackGif: greenAttack1,
-      hitGif: greenHit1,
-      health: 20,
-      maxHealth: 20,
-      startingDeck: cardDecks.character2,
-      description: 'description...',
-    },
-    {
-      name: 'Red Mage',
-      image: character3Img,
-      idleGif: character3Gif,
-      attackGif: redAttack1,
-      hitGif: redHit1,
-      health: 15,
-      maxHealth: 15,
-      startingDeck: cardDecks.character3,
-      description: 'description...',
-    },
-  ];
-  
+  useEffect(() => {
+    axios.get('/characters', {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+      .then((response) => {
+        console.log("response:", response.data);
+        setCharacters(response.data);
+      })
+      .catch((error) => console.error('Error fetching characters:', error));
+  }, []);
 
   const selectCharacter = (character) => {
     setSelectedCharacter({
       ...character,
-      idleGif: character.idleGif,
-      attackGif: character.attackGif,
+      idleGif: character.idle_gif,
+      attackGif: character.attack_gif,
+      specialAttackGif: character.special_attack_gif,
+      hitGif: character.hit_gif,
     });
   };
-  
-  
+
   const confirmSelection = () => {
     if (selectedCharacter) {
+      setSelectedCharacter(selectedCharacter);
       // Pass the selected character to the next component 
       navigate('/choice-room', { state: { selectedCharacter } });
+
     }
   };
 
@@ -98,10 +64,10 @@ const CharacterSelection = () => {
 
         <div className="starting-deck">
           <h3>Starting Cards</h3>
-          {selectedCharacter.startingDeck.map((card) => (
+          {selectedCharacter && selectedCharacter.startingDeck && selectedCharacter.startingDeck.map((card) => (
             <div className="starting-card" key={card.id}>
               <img
-                src={card.image}
+                src={card.image_url}
                 alt={card.name}
                 style={{ width: '170px', height: 'auto', margin: '5px' }}
               />
@@ -120,8 +86,8 @@ const CharacterSelection = () => {
       <div className="character-list">
         {characters.map((character) => (
           <img
-            key={character.name}
-            src={character.image}
+            key={character.id}
+            src={character.image_url}
             alt={character.name}
             onClick={() => selectCharacter(character)}
           />
@@ -132,6 +98,5 @@ const CharacterSelection = () => {
     </div>
   );
 };
-
 
 export default CharacterSelection;
