@@ -31,7 +31,7 @@ function BattleRoom({ clearRoom,
   allyAttackGif = monsterAttackGif,
   allyHitGif = monsterHitGif,
   backgroundStyle = { backgroundImage: `url(${battleBackground})` },
-  initialMonsterHealth = 12,
+  initialMonsterHealth = 20,
   isAlly,
   inEventRoom
 }) {
@@ -100,6 +100,12 @@ function BattleRoom({ clearRoom,
       })
       .catch((error) => console.error('Error fetching cards:', error));
   }, []);
+
+  useEffect(() => {
+    if (character.health === 0) {
+      navigate('/GameOver');
+    }
+  }, [character.health, navigate]);
 
 
   const handleMonsterAttack = async (defense = 0) => {

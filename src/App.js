@@ -10,6 +10,10 @@ import TreasureRoom from "./components/game/TreasureRoom";
 import EventRoom from "./components/game/EventRoom";
 import FinalBoss from "./components/game/FinalBoss";
 
+import GameOver from './components/GameOver';
+import Login from "./components/login";
+import Register from "./components/register";
+
 import './App.css';
 
 function App() {
@@ -21,10 +25,16 @@ function App() {
     setCurrentNode(prev => prev + 1);
   };
 
+
   return (
     <div className="App">
+
       <Router>
         <Routes>
+          <Route path="/GameOver" element={<GameOver />} />
+          <Route path="/login" element={<Login />} /> 
+          <Route path="/register" element={<Register />} /> 
+
           <Route path="/" element={<Menu />} />
           <Route
             path="/character-selection"
