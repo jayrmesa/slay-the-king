@@ -7,7 +7,6 @@ app.listen(port, () => {
 });
 
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
   res.redirect('/login');
 });

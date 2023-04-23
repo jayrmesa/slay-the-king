@@ -5,7 +5,7 @@ const GameOver = () => {
   const navigate = useNavigate();
 
   const playAgain = () => {
-    navigate('/map')
+    navigate('/character-selection')
   }
 
   const exitGame = () => {
