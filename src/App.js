@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Menu from './components/screens/mainMenu';
 import CharacterSelection from './components/screens/CharacterSelection';
@@ -17,8 +17,8 @@ import Register from "./components/register";
 import './App.css';
 
 function App() {
-  const [clearedNodes, setClearedNodes] = useState([]);
-  const [currentNode, setCurrentNode] = useState(1);
+  const [clearedNodes, setClearedNodes] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").clearedNodes : []);
+  const [currentNode, setCurrentNode] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").currentNode : 1);
 
   const clearCurrentNode = () => {
     setClearedNodes(prev => [...prev, currentNode]);
@@ -32,8 +32,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/GameOver" element={<GameOver />} />
-          <Route path="/login" element={<Login />} /> 
-          <Route path="/register" element={<Register />} /> 
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           <Route path="/" element={<Menu />} />
           <Route
@@ -64,7 +64,10 @@ function App() {
             path="/final-boss"
             element={<FinalBoss clearRoom={clearCurrentNode} />}
           />
-          <Route path="/options" element={<Options />} />
+          <Route path="/options" element={<Options
+            currentNode={currentNode}
+            clearedNodes={clearedNodes} />}
+          />
         </Routes>
       </Router>
     </div>

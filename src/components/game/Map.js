@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const Map = ({ clearedNodes, currentNode }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const selectedCharacter = location.state?.selectedCharacter;
+  const selectedCharacter = location.state.selectedCharacter;
 
   const handleNodeClick = (node) => {
       // Navigate to the respective room based on the node
