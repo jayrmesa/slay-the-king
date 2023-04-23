@@ -33,7 +33,7 @@
 .choices1 {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -42,8 +42,18 @@
 
 .choice-image1 {
   cursor: pointer;
-  width: 300px; 
+  width: 250px;
+  transition: transform 0.3s ease;
 }
+
+.choice-image1:hover {
+  transform: scale(1.1); 
+}
+
+.choice-image1:active {
+  transform: scale(0.95); 
+}
+
 
 
 .health-bar-choice1 {

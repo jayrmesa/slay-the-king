@@ -9,6 +9,7 @@ import BattleRoom from "./components/game/BattleRoom";
 import TreasureRoom from "./components/game/TreasureRoom";
 import EventRoom from "./components/game/EventRoom";
 import FinalBoss from "./components/game/FinalBoss";
+import Victory from "./components/screens/Victory";
 
 import GameOver from './components/GameOver';
 import Login from "./components/login";
@@ -63,6 +64,10 @@ function App() {
           <Route
             path="/final-boss"
             element={<FinalBoss clearRoom={clearCurrentNode} />}
+          />
+          <Route
+            path="/victory"
+            element={<Victory />}
           />
           <Route path="/options" element={<Options
             currentNode={currentNode}

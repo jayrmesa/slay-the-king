@@ -10,7 +10,7 @@ import chest from '../../assets/images/npc/chest.png';
 import chestGif from '../../assets/images/npc/chestOpen.gif';
 
 import openChestImage from '../../assets/images/menu/Open-Chest.png';
-import dontOpenChestImage from '../../assets/images/menu/Gain Card Loose Health.png';
+import dontOpenChestImage from '../../assets/images/menu/Leave-Chest.png';
 
 import roomBackground from '../../assets/images/menu/treasureRoom.png';
 

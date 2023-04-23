@@ -46,6 +46,7 @@ function BattleRoom({ clearRoom,
   const monsterMaxHealth = initialMonsterHealth;
 
   const [monsterCurrentGif, setMonsterCurrentGif] = useState(allyIdle);
+  const [showMonsterHitGif, setShowMonsterHitGif] = useState(false);
   const [monsterAttack, setMonsterAttack] = useState(generateMonsterDamage(3, 7));
 
   const [playerTurn, setPlayerTurn] = useState(true);
@@ -73,8 +74,6 @@ function BattleRoom({ clearRoom,
     const img = new Image();
     img.src = url;
   };
-
-  
 
 
   useEffect(() => {
@@ -112,12 +111,13 @@ function BattleRoom({ clearRoom,
 
 
   const handleMonsterAttack = async (defense = 0) => {
+    console.log('handleMonsterAttack called');
 
     // Show the monster's attack GIF
     setMonsterCurrentGif(allyAttackGif);
 
     // Wait for the attack animation to finish
-    await delay(350);
+    await delay(500);
 
     // Show the player's hit gif
     setShowPlayerHitGif(true);
@@ -153,13 +153,23 @@ function BattleRoom({ clearRoom,
 
 
   const handlePlayerAttack = async (damage, special = false) => {
+    console.log('handlePlayerAttack called');
     if (damage === null) return;
 
     setPlayerAttackGif(special ? selectedCharacter.specialAttackGif : selectedCharacter.attackGif);
     setShowAttackGif(true);
 
+    const attackAnimationDelay = special ? 2050 : 800;
+
     // Wait for the attack animation to finish
-    await delay(500);
+    await delay(attackAnimationDelay);
+
+    // Hide the attack GIF
+    setShowAttackGif(false);
+
+    // Reset the attack animation
+    setPlayerAttackGif(null);
+    await delay(50);
 
     if (monsterHealth - damage <= 0) {
       setMonsterHealth(0);
@@ -181,11 +191,11 @@ function BattleRoom({ clearRoom,
       setMonsterCurrentGif(allyHitGif);
 
       // Wait for the hit animation to finish
-      await delay(500);
+      await delay(450);
 
       // Revert monster's gif to idle and hide the attack GIF
       setMonsterCurrentGif(allyIdle);
-      setShowAttackGif(false);
+
 
       // Call the monster's attack
       setPlayerTurn(false);
@@ -257,14 +267,14 @@ function BattleRoom({ clearRoom,
 
     setShowVictoryPanel(false);
     clearRoom();
-    
+
   };
-  
+
 
   const navigateToMap = (updatedCharacter) => {
     navigate("/map", { state: { selectedCharacter: updatedCharacter } });
   };
-  
+
   const allyLowHpConvo = async () => {
     if (allyDisplayText === 'Stop!') {
       setAllyDisplayText("I'm not your enemy");

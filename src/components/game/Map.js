@@ -27,9 +27,6 @@ const Map = ({ clearedNodes, currentNode }) => {
         case 4:
           navigate("/final-boss", { state: { selectedCharacter } });
           break;
-        default:
-          
-          break;
       }
   }
 
