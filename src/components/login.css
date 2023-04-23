@@ -1,5 +1,5 @@
 .background {
-  /* background-image: url('/Users/lishaliang/lighthouse/slay-the-spire/src/assets/images/background/login.jpeg'); */
+  background-image: url('../assets/images/background/login.jpeg');
   width: 100%;
   height: 100vh; /* Set the height to 100% of the viewport height */
   background-size: cover; /* Ensure the background image covers the entire div */

@@ -10,7 +10,7 @@
   justify-content: center;
   height: 100%;
   width: 100%;
-  /* background-image: url('/Users/lishaliang/lighthouse/slay-the-spire/src/assets/images/background/gameover.jpeg') */
+  background-image: url('../assets/images/background/gameover.jpeg')
 }
 
 .main {
@@ -26,6 +26,10 @@
   border-radius: 20px; /* Add rounded corners */
 }
 
+button.game-over-exit {
+  background: none !important;
+  border: none;
+}
 
 .game-over-title {
   font-size: 3rem;
@@ -48,9 +52,7 @@
 }
 
 .exit-button {
-  background-color: #f44336;
+  width: 200px;
+  height: 80px;
 }
 
-.play-again-button {
-  background-color: #2196F3;
-}
