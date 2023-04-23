@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import menuBackground from '../../assets/images/menu/menu-background.png';
 import newGameButton from '../../assets/images/menu/new-game-button.png';
@@ -9,6 +9,14 @@ import '../../styles/screens/mainMenu.css';
 const Menu = () => {
 
   const navigate = useNavigate();
+
+  
+
+  useEffect(() => {
+    const choiceAudio = new Audio(require('../../assets/sounds/music/theme-15.ogg'));
+    choiceAudio.play();
+  }, []);
+
 
   const startNewGame = () => {
     console.log('Starting a new game...');

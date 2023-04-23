@@ -75,6 +75,9 @@ const FinalBoss = () => {
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  //music import
+  const GameOverAudio = new Audio(require ('../../assets/sounds/music/game over.mp3'))
+
   useEffect(() => {
     setCharacter(selectedCharacter);
     if (selectedCharacter) {
@@ -106,6 +109,16 @@ const FinalBoss = () => {
       navigate('/victory');
     }
   }, [bossHealth, navigate]);
+
+  useEffect(() => {
+
+    if (character.health <= 0) {
+      console.log('chara.health', character) 
+      GameOverAudio.play()
+      navigate('/GameOver');
+
+    }
+  }, [character.health, navigate]);
   
 
   const handleTalkButtonClick = () => {

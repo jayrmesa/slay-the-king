@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import useSound from 'use-sound'
 import axios from 'axios';
 
 import '../../styles/game/BattleRoom.css';
@@ -12,6 +13,13 @@ import talkButton from '../../assets/images/ui/talkButton.png';
 
 import block from "../../assets/images/ui/block.png";
 import allSpeechBubble from '../../assets/images/ui/speechBubble2.png';
+
+//character
+import AttackSoundEffect from '../../assets/sounds/EffectSounds/1.ogg'
+import DefendSoundEffect from '../../assets/sounds/EffectSounds/8.ogg'
+import UltAttackSoundEffect from '../../assets/sounds/EffectSounds/17.ogg'
+
+import GameBackgroundMusic from '../../assets/sounds/music/theme-1.ogg'
 
 
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
@@ -74,12 +82,16 @@ function BattleRoom({ clearRoom,
     img.src = url;
   };
 
-  
+  //music import
+  const ChoiceAudio = new Audio (require ('../../assets/sounds/music/theme-15.ogg'))
+  const RewardAudio = new Audio(require ('../../assets/sounds/EffectSounds/33.ogg'))
+  const GameOverAudio = new Audio(require ('../../assets/sounds/music/game over.mp3'))
 
 
   useEffect(() => {
     setCharacter(selectedCharacter);
     if (selectedCharacter) {
+      
       preloadImage(selectedCharacter.attackGif);
       preloadImage(selectedCharacter.hitGif);
       preloadImage(selectedCharacter.idleGif);
@@ -105,8 +117,12 @@ function BattleRoom({ clearRoom,
   }, []);
 
   useEffect(() => {
-    if (character.health === 0) {
+
+    if (character.health <= 0) {
+      console.log('chara.health', character) 
+      GameOverAudio.play()
       navigate('/GameOver');
+
     }
   }, [character.health, navigate]);
 
@@ -217,7 +233,7 @@ function BattleRoom({ clearRoom,
     }
 
     if (card.type === "defend") {
-      handleDefendCard(card);
+      handleDefendCard(card); //music
     } else {
       const damage = card.attack;
       console.log(`Card deals ${damage} damage.`);
