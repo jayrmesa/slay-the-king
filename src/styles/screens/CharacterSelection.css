@@ -25,6 +25,32 @@
   font-weight: 600;
 }
 
+.character-description {
+  background-image: url('../../assets/images/menu/wide.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  position: absolute;
+  top: 200px;
+  left: 190px;
+  width: 450px;
+  height: 320px;
+}
+
+.character-description h3 {
+  color: #1A1F16;
+  font-size: x-large;
+  margin-bottom: 10px;
+}
+
+.character-description p {
+  font-size: 22px;
+  font-weight: 600;
+  margin-top: 45px;
+  padding: 50px;
+}
+
 .starting-deck {
   flex-wrap: nowrap; 
   position: absolute;
@@ -32,9 +58,22 @@
   right: 90px;
 }
 
+.starting-deck-header {
+  background-image: url('../../assets/images/menu/upper.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  position: relative;
+}
+
 .starting-deck h3 {
+  font-family: 'Montserrat', sans-serif;
   font-size: xx-large;
-  color:#1A1F16;
+  color: #1A1F16;
+  padding: 10px;
+  margin-top: 45px;
 }
 
 .starting-card {
@@ -57,7 +96,17 @@
   cursor: pointer;
   width: 100px;
   height: auto;
+  transition: transform 0.2s ease; 
 }
+
+.character-list img:hover {
+  transform: scale(1.05); 
+}
+
+.character-list img:active {
+  transform: scale(0.90); 
+}
+
 
 .back-button {
   cursor: pointer;

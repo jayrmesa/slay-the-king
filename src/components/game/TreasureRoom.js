@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import '../../styles/game/TreasureRoom.css';
@@ -18,44 +18,36 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
   const selectedCharacter = location.state.selectedCharacter;
   const [character, setCharacter] = useState(selectedCharacter);
 
-  const [displayText, setDisplayText] = useState('...');
-  const [animationKey, setAnimationKey] = useState(0);
+  const [displayText, setDisplayText] = useState('Hello?');
   const [showChoices, setShowChoices] = useState(false);
   const [chestOpened, setChestOpened] = useState(false);
   const [rewardMessage, setRewardMessage] = useState('');
 
   const handleTalkButtonClick = () => {
-    setDisplayText("hmmm...");
-    setShowChoices(!showChoices);
+    if (displayText === 'Weak...') {
+      goToMap();
+    } else {
+      setDisplayText("who's there?");
+      setShowChoices(!showChoices);
+    }
   };
 
-  const openChest = () => {
-    setChestOpened(true);
-    setDisplayText('Wazah!');
-
-    const randomReward = Math.random() < 0.5;
-
-    if (randomReward) {
+    const openChest = () => {
+      setChestOpened(true);
+      setDisplayText('Im free!');
+    
       setRewardMessage('Healed by 10');
       setShowChoices(!showChoices);
       setCharacter((prevCharacter) => ({
         ...prevCharacter,
-        health: prevCharacter.health + 10,
+        health: Math.min(prevCharacter.health + 10, prevCharacter.max_health),
       }));
-    } else {
-      setRewardMessage('Attack increased by 3');
-      // Increase the attack of the character's startingDeck card
-      setCharacter((prevCharacter) => ({
-        ...prevCharacter,
-        attack: prevCharacter.startingDeck.attack + 3,
-      }));
-    }
-  };
+    };
+    
 
   const dontOpenChest = () => {
     setDisplayText('Weak...');
     setShowChoices(!showChoices);
-    goToMap();
   };
 
   const goToMap = () => {
@@ -93,7 +85,7 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
         </span>
       </div>
 
-      <div className="speech-bubble-container2" key={animationKey}>
+      <div className="speech-bubble-container2">
         <img
           className="speech-bubble2"
           src={speechBubble2}
@@ -102,7 +94,7 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
         <p className="speech-text2">
           {[...displayText].map((char, index) => (
             <span key={index}>
-             {char === ' ' ? '\u00A0' : char}
+              {char === ' ' ? '\u00A0' : char}
             </span>
           ))}
         </p>
@@ -119,16 +111,16 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
 
       {!showChoices && (
         <img
-          className="talk-button2"
+          className="talk-button"
           src={talkButton2}
           alt="Talk"
           onClick={handleTalkButtonClick}
         />
       )}
 
-      {(displayText === 'Wazah!' || displayText === 'Weak..') && (
+      {(displayText === 'Im free!' || displayText === 'Weak...') && (
         <img
-          className="talk-button3"
+          className="talk-button"
           src={talkButton2}
           alt="Talk"
           onClick={goToMap}

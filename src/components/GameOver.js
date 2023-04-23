@@ -1,3 +1,5 @@
+
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './gameover.css';
 const GameOver = () => {
@@ -20,7 +22,6 @@ const GameOver = () => {
         <button className="game-over-button exit-button" onClick={exitGame}>Exit</button>
         <button className="game-over-button play-again-button" onClick={playAgain}>Play Again</button>
       </div>
-
     </div>
 
   );

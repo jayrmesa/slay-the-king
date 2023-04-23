@@ -10,7 +10,7 @@
 }
 
 .chest {
-  width: 150px;
+  width: 180px;
   margin-top: 490px;
   height: auto;
   margin-right: 100px;
@@ -113,11 +113,11 @@
 .speech-text2 {
   position: absolute;
   top: 160px;
-  left: 150px;
+  left: 130px;
   width: 250px;
   font-size: 35px;
   color:white;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .speech-text2 span {
@@ -164,16 +164,3 @@
   text-align: center;
 }
 
-.talk-button2, .talk-button3 {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  bottom: 90px;
-  left: 45%;
-  width: 220px;
-  cursor: pointer;
-}
-
-.talk-button2:active, .talk-button3:active {
-  transform: scale(0.90);
-}

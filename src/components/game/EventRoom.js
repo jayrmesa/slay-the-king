@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import '../../styles/game/EventRoom.css';
 import speechBubble from '../../assets/images/ui/speechBubble.png';
@@ -15,7 +15,6 @@ import allyHitGif from '../../assets/images/npc/allyHit.gif';
 import BattleRoom from './BattleRoom';
 
 const EventRoom = ({ clearRoom, currentNode }) => {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const selectedCharacter = location.state.selectedCharacter;

@@ -30,6 +30,21 @@
   transform: translate(-50%, -50%); 
 }
 
+.choice-image {
+  cursor: pointer;
+  width: 300px;
+  transition: transform 0.2s ease; 
+}
+
+.choice-image:hover {
+  transform: scale(1.05); 
+}
+
+.choice-image:active {
+  transform: scale(0.95); 
+}
+
+
 .character-container {
   display: flex;
   flex-direction: column;
@@ -163,14 +178,17 @@
   left: 45%;
   width: 220px;
   cursor: pointer;
-  
+  transition: transform 0.2s ease; 
+}
+
+.talk-button:hover {
+  transform: scale(1.05); 
 }
 
 .talk-button:active {
-  transform: scale(0.90);
+  transform: scale(0.90); 
 }
 
-/* Reward panel styles */
 .reward-panel {
   position: absolute;
   top: 50%;
@@ -208,4 +226,14 @@
 .card {
   max-width: 100px;
   cursor: pointer;
+  transition: transform 0.2s ease; 
 }
+
+.card:hover {
+  transform: scale(1.05); 
+}
+
+.card:active {
+  transform: scale(0.90); 
+}
+

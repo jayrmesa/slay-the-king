@@ -316,7 +316,7 @@ const FinalBoss = () => {
         <img
           className="character-ally"
           src={allyIdle}
-          aalt="Ally"
+          alt="Ally"
         />
       )}
 

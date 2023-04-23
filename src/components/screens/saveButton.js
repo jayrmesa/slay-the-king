@@ -14,10 +14,9 @@ export default function SaveButton(props) {
   };
 
   useEffect(() => {
-    const loadSaveStateString = localStorage.getItem("saveState");
-    const loadSaveState = JSON.parse(loadSaveStateString);
+    // const loadSaveStateString = localStorage.getItem("saveState");
+    // const loadSaveState = JSON.parse(loadSaveStateString);
   }, []);
-
 
   return (
     <button

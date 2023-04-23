@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles/game/map.css';
 import monsterImage from '../../assets/images/map/monster.png';
 import treasureImage from '../../assets/images/map/treasure.png';
