@@ -11,9 +11,12 @@
   position: relative;
 }
 
-.character-selection h2 {
-  color: #1A1F16;
-  font-size: xx-large;
+.character-name h2 {
+  font-size:22px;
+  margin-left: 40px;
+  margin-top: 23px;
+  color: aliceblue;
+  font-weight: 500;
 }
 
 .character-details {
@@ -21,9 +24,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  font-size: 22px;
-  font-weight: 600;
 }
+
+.character-name {
+  background-image: url('../../assets/images/menu/ribbon.png'); 
+  background-size: cover;
+  background-position: center;
+  display: inline-block; 
+
+  width: 200px;
+  height: 110px;
+}
+
 
 .character-description {
   background-image: url('../../assets/images/menu/wide.png');
@@ -96,7 +108,8 @@
   cursor: pointer;
   width: 100px;
   height: auto;
-  transition: transform 0.2s ease; 
+  transition: transform 0.2s ease;
+  border: 4px solid black; 
 }
 
 .character-list img:hover {

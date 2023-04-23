@@ -9,6 +9,9 @@ import talkButton2 from '../../assets/images/ui/talkButton.png';
 import chest from '../../assets/images/npc/chest.png';
 import chestGif from '../../assets/images/npc/chestOpen.gif';
 
+import openChestImage from '../../assets/images/menu/Open-Chest.png';
+import dontOpenChestImage from '../../assets/images/menu/Gain Card Loose Health.png';
+
 import roomBackground from '../../assets/images/menu/treasureRoom.png';
 
 const TreasureRoom = ({ clearRoom, currentNode }) => {
@@ -32,18 +35,18 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
     }
   };
 
-    const openChest = () => {
-      setChestOpened(true);
-      setDisplayText('Im free!');
-    
-      setRewardMessage('Healed by 10');
-      setShowChoices(!showChoices);
-      setCharacter((prevCharacter) => ({
-        ...prevCharacter,
-        health: Math.min(prevCharacter.health + 10, prevCharacter.max_health),
-      }));
-    };
-    
+  const openChest = () => {
+    setChestOpened(true);
+    setDisplayText('Im free!');
+
+    setRewardMessage('Healed by 10');
+    setShowChoices(!showChoices);
+    setCharacter((prevCharacter) => ({
+      ...prevCharacter,
+      health: Math.min(prevCharacter.health + 10, prevCharacter.max_health),
+    }));
+  };
+
 
   const dontOpenChest = () => {
     setDisplayText('Weak...');
@@ -102,10 +105,21 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
 
       {showChoices && (
         <div className="choices1">
-          <button onClick={openChest}>Open the chest</button>
-          <button onClick={dontOpenChest}>Don't open the chest</button>
+          <img
+            src={openChestImage} 
+            alt="Open the chest"
+            onClick={openChest}
+            className="choice-image1"
+          />
+          <img
+            src={dontOpenChestImage} 
+            alt="Don't open the chest"
+            onClick={dontOpenChest}
+            className="choice-image1"
+          />
         </div>
       )}
+
 
       {rewardMessage && <div className="reward-message">{rewardMessage}</div>}
 

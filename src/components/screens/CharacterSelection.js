@@ -56,7 +56,9 @@ const CharacterSelection = () => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {selectedCharacter && (<div className="character-details">
+        <div className="character-name">
         <h2>{selectedCharacter.name}</h2>
+        </div>
         <img src={selectedCharacter.idleGif} alt={selectedCharacter.name} />
 
         <div className="character-description">
