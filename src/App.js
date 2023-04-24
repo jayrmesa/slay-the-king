@@ -15,8 +15,37 @@ import Login from "./components/login";
 import Register from "./components/register";
 
 import './App.css';
+const globalState = {
+  user: {
+    username: null,
+    password: 0
+  }
+}
+const globalStateContext = React.createContext(globalState);
+const dispatchStateContext = React.createContext(undefined);
+
+const GlobalStateProvider = ({ children }) => {
+  const [state, dispatch] = React.useReducer(
+    (state, newValue) => ({ ...state, ...newValue }),
+    globalState
+  );
+  return (
+    <globalStateContext.Provider value={state}>
+      <dispatchStateContext.Provider value={dispatch}>
+        {children}
+      </dispatchStateContext.Provider>
+    </globalStateContext.Provider>
+  );
+};
+
+export const useGlobalState = () => [
+  React.useContext(globalStateContext),
+  React.useContext(dispatchStateContext)
+];
 
 function App() {
+
+
   const [clearedNodes, setClearedNodes] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").clearedNodes : []);
   const [currentNode, setCurrentNode] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").currentNode : 1);
 
@@ -27,50 +56,52 @@ function App() {
 
 
   return (
-    <div className="App">
+    <GlobalStateProvider>
+      <div className="App">
 
-      <Router>
-        <Routes>
-          <Route path="/GameOver" element={<GameOver />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        <Router>
+          <Routes>
+            <Route path="/GameOver" element={<GameOver />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-          <Route path="/" element={<Menu />} />
-          <Route
-            path="/character-selection"
-            element={<CharacterSelection />}
-          />
-          <Route
-            path="/choice-room"
-            element={<ChoiceRoom />}
-          />
-          <Route
-            path="/map"
-            element={<Map clearedNodes={clearedNodes} currentNode={currentNode} />}
-          />
-          <Route
-            path="/battle-room"
-            element={<BattleRoom clearRoom={clearCurrentNode} />}
-          />
-          <Route
-            path="/treasure-room"
-            element={<TreasureRoom clearRoom={clearCurrentNode} />}
-          />
-          <Route
-            path="/event-room"
-            element={<EventRoom clearRoom={clearCurrentNode} />}
-          />
-          <Route
-            path="/final-boss"
-            element={<FinalBoss clearRoom={clearCurrentNode} />}
-          />
-          <Route path="/options" element={<Options
-            currentNode={currentNode}
-            clearedNodes={clearedNodes} />}
-          />
-        </Routes>
-      </Router>
-    </div>
+            <Route path="/" element={<Menu />} />
+            <Route
+              path="/character-selection"
+              element={<CharacterSelection />}
+            />
+            <Route
+              path="/choice-room"
+              element={<ChoiceRoom />}
+            />
+            <Route
+              path="/map"
+              element={<Map clearedNodes={clearedNodes} currentNode={currentNode} />}
+            />
+            <Route
+              path="/battle-room"
+              element={<BattleRoom clearRoom={clearCurrentNode} />}
+            />
+            <Route
+              path="/treasure-room"
+              element={<TreasureRoom clearRoom={clearCurrentNode} />}
+            />
+            <Route
+              path="/event-room"
+              element={<EventRoom clearRoom={clearCurrentNode} />}
+            />
+            <Route
+              path="/final-boss"
+              element={<FinalBoss clearRoom={clearCurrentNode} />}
+            />
+            <Route path="/options" element={<Options
+              currentNode={currentNode}
+              clearedNodes={clearedNodes} />}
+            />
+          </Routes>
+        </Router>
+      </div>
+    </GlobalStateProvider>
   );
 }
 

@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useGlobalState } from '../App';
 import './login.css';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [state, dispatch] = useGlobalState();
 
   const navigate = useNavigate();
 
   const handleRegister = () => {
-    // Handle user registration logic here
-    console.log('Registered:', { username, password });
     navigate('/register')
   };
 
-  const handleLogin = () => {
-    // Handle user login logic here
-    console.log('Logged in:', { username, password });
-    navigate('/')
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://localhost:5001/api/users/login', { username, password });
+      const user = {
+        username, password
+      }
+      dispatch({user: user})
+      navigate('/');
+    } catch (error) {
+      if (error.response) {
+        console.error('Error:', error.response.data.message);
+      } else {
+        console.error('Error:', error.message);
+      }
+    }
   };
 
   return (

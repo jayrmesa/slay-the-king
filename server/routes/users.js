@@ -1,48 +1,49 @@
 var express = require('express');
+const { resource } = require('../app');
 var router = express.Router();
 
-const port = process.env.PORT
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+module.exports = (db) => {
+  const users = {};
+
+  router.post('/register', (req, res) => {
+    const { username, password } = req.body;
+    console.log('req.body', req.body)
+
+    const command = 'INSERT INTO users(username, password) VALUES($1, $2) RETURNING *';
+    const values = [username, password]
+    db.query(command, values)
+      .then(data => {
+        res.status(200).json({ message: 'User registered successfully' });
+      })
+      .catch(error => {
+        res.status(500).json({ message: 'Username already exists' });
+      })
+  });
+
+  router.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    const command = `SELECT * FROM users WHERE username = $1`
+    const value = [username]
 
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.redirect('/login');
-});
 
-const users = {};
+    db.query(command, value)
+      .then(result => {
+        const user = result.rows[0]
+        if (!user) {
+          res.status(404).json({ message: 'User not found' });
+        } else if (user.password !== Number(password)) {
+          res.status(401).json({ message: 'Incorrect password' });
+        } else {
+          res.status(200).json({ message: 'User logged in successfully' });
+        }
+      })
+      .catch(error => {
+        console.log('err', error)
+        res.status(500).json({ message: 'server error' });
+      })
+  });
+  return router;
+};
 
-app.post('/api/register', (req, res) => {
-  const { username, password } = req.body;
-
-  if (users[username]) {
-    res.status(400).json({ message: 'Username already exists' });
-  } else {
-    users[username] = { password };
-    console.log('Registered:', { username, password });
-    res.status(200).json({ message: 'User registered successfully' });
-    res.redirect('/')
-    return
-  }
-});
-
-app.post('/api/login', (req, res) => {
-  const { username, password } = req.body;
-
-  const user = users[username];
-
-  if (!user) {
-    res.status(404).json({ message: 'User not found' });
-  } else if (user.password !== password) {
-    res.status(401).json({ message: 'Incorrect password' });
-  } else {
-    console.log('Logged in:', { username, password });
-    res.status(200).json({ message: 'User logged in successfully' });
-    res.redirect('/')
-    return
-  }
-});
-
-module.exports = router;
