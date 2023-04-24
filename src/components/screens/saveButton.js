@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
+import saveButton from '../../assets/images/menu/Save Button.png';
+
 
 export default function SaveButton(props) {
-  const {clearedNodes, currentNode, selectedCharacter} = props
+  const { clearedNodes, currentNode, selectedCharacter } = props;
 
   const contentToStore = JSON.stringify({
     clearedNodes, currentNode, selectedCharacter
@@ -13,17 +15,12 @@ export default function SaveButton(props) {
     localStorage.setItem("saveState", contentToStore);
   };
 
-  useEffect(() => {
-    const loadSaveStateString = localStorage.getItem("saveState");
-    const loadSaveState = JSON.parse(loadSaveStateString);
-  }, []);
-
-
   return (
-    <button
+    <img
+      src={saveButton}
+      alt="Option3"
+      className="options-button"
       onClick={handleSave}
-    >
-      Save
-    </button>
+    />
   );
 }
