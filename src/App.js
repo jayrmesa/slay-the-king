@@ -43,6 +43,26 @@ export const useGlobalState = () => [
   React.useContext(dispatchStateContext)
 ];
 
+//music import
+const GameBackgroundAudio = new Audio (require ('../src/assets/sounds/music/theme-1.ogg'))
+const treastureRoomAudio = new Audio (require ('../src/assets/sounds/music/theme-4.ogg'))
+GameBackgroundAudio.loop = true;
+const playAudio = () => {
+  GameBackgroundAudio.play()
+}
+
+const stopAudio = () => {
+  GameBackgroundAudio.pause()
+}
+
+const treastureRoomPlay = () => {
+  treastureRoomAudio.play()
+}
+
+const treastureRoomstop = () => {
+  treastureRoomAudio.pause()
+}
+
 function App() {
 
 
@@ -68,7 +88,7 @@ function App() {
             <Route path="/" element={<Menu />} />
             <Route
               path="/character-selection"
-              element={<CharacterSelection />}
+              element={<CharacterSelection playAudio={playAudio} stopAudio={stopAudio}/>}
             />
             <Route
               path="/choice-room"
@@ -76,15 +96,15 @@ function App() {
             />
             <Route
               path="/map"
-              element={<Map clearedNodes={clearedNodes} currentNode={currentNode} />}
+              element={<Map clearedNodes={clearedNodes} currentNode={currentNode} treastureRoomPlay={treastureRoomPlay} playAudio={playAudio}/>}
             />
             <Route
               path="/battle-room"
-              element={<BattleRoom clearRoom={clearCurrentNode} />}
+              element={<BattleRoom clearRoom={clearCurrentNode} playAudio={playAudio} stopAudio={stopAudio}/>}
             />
             <Route
               path="/treasure-room"
-              element={<TreasureRoom clearRoom={clearCurrentNode} />}
+              element={<TreasureRoom clearRoom={clearCurrentNode}  treastureRoomstop={treastureRoomstop}/>}
             />
             <Route
               path="/event-room"

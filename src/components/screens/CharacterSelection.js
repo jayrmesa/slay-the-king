@@ -8,7 +8,7 @@ import backButtonImage from '../../assets/images/menu/back-button.png';
 import selectButtonImage from '../../assets/images/menu/select-button.png';
 
 
-const CharacterSelection = () => {
+const CharacterSelection = (props) => {
   const navigate = useNavigate();
   const [selectedCharacter, setSelectedCharacter] = useState((localStorage.getItem("saveState") ? localStorage.getItem("saveState").selectedCharacter : null));
   const [characters, setCharacters] = useState([]);
@@ -44,6 +44,7 @@ const CharacterSelection = () => {
       navigate('/choice-room', { state: { selectedCharacter } });
 
     }
+    props.playAudio()
   };
 
   const goBack = () => {
@@ -75,7 +76,7 @@ const CharacterSelection = () => {
 
         <button
           className="select-button"
-          onClick={confirmSelection}
+          onClick={confirmSelection} //start game
           style={{ backgroundImage: `url(${selectButtonImage})` }}
         ></button>
       </div>

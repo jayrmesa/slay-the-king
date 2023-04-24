@@ -11,7 +11,7 @@ import chestGif from '../../assets/images/npc/chestOpen.gif';
 
 import roomBackground from '../../assets/images/menu/treasureRoom.png';
 
-const TreasureRoom = ({ clearRoom, currentNode }) => {
+const TreasureRoom = ({ clearRoom, currentNode, treastureRoomstop}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -60,6 +60,7 @@ const TreasureRoom = ({ clearRoom, currentNode }) => {
 
   const goToMap = () => {
     clearRoom();
+    treastureRoomstop()
     navigate('/map', { state: { selectedCharacter: character } });
   };
 

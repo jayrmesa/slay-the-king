@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import useSound from 'use-sound'
 import axios from 'axios';
 
 import '../../styles/game/BattleRoom.css';
@@ -35,7 +34,9 @@ function BattleRoom({ clearRoom,
   backgroundStyle = { backgroundImage: `url(${battleBackground})` },
   initialMonsterHealth = 20,
   isAlly,
-  inEventRoom
+  inEventRoom,
+  playAudio,
+  stopAudio
 }) {
 
   const location = useLocation();
@@ -77,7 +78,6 @@ function BattleRoom({ clearRoom,
   };
 
   //music import
-  const GameBackgroundAudio = new Audio (require ('../../assets/sounds/music/theme-1.ogg'))
   const RewardAudio = new Audio(require ('../../assets/sounds/EffectSounds/33.ogg'))
   const GameOverAudio = new Audio(require ('../../assets/sounds/music/game over.mp3'))
   //sound effect
@@ -117,13 +117,17 @@ function BattleRoom({ clearRoom,
   useEffect(() => {
 
     if (character.health <= 0) {
-      console.log('chara.health', character) 
+      console.log(stopAudio)
+      if (typeof stopAudio === 'function') {
+      stopAudio()      
+      }
       GameOverAudio.play()
       navigate('/GameOver');
 
     }
   }, [character.health, navigate]);
 
+  console.log('stop', stopAudio)
 
   const handleMonsterAttack = async (defense = 0) => {
 
@@ -176,6 +180,9 @@ function BattleRoom({ clearRoom,
     await delay(500);
 
     if (monsterHealth - damage <= 0) {
+      console.log('stop2',stopAudio)
+      stopAudio()
+      RewardAudio.play()
       setMonsterHealth(0);
       setShowVictoryPanel(true);
     } else {

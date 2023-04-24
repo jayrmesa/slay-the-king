@@ -19,7 +19,7 @@ const Menu = () => {
     if (!state.user.username) {
      navigate('/login')      
     } else {
-      //choiceAudio.play();  
+      choiceAudio.play();  
       console.log('state', state)
     }
 

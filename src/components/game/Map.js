@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/game/map.css';
 import monsterImage from '../../assets/images/map/monster.png';
 import treasureImage from '../../assets/images/map/treasure.png';
@@ -7,28 +7,37 @@ import bossImage from '../../assets/images/map/boss.png';
 import { useLocation, useNavigate } from "react-router-dom";
 
 
-const Map = ({ clearedNodes, currentNode }) => {
+const Map = ({ clearedNodes, currentNode, playAudio, treastureRoomPlay }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const selectedCharacter = location.state.selectedCharacter;
+
+  
+
+
 
   const handleNodeClick = (node) => {
       // Navigate to the respective room based on the node
       switch (node) {
         case 1:
+          playAudio()
           navigate("/battle-room", { state: { selectedCharacter } });
+
           break;
         case 2:
-          navigate("/treasure-room", { state: { selectedCharacter } });
+          treastureRoomPlay()
+          navigate("/treasure-room", { state: { selectedCharacter } });          
           break;
         case 3:
-          navigate("/event-room", { state: { selectedCharacter } });
+          playAudio()
+          navigate("/event-room", { state: { selectedCharacter } });          
           break;
         case 4:
-          navigate("/final-boss", { state: { selectedCharacter } });
+          playAudio()
+          navigate("/final-boss", { state: { selectedCharacter } });          
           break;
+
         default:
-          
           break;
       }
   }
