@@ -7,7 +7,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+  position: relative;
 }
 
 .new-game-button,
@@ -15,6 +16,8 @@
 .quit-button {
   cursor: pointer;
   transform: scale(0.5);
+  width: 400px;
+
 }
 
 .new-game-button:hover {
@@ -39,4 +42,20 @@
 
 .quit-button:active {
   transform: scale(0.45);
+}
+
+.logo {
+  position: absolute;
+  top: 5%; /* Adjust this value to move the logo up or down */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px; /* Adjust the width as needed */
+}
+
+.buttons-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10%;
 }

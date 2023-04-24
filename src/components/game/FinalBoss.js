@@ -42,8 +42,8 @@ const FinalBoss = () => {
   const [character, setCharacter] = useState(selectedCharacter);
 
   //Boss
-  const [bossHealth, setBossHealth] = useState(50);
-  const bossMaxHealth = 50;
+  const [bossHealth, setBossHealth] = useState(40);
+  const bossMaxHealth = 40;
   const [bossGif, setBossGif] = useState(bossIdle);
   const [bossAttack, setBossAttack] = useState(generateBossDamage(3, 12));
 
@@ -58,6 +58,9 @@ const FinalBoss = () => {
   const [attackCardCooldown, setAttackCardCooldown] = useState(0);
   const [defendCardCooldown, setDefendCardCooldown] = useState(0);
   const [specialCardCooldown, setSpecialCardCooldown] = useState(0);
+  const [attack1CardCooldown, setAttack1CardCooldown] = useState(0);
+  const [attack2CardCooldown, setAttack2CardCooldown] = useState(0);
+  const [defend1CardCooldown, setDefend1CardCooldown] = useState(0);
 
   //Ally
   const [allyAttackGif, setAllyAttackGif] = useState(null);
@@ -102,11 +105,11 @@ const FinalBoss = () => {
   }, [bossSpeech]);
 
   useEffect(() => {
-    if (bossHealth === 0) {
+    if (bossHealth === 0 || bossHealth < 0) {
       navigate('/victory');
     }
   }, [bossHealth, navigate]);
-  
+
 
   const handleTalkButtonClick = () => {
     if (bossSpeech === 'So you made it') {
@@ -201,13 +204,13 @@ const FinalBoss = () => {
 
 
 
-  const handlePlayerAttack = async (damage, special = false) => {
+  const handlePlayerAttack = async (damage, cardType = 'attack') => {
     if (damage === null) return;
 
-    setPlayerAttack(special ? selectedCharacter.specialAttackGif : selectedCharacter.attackGif);
+    setPlayerAttack(cardType === 'special' ? selectedCharacter.specialAttackGif : selectedCharacter.attackGif);
     setShowAttackGif(true);
 
-    const attackAnimationDelay = special ? 2050 : 800;
+    const attackAnimationDelay = cardType === 'special' ? 2050 : 800;
 
     // Wait for the attack animation to finish
     await delay(attackAnimationDelay);
@@ -218,6 +221,7 @@ const FinalBoss = () => {
     // Reset the attack animation
     setPlayerAttack(null);
     await delay(50);
+
 
     if (bossHealth - damage <= 0) {
       setBossHealth(0);
@@ -252,11 +256,25 @@ const FinalBoss = () => {
       handleBossAttack();
     }
 
-    // Set the attack or special card cooldown
-    if (special) {
-      setSpecialCardCooldown(2);
-    } else {
-      setAttackCardCooldown(1);
+    // Set the card cooldown based on the card type
+    switch (cardType) {
+      case 'attack':
+        setAttackCardCooldown(1);
+        break;
+      case 'attack1':
+        setAttack1CardCooldown(1);
+        break;
+      case 'attack2':
+        setAttack2CardCooldown(2);
+        break;
+      case 'defend1':
+        setDefend1CardCooldown(1);
+        break;
+      case 'special':
+        setSpecialCardCooldown(2);
+        break;
+      default:
+        console.warn(`Unknown card type: ${cardType}`);
     }
   };
 
@@ -268,22 +286,50 @@ const FinalBoss = () => {
     setAttackCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
     setDefendCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
     setSpecialCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setAttack1CardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setAttack2CardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setDefend1CardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
 
-    if (
-      (card.type === "attack" && attackCardCooldown > 0) ||
-      (card.type === "defend" && defendCardCooldown > 0) ||
-      (card.type === "special" && specialCardCooldown > 0)
-    ) {
-      return;
-    }
+    // Check if the card is on cooldown
+    const cardCooldown = {
+      attack: attackCardCooldown,
+      attack1: attack1CardCooldown,
+      attack2: attack2CardCooldown,
+      defend: defendCardCooldown,
+      defend1: defend1CardCooldown,
+      special: specialCardCooldown,
+    };
 
-    if (card.type === "defend") {
+    if (cardCooldown[card.type] > 0) return;
+
+    if (card.type === "defend" || card.type === "defend1") {
       handleDefendCard(card);
     } else {
       const damage = card.attack;
       console.log(`Card deals ${damage} damage.`);
-      handlePlayerAttack(damage, card.type === "special");
+      handlePlayerAttack(damage, card.type);
     }
+
+    // Set the appropriate cooldown for the card type
+    const setCooldown = {
+      attack: setAttackCardCooldown,
+      attack1: setAttack1CardCooldown,
+      attack2: setAttack2CardCooldown,
+      defend: setDefendCardCooldown,
+      defend1: setDefend1CardCooldown,
+      special: setSpecialCardCooldown,
+    };
+
+    const cooldownDuration = {
+      attack: 1,
+      attack1: 1,
+      attack2: 2,
+      defend: 1,
+      defend1: 1,
+      special: 2,
+    };
+
+    setCooldown[card.type](cooldownDuration[card.type]);
   };
 
   const handleDefendCard = (card) => {
@@ -422,7 +468,7 @@ const FinalBoss = () => {
           {character.startingDeck.map((card) => (
             <img
               key={card.id}
-              className={`card1 ${card.type === 'attack' && attackCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'defend' && defendCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'special' && specialCardCooldown > 0 ? 'cooldown' : ''}`}
+              className={`card1 ${card.type === 'attack' && attackCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'attack1' && attack1CardCooldown > 0 ? 'cooldown' : ''}${card.type === 'attack2' && attack2CardCooldown > 0 ? 'cooldown' : ''}${card.type === 'defend' && defendCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'defend1' && defend1CardCooldown > 0 ? 'cooldown' : ''}${card.type === 'special' && specialCardCooldown > 0 ? 'cooldown' : ''}`}
               src={card.image_url}
               alt={`Card ${card.id}`}
               onClick={() => handleCardAttack(card)}

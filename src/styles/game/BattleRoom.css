@@ -106,17 +106,6 @@
   cursor: not-allowed;
 }
 
-.monster-attack {
-  position: absolute;
-  top: 35%;
-  left: 21%;
-  font-size: 50px;
-  font-weight: bold;
-  z-index: 10;
-  transition: opacity 0.5s;
-  color: red;
-}
-
 
 .character.player-attack {
   width: 22vw;
@@ -213,4 +202,17 @@
   z-index: 2;
   animation: breathe 3s infinite ease-in-out;
 }
+
+.monster-attack {
+  position: absolute;
+  top: 37%;
+  left: 22%;
+  font-size: 45px;
+  font-weight: bold;
+  z-index: 10;
+  transition: opacity 0.5s;
+  color: red;
+}
+
+
 
