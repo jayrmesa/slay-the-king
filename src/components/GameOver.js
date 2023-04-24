@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import React from "react";
 import './gameover.css';
 
 import ExitButton from '../assets/images/menu/Exit _Button.png'
 import NewgameButton from '../assets/images/menu/New game Button.png'
+
 const GameOver = () => {
 
   const navigate = useNavigate();
