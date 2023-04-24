@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Menu from './components/screens/mainMenu';
 import CharacterSelection from './components/screens/CharacterSelection';
@@ -9,6 +9,7 @@ import BattleRoom from "./components/game/BattleRoom";
 import TreasureRoom from "./components/game/TreasureRoom";
 import EventRoom from "./components/game/EventRoom";
 import FinalBoss from "./components/game/FinalBoss";
+import Victory from "./components/screens/Victory";
 
 import GameOver from './components/GameOver';
 import Login from "./components/login";
@@ -44,8 +45,8 @@ export const useGlobalState = () => [
 ];
 
 //music import
-const GameBackgroundAudio = new Audio (require ('../src/assets/sounds/music/theme-1.ogg'))
-const treastureRoomAudio = new Audio (require ('../src/assets/sounds/music/theme-4.ogg'))
+const GameBackgroundAudio = new Audio(require('../src/assets/sounds/music/theme-1.ogg'))
+const treastureRoomAudio = new Audio(require('../src/assets/sounds/music/theme-4.ogg'))
 GameBackgroundAudio.loop = true;
 const playAudio = () => {
   GameBackgroundAudio.play()
@@ -88,7 +89,7 @@ function App() {
             <Route path="/" element={<Menu />} />
             <Route
               path="/character-selection"
-              element={<CharacterSelection playAudio={playAudio} stopAudio={stopAudio}/>}
+              element={<CharacterSelection playAudio={playAudio} stopAudio={stopAudio} />}
             />
             <Route
               path="/choice-room"
@@ -96,15 +97,15 @@ function App() {
             />
             <Route
               path="/map"
-              element={<Map clearedNodes={clearedNodes} currentNode={currentNode} treastureRoomPlay={treastureRoomPlay} playAudio={playAudio}/>}
+              element={<Map clearedNodes={clearedNodes} currentNode={currentNode} treastureRoomPlay={treastureRoomPlay} playAudio={playAudio} />}
             />
             <Route
               path="/battle-room"
-              element={<BattleRoom clearRoom={clearCurrentNode} playAudio={playAudio} stopAudio={stopAudio}/>}
+              element={<BattleRoom clearRoom={clearCurrentNode} playAudio={playAudio} stopAudio={stopAudio} />}
             />
             <Route
               path="/treasure-room"
-              element={<TreasureRoom clearRoom={clearCurrentNode}  treastureRoomstop={treastureRoomstop}/>}
+              element={<TreasureRoom clearRoom={clearCurrentNode} treastureRoomstop={treastureRoomstop} />}
             />
             <Route
               path="/event-room"
@@ -113,6 +114,10 @@ function App() {
             <Route
               path="/final-boss"
               element={<FinalBoss clearRoom={clearCurrentNode} />}
+            />
+            <Route
+              path="/victory"
+              element={<Victory />}
             />
             <Route path="/options" element={<Options
               currentNode={currentNode}

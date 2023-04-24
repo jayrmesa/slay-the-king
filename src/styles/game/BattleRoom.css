@@ -106,17 +106,6 @@
   cursor: not-allowed;
 }
 
-.monster-attack {
-  position: absolute;
-  top: 35%;
-  left: 21%;
-  font-size: 50px;
-  font-weight: bold;
-  z-index: 10;
-  transition: opacity 0.5s;
-  color: red;
-}
-
 
 .character.player-attack {
   width: 22vw;
@@ -174,18 +163,29 @@
   font-size: 30px;
   position: absolute;
   margin-top: 315px;
-  margin-left: 105px;
+  margin-left: 110px;
   font-weight: bold;
   color: #bb4242;
   z-index: 2;
+  animation: breathe 3s infinite ease-in-out;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 .speech-bubble4 {
   position: absolute;
-  top: 35%;
-  left: 63%;
+  top: 8%;
+  left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+  animation: breathe 3s infinite ease-in-out;
 }
 
 .speech-bubble-wrapper {
@@ -195,10 +195,24 @@
 .stop-text {
   font-size: 50px;
   position: absolute;
-  margin-top:-5px;
+  margin-top: -20px;
   margin-left: 80px;
   font-weight: bold;
   color: #bb4242;
   z-index: 2;
+  animation: breathe 3s infinite ease-in-out;
 }
+
+.monster-attack {
+  position: absolute;
+  top: 37%;
+  left: 22%;
+  font-size: 45px;
+  font-weight: bold;
+  z-index: 10;
+  transition: opacity 0.5s;
+  color: red;
+}
+
+
 

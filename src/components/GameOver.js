@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
+=======
+
+import React from 'react';
+>>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
 import { useNavigate } from 'react-router-dom';
 import React from "react";
 import './gameover.css';
@@ -30,7 +35,6 @@ const GameOver = () => {
         <img  src={NewgameButton} className='exit-button'/>
         </button>
       </div>
-
     </div>
 
   );

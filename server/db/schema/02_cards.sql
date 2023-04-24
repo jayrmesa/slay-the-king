@@ -6,6 +6,5 @@ CREATE TABLE cards (
     image_url VARCHAR(255) NOT NULL,
     attack INTEGER,
     type VARCHAR(20),
-    defense INTEGER,
-    heal INTEGER
+    defense INTEGER
 );

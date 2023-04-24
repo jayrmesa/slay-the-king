@@ -5,6 +5,7 @@ import menuBackground from '../../assets/images/menu/menu-background.png';
 import newGameButton from '../../assets/images/menu/new-game-button.png';
 import optionsButton from '../../assets/images/menu/options-button.png';
 import quitButton from '../../assets/images/menu/quit-button.png';
+import logo from '../../assets/images/menu/Slay-logo.png';
 import '../../styles/screens/mainMenu.css';
 
 const Menu = () => {
@@ -47,6 +48,8 @@ const Menu = () => {
 
   return (
     <div className="menu" style={{ backgroundImage: `url(${menuBackground})` }}>
+      <img src={logo} alt="Slay the King" className="logo" />
+      <div className="buttons-container">
       <img
         src={newGameButton}
         alt="New Game"
@@ -65,6 +68,7 @@ const Menu = () => {
         className="quit-button"
         onClick={onQuit}
       />
+      </div>
     </div>
   );
 };

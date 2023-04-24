@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
+=======
+import React from 'react';
+>>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
 import '../../styles/game/map.css';
 import monsterImage from '../../assets/images/map/monster.png';
 import treasureImage from '../../assets/images/map/treasure.png';
@@ -36,9 +40,12 @@ const Map = ({ clearedNodes, currentNode, playAudio, treastureRoomPlay }) => {
           playAudio()
           navigate("/final-boss", { state: { selectedCharacter } });          
           break;
+<<<<<<< HEAD
 
         default:
           break;
+=======
+>>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
       }
   }
 

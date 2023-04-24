@@ -57,20 +57,23 @@ const CharacterSelection = (props) => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       {selectedCharacter && (<div className="character-details">
+        <div className="character-name">
         <h2>{selectedCharacter.name}</h2>
+        </div>
         <img src={selectedCharacter.idleGif} alt={selectedCharacter.name} />
-        <p>{selectedCharacter.description}</p>
+
+        <div className="character-description">
+          <p>{selectedCharacter.description}</p>
+        </div>
 
         <div className="starting-deck">
+        <div className="starting-deck-header">
           <h3>Starting Cards</h3>
-          {selectedCharacter && selectedCharacter.startingDeck && selectedCharacter.startingDeck.map((card) => (
-            <div className="starting-card" key={card.id}>
-              <img
-                src={card.image_url}
-                alt={card.name}
-                style={{ width: '170px', height: 'auto', margin: '5px' }}
-              />
-            </div>
+        </div>
+        {selectedCharacter && selectedCharacter.startingDeck && selectedCharacter.startingDeck.map((card) => (
+          <div className="starting-card" key={card.id}>
+            <img src={card.image_url} alt={card.name} style={{ width: '170px', height: 'auto', margin: '5px' }} />
+          </div>
           ))}
         </div>
 

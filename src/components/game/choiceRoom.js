@@ -10,6 +10,10 @@ import talkButton from '../../assets/images/ui/talkButton.png';
 import npcGif from '../../assets/images/npc/npc.gif';
 import roomBackground from '../../assets/images/menu/choiceRoom.png';
 
+import increaseMaxHealthImage from '../../assets/images/menu/Increase Max Health.png';
+import getCardLoseHealthImage from '../../assets/images/menu/Gain Card Loose Health.png';
+
+
 
 const ChoiceRoom = () => {
 
@@ -119,8 +123,18 @@ const ChoiceRoom = () => {
 
       {showChoices && (
         <div className="choices">
-          <button onClick={handleChoice1}>Increase Max Health</button>
-          <button onClick={handleChoice2}>Get a Card & Lose Health</button>
+          <img
+            className="choice-image"
+            src={increaseMaxHealthImage}
+            alt="Increase Max Health"
+            onClick={handleChoice1}
+          />
+          <img
+            className="choice-image"
+            src={getCardLoseHealthImage}
+            alt="Get a Card & Lose Health"
+            onClick={handleChoice2}
+          />
         </div>
       )}
 

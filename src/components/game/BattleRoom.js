@@ -15,6 +15,10 @@ import allSpeechBubble from '../../assets/images/ui/speechBubble2.png';
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 const generatePlayerShield = (shieldValue) => {
@@ -65,6 +69,9 @@ function BattleRoom({ clearRoom,
   const [attackCardCooldown, setAttackCardCooldown] = useState(0);
   const [defendCardCooldown, setDefendCardCooldown] = useState(0);
   const [specialCardCooldown, setSpecialCardCooldown] = useState(0);
+  const [attack1CardCooldown, setAttack1CardCooldown] = useState(0);
+  const [attack2CardCooldown, setAttack2CardCooldown] = useState(0);
+  const [defend1CardCooldown, setDefend1CardCooldown] = useState(0);
 
   const [showNewSpeechBubble, setShowNewSpeechBubble] = useState(false);
   const [allyDisplayText, setAllyDisplayText] = useState('');
@@ -77,6 +84,7 @@ function BattleRoom({ clearRoom,
     img.src = url;
   };
 
+<<<<<<< HEAD
   //music import
   const RewardAudio = new Audio(require ('../../assets/sounds/EffectSounds/33.ogg'))
   const GameOverAudio = new Audio(require ('../../assets/sounds/music/game over.mp3'))
@@ -85,6 +93,8 @@ function BattleRoom({ clearRoom,
   const DefendAudio = new Audio(require ('../../assets/sounds/EffectSounds/8.ogg'))
   const UltAttackAudio = new Audio(require ('../../assets/sounds/EffectSounds/17.ogg'))
 
+=======
+>>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
 
   useEffect(() => {
     setCharacter(selectedCharacter);
@@ -115,6 +125,7 @@ function BattleRoom({ clearRoom,
   }, []);
 
   useEffect(() => {
+<<<<<<< HEAD
 
     if (character.health <= 0) {
       console.log(stopAudio)
@@ -122,6 +133,9 @@ function BattleRoom({ clearRoom,
       stopAudio()      
       }
       GameOverAudio.play()
+=======
+    if (character.health === 0 || character.health < 0) {
+>>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
       navigate('/GameOver');
 
     }
@@ -130,12 +144,13 @@ function BattleRoom({ clearRoom,
   console.log('stop', stopAudio)
 
   const handleMonsterAttack = async (defense = 0) => {
+    console.log('handleMonsterAttack called');
 
     // Show the monster's attack GIF
     setMonsterCurrentGif(allyAttackGif);
 
     // Wait for the attack animation to finish
-    await delay(350);
+    await delay(500);
 
     // Show the player's hit gif
     setShowPlayerHitGif(true);
@@ -170,14 +185,23 @@ function BattleRoom({ clearRoom,
   };
 
 
-  const handlePlayerAttack = async (damage, special = false) => {
+  const handlePlayerAttack = async (damage, cardType = 'attack') => {
     if (damage === null) return;
 
-    setPlayerAttackGif(special ? selectedCharacter.specialAttackGif : selectedCharacter.attackGif);
+    setPlayerAttackGif(cardType === 'special' ? selectedCharacter.specialAttackGif : selectedCharacter.attackGif);
     setShowAttackGif(true);
 
+    const attackAnimationDelay = cardType === 'special' ? 2050 : 800;
+
     // Wait for the attack animation to finish
-    await delay(500);
+    await delay(attackAnimationDelay);
+
+    // Hide the attack GIF
+    setShowAttackGif(false);
+
+    // Reset the attack animation
+    setPlayerAttackGif(null);
+    await delay(50);
 
     if (monsterHealth - damage <= 0) {
       console.log('stop2',stopAudio)
@@ -202,22 +226,35 @@ function BattleRoom({ clearRoom,
       setMonsterCurrentGif(allyHitGif);
 
       // Wait for the hit animation to finish
-      await delay(500);
+      await delay(450);
 
       // Revert monster's gif to idle and hide the attack GIF
       setMonsterCurrentGif(allyIdle);
-      setShowAttackGif(false);
 
       // Call the monster's attack
       setPlayerTurn(false);
       handleMonsterAttack();
     }
 
-    // Set the attack or special card cooldown
-    if (special) {
-      setSpecialCardCooldown(2);
-    } else {
-      setAttackCardCooldown(1);
+    // Set the card cooldown based on the card type
+    switch (cardType) {
+      case 'attack':
+        setAttackCardCooldown(1);
+        break;
+      case 'attack1':
+        setAttack1CardCooldown(1);
+        break;
+      case 'attack2':
+        setAttack2CardCooldown(2);
+        break;
+      case 'defend1':
+        setDefend1CardCooldown(1);
+        break;
+      case 'special':
+        setSpecialCardCooldown(2);
+        break;
+      default:
+        console.warn(`Unknown card type: ${cardType}`);
     }
   };
 
@@ -226,24 +263,57 @@ function BattleRoom({ clearRoom,
 
     // Decrement the cooldowns at the beginning of each turn
     setAttackCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setAttack1CardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setAttack2CardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
     setDefendCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
+    setDefend1CardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
     setSpecialCardCooldown((prevCooldown) => Math.max(prevCooldown - 1, 0));
 
-    if (
-      (card.type === "attack" && attackCardCooldown > 0) ||
-      (card.type === "defend" && defendCardCooldown > 0) ||
-      (card.type === "special" && specialCardCooldown > 0)
-    ) {
-      return;
-    }
+    // Check if the card is on cooldown
+    const cardCooldown = {
+      attack: attackCardCooldown,
+      attack1: attack1CardCooldown,
+      attack2: attack2CardCooldown,
+      defend: defendCardCooldown,
+      defend1: defend1CardCooldown,
+      special: specialCardCooldown,
+    };
 
+<<<<<<< HEAD
     if (card.type === "defend") {
       handleDefendCard(card); //music
+=======
+    if (cardCooldown[card.type] > 0) return;
+
+    if (card.type === "defend" || card.type === "defend1") {
+      handleDefendCard(card);
+>>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
     } else {
       const damage = card.attack;
       console.log(`Card deals ${damage} damage.`);
-      handlePlayerAttack(damage, card.type === "special");
+      handlePlayerAttack(damage, card.type);
     }
+
+    // Set the appropriate cooldown for the card type
+    const setCooldown = {
+      attack: setAttackCardCooldown,
+      attack1: setAttack1CardCooldown,
+      attack2: setAttack2CardCooldown,
+      defend: setDefendCardCooldown,
+      defend1: setDefend1CardCooldown,
+      special: setSpecialCardCooldown,
+    };
+
+    const cooldownDuration = {
+      attack: 1,
+      attack1: 1,
+      attack2: 2,
+      defend: 1,
+      defend1: 1,
+      special: 2,
+    };
+
+    setCooldown[card.type](cooldownDuration[card.type]);
   };
 
 
@@ -257,8 +327,12 @@ function BattleRoom({ clearRoom,
     setPlayerTurn(false);
     handleMonsterAttack(card.defense);
 
-    // Set the defend card cooldown after the action
-    setDefendCardCooldown(1);
+    // Set the defend or defend1 card cooldown based on the card type
+    if (card.type === "defend") {
+      setDefendCardCooldown(1);
+    } else if (card.type === "defend1") {
+      setDefend1CardCooldown(1);
+    }
   };
 
 
@@ -278,14 +352,14 @@ function BattleRoom({ clearRoom,
 
     setShowVictoryPanel(false);
     clearRoom();
-    
+
   };
-  
+
 
   const navigateToMap = (updatedCharacter) => {
     navigate("/map", { state: { selectedCharacter: updatedCharacter } });
   };
-  
+
   const allyLowHpConvo = async () => {
     if (allyDisplayText === 'Stop!') {
       setAllyDisplayText("I'm not your enemy");
@@ -396,7 +470,7 @@ function BattleRoom({ clearRoom,
         {character.startingDeck.map((card) => (
           <img
             key={card.id}
-            className={`card1 ${card.type === 'attack' && attackCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'defend' && defendCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'special' && specialCardCooldown > 0 ? 'cooldown' : ''}`}
+            className={`card1 ${card.type === 'attack' && attackCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'attack1' && attack1CardCooldown > 0 ? 'cooldown' : ''}${card.type === 'attack2' && attack2CardCooldown > 0 ? 'cooldown' : ''}${card.type === 'defend' && defendCardCooldown > 0 ? 'cooldown' : ''}${card.type === 'defend1' && defend1CardCooldown > 0 ? 'cooldown' : ''}${card.type === 'special' && specialCardCooldown > 0 ? 'cooldown' : ''}`}
             src={card.image_url}
             alt={`Card ${card.id}`}
             onClick={() => handleCardAttack(card)}
