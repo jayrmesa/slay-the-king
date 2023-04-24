@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Slay the King
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**_BEWARE:_ This client was published for learning purposes. It is _not_ intended for use in production-grade software.**
 
-## Available Scripts
+Slay the King is a turn-based combat game where the player faces off against a powerful King in a card based battle. The goal of the game is to defeat the King and restore peace to the kingdom.
 
-In the project directory, you can run:
+## Gameplay
 
-### `npm start`
+### Character Selection
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+At the beginning of the game, players can choose one of the available characters. Each character has unique abilities and a different set of cards.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Combat Mechanics
 
-### `npm test`
+Players engage in turn-based combat against enemy. During their turn, players can use cards to attack, defend, or use special. The enemy will also take a turn to attack the player. The goal is to reduce the enemy's health to zero while keeping the player's character alive.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Cards
 
-### `npm run build`
+Cards have effects in battle, such as dealing damage and increasing the player's defense. Cards have a cooldown period and cannot be used in the same turn.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Follow the instructions below to set up the project on your local machine, and also need to run the server on the another terminal
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
 
-### `npm run eject`
+Before you begin, ensure you have the following software installed on your computer:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Node.js (v12.x or higher)
+- npm (v6.x or higher)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Setup Instructions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Clone repository onto your local machine. 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+git clone https://github.com/jayrmesa/slay-the-king.git
+```
 
-## Learn More
+Run the following command in both the root and server directory to install all dependancies.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm i
+```
+2. Create a .env file in the root of the server following the example of the .env.local.example as a template.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Reset local database in server directory:
 
-### Code Splitting
+```bash
+npm run db:reset
+```
+4. Run the express server in the server directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+npm run start
+```
 
-### Analyzing the Bundle Size
+5. Run the webpack server in the root directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm run start
+```
 
-### Making a Progressive Web App
+## Dependencies
+### Root folder
+- react: 17.0.2
+- react-dom: 17.0.2
+- react-router-dom: 5.3.0
+- react-scripts: 4.0.3
+- web-vitals: 1.1.2
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Server folder
+- express: 4.17.1
+- socket.io: 4.4.1
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Authored By
+### Arnold Mesa JayR 
