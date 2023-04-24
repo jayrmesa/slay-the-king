@@ -5,6 +5,5 @@ CREATE TABLE IF NOT EXISTS reward_cards (
   image_url VARCHAR(255) NOT NULL,
   attack INTEGER,
   type VARCHAR(255) NOT NULL,
-  defense INTEGER,
-  heal INTEGER
+  defense INTEGER
 );
