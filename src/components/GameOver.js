@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-=======
 
 import React from 'react';
->>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
 import { useNavigate } from 'react-router-dom';
-import React from "react";
 import './gameover.css';
 
 import ExitButton from '../assets/images/menu/Exit _Button.png'
-import NewgameButton from '../assets/images/menu/New game Button.png'
+import NewgameButton from '../assets/images/menu/new-game-button.png'
 
 const GameOver = () => {
 

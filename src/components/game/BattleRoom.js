@@ -13,12 +13,6 @@ import talkButton from '../../assets/images/ui/talkButton.png';
 import block from "../../assets/images/ui/block.png";
 import allSpeechBubble from '../../assets/images/ui/speechBubble2.png';
 
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
 const generateMonsterDamage = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
 
 const generatePlayerShield = (shieldValue) => {
@@ -84,7 +78,6 @@ function BattleRoom({ clearRoom,
     img.src = url;
   };
 
-<<<<<<< HEAD
   //music import
   const RewardAudio = new Audio(require ('../../assets/sounds/EffectSounds/33.ogg'))
   const GameOverAudio = new Audio(require ('../../assets/sounds/music/game over.mp3'))
@@ -93,8 +86,6 @@ function BattleRoom({ clearRoom,
   const DefendAudio = new Audio(require ('../../assets/sounds/EffectSounds/8.ogg'))
   const UltAttackAudio = new Audio(require ('../../assets/sounds/EffectSounds/17.ogg'))
 
-=======
->>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
 
   useEffect(() => {
     setCharacter(selectedCharacter);
@@ -125,7 +116,6 @@ function BattleRoom({ clearRoom,
   }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
 
     if (character.health <= 0) {
       console.log(stopAudio)
@@ -133,9 +123,6 @@ function BattleRoom({ clearRoom,
       stopAudio()      
       }
       GameOverAudio.play()
-=======
-    if (character.health === 0 || character.health < 0) {
->>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
       navigate('/GameOver');
 
     }
@@ -279,15 +266,10 @@ function BattleRoom({ clearRoom,
       special: specialCardCooldown,
     };
 
-<<<<<<< HEAD
-    if (card.type === "defend") {
-      handleDefendCard(card); //music
-=======
     if (cardCooldown[card.type] > 0) return;
 
     if (card.type === "defend" || card.type === "defend1") {
       handleDefendCard(card);
->>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
     } else {
       const damage = card.attack;
       console.log(`Card deals ${damage} damage.`);

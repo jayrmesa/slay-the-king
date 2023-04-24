@@ -113,7 +113,6 @@ const FinalBoss = () => {
     }
   }, [bossHealth, navigate]);
 
-<<<<<<< HEAD
   useEffect(() => {
 
     if (character.health <= 0) {
@@ -124,8 +123,6 @@ const FinalBoss = () => {
     }
   }, [character.health, navigate]);
   
-=======
->>>>>>> 82fafe74d41b15c73d499812ae21645010c2990d
 
   const handleTalkButtonClick = () => {
     if (bossSpeech === 'So you made it') {
