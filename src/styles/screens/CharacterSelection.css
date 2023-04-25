@@ -101,7 +101,7 @@
   display: flex;
   gap: 20px;
   position: absolute;
-  bottom: 20px;
+  bottom: 75px;
 }
 
 .character-list img {

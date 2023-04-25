@@ -4,7 +4,9 @@ import Menu from './components/screens/mainMenu';
 import CharacterSelection from './components/screens/CharacterSelection';
 import ChoiceRoom from './components/game/choiceRoom';
 import Map from './components/game/Map';
+import Navbar from './components/screens/_navbar';
 import Options from './components/screens/options';
+import Deck from './components/screens/deck';
 import BattleRoom from "./components/game/BattleRoom";
 import TreasureRoom from "./components/game/TreasureRoom";
 import EventRoom from "./components/game/EventRoom";
@@ -81,6 +83,7 @@ function App() {
       <div className="App">
 
         <Router>
+          <Navbar />
           <Routes>
             <Route path="/GameOver" element={<GameOver />} />
             <Route path="/login" element={<Login />} />
