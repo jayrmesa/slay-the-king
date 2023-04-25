@@ -6,7 +6,7 @@ import deck from '../../assets/images/ui/deck.png';
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
-  const withouNavbarRoutes = ["/", "/character-selection", "/choice-room", "/options"];
+  const withouNavbarRoutes = ["/", "/character-selection", "/choice-room", "/options", "/login", "/register"];
 
   const url = useLocation().pathname
 

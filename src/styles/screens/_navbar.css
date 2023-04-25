@@ -10,3 +10,11 @@ li {
   display: inline;
   float: left;
 }
+
+li:hover {
+  transform: scale(0.75);
+}
+
+li:active {
+  transform: scale(0.65);
+}

@@ -16,6 +16,7 @@ import GameOver from './components/GameOver';
 import Login from "./components/login";
 import Register from "./components/register";
 import './App.css';
+import Deck from './components/screens/deck';
 
 const globalState = {
   user: {
@@ -128,6 +129,10 @@ function App() {
               element={<Victory resetNodes={resetNodes} />}
             />
             <Route path="/options" element={<Options
+              currentNode={currentNode}
+              clearedNodes={clearedNodes} />}
+            />
+            <Route path="/deck" element={<Deck
               currentNode={currentNode}
               clearedNodes={clearedNodes} />}
             />
