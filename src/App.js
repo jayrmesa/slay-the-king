@@ -8,6 +8,7 @@ import Options from './components/screens/options';
 import BattleRoom from "./components/game/BattleRoom";
 import TreasureRoom from "./components/game/TreasureRoom";
 import EventRoom from "./components/game/EventRoom";
+import Deck from './components/screens/deck';
 
 import './App.css';
 
@@ -51,6 +52,7 @@ function App() {
             element={<EventRoom clearRoom={clearCurrentNode} />}
           />
           <Route path="/options" element={<Options />} />
+          <Route path="/deck" element={<Deck />} />
         </Routes>
       </Router>
     </div>

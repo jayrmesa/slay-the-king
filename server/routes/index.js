@@ -32,6 +32,14 @@ module.exports = (db) => {
       });
   });
 
+  router.get('/deck', (req, res) => {
+    const command = 'SELECT * FROM cards';
+    db.query(command)
+    .then(data => {
+      res.json(data.rows)
+    })
+  });
+
   return router;
 };
 
