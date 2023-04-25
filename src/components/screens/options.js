@@ -4,7 +4,6 @@ import menuBackground from '../../assets/images/menu/menu-background.png';
 import optionsButton from '../../assets/images/menu/options-button.png';
 import backButtonImage from '../../assets/images/menu/back-button.png';
 import SaveButton from './saveButton';
-import saveButton from '../../assets/images/menu/back-button.png'
 import '../../styles/screens/mainMenu.css';
 
 const Options = (props) => {
@@ -18,36 +17,40 @@ const Options = (props) => {
   //   current_track.volume = e.currentTarget.value / 100;
   // })
 
+
   const goBack = () => {
     navigate('/');
   };
 
+  const gameOver = () => {
+    navigate('/GameOver');
+  }
+
   return (
-    <div className="menu" style={{ backgroundImage: `url(${menuBackground})` }}>
+    <>
+      <div className="menu" style={{ backgroundImage: `url(${menuBackground})` }}>
 
-      {/* this volume slider will need some sort of styling to make it look like the rest of the game */}
-      {/* <input type="range" id="volume-slider" /> */}
+        {/* this volume slider will need some sort of styling to make it look like the rest of the game
+        <input type="range" id="volume-slider" /> */}
 
-      {/* <img
-        src={optionsButton}
-        alt="Option2"
-        className="options-button"
-      />
-      <img
-        src={optionsButton}
-        alt="Option3"
-        className="options-button"
-      /> */}
-      <SaveButton
-        selectedCharacter={props.selectedCharacter}
-        currentNode={props.currentNode}
-        clearedNodes={props.clearedNodes}
-        setClearedNodes={props.setClearedNodes}
-        setSelectedCharacter={props.setSelectedCharacter}
-        setCurrentNode={props.setCurrentNode}
-      />
-      <button className="back-button" onClick={goBack} style={{ backgroundImage: `url(${backButtonImage})` }}></button>
-    </div>
+        <img
+          src={optionsButton}
+          alt="Game Over"
+          className="options-button"
+          onClick={gameOver}
+        />
+
+        <SaveButton
+          selectedCharacter={props.selectedCharacter}
+          currentNode={props.currentNode}
+          clearedNodes={props.clearedNodes}
+          setClearedNodes={props.setClearedNodes}
+          setSelectedCharacter={props.setSelectedCharacter}
+          setCurrentNode={props.setCurrentNode}
+        />
+        <button className="back-button" onClick={goBack} style={{ backgroundImage: `url(${backButtonImage})` }}></button>
+      </div>
+    </>
   );
 };
 
