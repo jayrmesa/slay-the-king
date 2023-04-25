@@ -10,9 +10,13 @@ Slay the King is a turn-based combat game where the player faces off against a p
 
 At the beginning of the game, players can choose one of the available characters. Each character has unique abilities and a different set of cards.
 
+!["character Select"](public/docs/characterSelect.gif)
+
 ### Combat Mechanics
 
 Players engage in turn-based combat against enemy. During their turn, players can use cards to attack, defend, or use special. The enemy will also take a turn to attack the player. The goal is to reduce the enemy's health to zero while keeping the player's character alive.
+
+!["Battle Demo"](public/docs/BattleDemo.gif)
 
 ### Cards
 
@@ -72,6 +76,11 @@ npm run start
 #### Server folder
 - express: 4.17.1
 - socket.io: 4.4.1
+- axios: "^1.3.5"
+- cors: "^2.8.5"
+- dotenv: "^16.0.3"
+- morgan: "~1.9.1",
+- pg: "^8.10.0"
 
 ## Authored By
 ### Arnold Mesa JayR 
