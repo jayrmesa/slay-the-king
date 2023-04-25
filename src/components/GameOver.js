@@ -31,7 +31,6 @@ const GameOver = () => {
         </button>
       </div>
     </div>
-
   );
 }
 

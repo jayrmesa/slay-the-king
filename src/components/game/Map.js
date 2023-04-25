@@ -13,16 +13,12 @@ const Map = ({ clearedNodes, currentNode, playAudio, treastureRoomPlay }) => {
   const selectedCharacter = location.state.selectedCharacter;
 
   
-
-
-
   const handleNodeClick = (node) => {
       // Navigate to the respective room based on the node
       switch (node) {
         case 1:
           playAudio()
           navigate("/battle-room", { state: { selectedCharacter } });
-
           break;
         case 2:
           treastureRoomPlay()
