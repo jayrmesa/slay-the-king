@@ -3,6 +3,7 @@ import saveButton from '../../assets/images/menu/Save Button.png';
 
 
 export default function SaveButton(props) {
+  
   const { clearedNodes, currentNode, selectedCharacter } = props;
 
   const contentToStore = JSON.stringify({
@@ -10,7 +11,6 @@ export default function SaveButton(props) {
   });
 
   const handleSave = () => {
-
     console.log("saved");
     localStorage.setItem("saveState", contentToStore);
   };

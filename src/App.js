@@ -68,9 +68,9 @@ const treastureRoomstop = () => {
 
 function App() {
 
-
-  const [clearedNodes, setClearedNodes] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").clearedNodes : []);
-  const [currentNode, setCurrentNode] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").currentNode : 1);
+  const savedState = JSON.parse(localStorage.getItem("saveState"));
+  const [clearedNodes, setClearedNodes] = useState(savedState ? savedState.clearedNodes : []);
+  const [currentNode, setCurrentNode] = useState(savedState ? savedState.currentNode : 1);
 
   const clearCurrentNode = () => {
     setClearedNodes(prev => [...prev, currentNode]);
