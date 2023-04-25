@@ -26,9 +26,9 @@ const Options = (props) => {
     <div className="menu" style={{ backgroundImage: `url(${menuBackground})` }}>
 
       {/* this volume slider will need some sort of styling to make it look like the rest of the game */}
-      <input type="range" id="volume-slider" />
+      {/* <input type="range" id="volume-slider" /> */}
 
-      <img
+      {/* <img
         src={optionsButton}
         alt="Option2"
         className="options-button"
@@ -37,7 +37,7 @@ const Options = (props) => {
         src={optionsButton}
         alt="Option3"
         className="options-button"
-      />
+      /> */}
       <SaveButton
         selectedCharacter={props.selectedCharacter}
         currentNode={props.currentNode}
