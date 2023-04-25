@@ -14,7 +14,6 @@ const GameOver = () => {
     navigate('/')
   }
 
-
   return (
     <div className="game-over-container">
       <div className='main'>

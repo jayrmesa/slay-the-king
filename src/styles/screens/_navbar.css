@@ -4,9 +4,11 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #333;
+  z-index: -20;
 }
 
 li { 
   display: inline;
   float: left;
+  z-index: -20;
 }
