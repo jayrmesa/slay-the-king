@@ -4,7 +4,6 @@ import menuBackground from '../../assets/images/menu/menu-background.png';
 import optionsButton from '../../assets/images/menu/options-button.png';
 import backButtonImage from '../../assets/images/menu/back-button.png';
 import SaveButton from './saveButton';
-import saveButton from '../../assets/images/menu/back-button.png'
 import '../../styles/screens/mainMenu.css';
 
 const Options = (props) => {
