@@ -67,9 +67,15 @@ const treastureRoomstop = () => {
 
 function App() {
 
+  const savedState = JSON.parse(localStorage.getItem("saveState"));
+  const [clearedNodes, setClearedNodes] = useState(savedState ? savedState.clearedNodes : []);
+  const [currentNode, setCurrentNode] = useState(savedState ? savedState.currentNode : 1);
 
-  const [clearedNodes, setClearedNodes] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").clearedNodes : []);
-  const [currentNode, setCurrentNode] = useState(localStorage.getItem("saveState") ? localStorage.getItem("saveState").currentNode : 1);
+  const resetNodes = () => {
+    setClearedNodes([]);
+    setCurrentNode(1);
+  };
+
 
   const clearCurrentNode = () => {
     setClearedNodes(prev => [...prev, currentNode]);
@@ -84,7 +90,7 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/GameOver" element={<GameOver />} />
+            <Route path="/GameOver" element={<GameOver resetNodes={resetNodes} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
@@ -119,7 +125,7 @@ function App() {
             />
             <Route
               path="/victory"
-              element={<Victory />}
+              element={<Victory resetNodes={resetNodes} />}
             />
             <Route path="/options" element={<Options
               currentNode={currentNode}

@@ -5,14 +5,16 @@ import MenuButtonImage from '../../assets/images/menu/Back-to-Menu.png';
 import NewGameButtonImage1 from '../../assets/images/menu/Start-New-Game.png';
 import victoryBackground from '../../assets/images/menu/victoryBackground.png';
 
-const Victory = () => {
+const Victory = ({ resetNodes }) => {
   const navigate = useNavigate();
 
   const handleMenuClick = () => {
+    resetNodes();
     navigate('/');
   };
 
   const handleNewGameClick = () => {
+    resetNodes();
     navigate('/character-selection');
   };
 
