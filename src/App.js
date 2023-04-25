@@ -52,7 +52,7 @@ const treastureRoomAudio = new Audio(require('../src/assets/sounds/music/theme-4
 
 GameBackgroundAudio.loop = true;
 const playAudio = () => {
-GameBackgroundAudio.volume = 0.1
+GameBackgroundAudio.volume = 0.01
   GameBackgroundAudio.play()
 }
 
@@ -61,7 +61,7 @@ const stopAudio = () => {
 }
 
 const treastureRoomPlay = () => {
-  treastureRoomPlay.volume = 0.05
+  treastureRoomPlay.volume = 0.01
   treastureRoomAudio.play()
 }
 
