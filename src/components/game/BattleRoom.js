@@ -80,7 +80,9 @@ function BattleRoom({ clearRoom,
 
   //music import
   const RewardAudio = new Audio(require ('../../assets/sounds/EffectSounds/33.ogg'))
+  RewardAudio.volume = 0.2
   const GameOverAudio = new Audio(require ('../../assets/sounds/music/game over.mp3'))
+  GameOverAudio.volume = 0.2
   //sound effect
   const AttackAudio = new Audio(require ('../../assets/sounds/EffectSounds/1.ogg'))
   const DefendAudio = new Audio(require ('../../assets/sounds/EffectSounds/8.ogg'))

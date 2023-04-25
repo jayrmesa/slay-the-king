@@ -6,17 +6,19 @@ import './gameover.css';
 import ExitButton from '../assets/images/menu/Exit _Button.png'
 import NewgameButton from '../assets/images/menu/new-game-button.png'
 
-const GameOver = ({ resetNodes }) => {
+const GameOver = ({ resetNodes, stopAudio }) => {
 
   const navigate = useNavigate();
 
   const playAgain = () => {
     resetNodes();
+    stopAudio()
     navigate('/character-selection')
   }
 
   const exitGame = () => {
     resetNodes();
+    stopAudio()
     navigate('/')
   }
 

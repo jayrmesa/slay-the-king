@@ -146,7 +146,7 @@ const FinalBoss = () => {
     }
   };
 
-  const extraFuriousDamage = 3;
+  const extraFuriousDamage = 2;
 
   const handleBossAttack = async (defense = 0) => {
     // Show the Boss attack 

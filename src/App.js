@@ -48,9 +48,12 @@ export const useGlobalState = () => [
 
 //music import
 const GameBackgroundAudio = new Audio(require('../src/assets/sounds/music/theme-1.ogg'))
+
 const treastureRoomAudio = new Audio(require('../src/assets/sounds/music/theme-4.ogg'))
+
 GameBackgroundAudio.loop = true;
 const playAudio = () => {
+GameBackgroundAudio.volume = 0.1
   GameBackgroundAudio.play()
 }
 
@@ -59,6 +62,7 @@ const stopAudio = () => {
 }
 
 const treastureRoomPlay = () => {
+  treastureRoomPlay.volume = 0.05
   treastureRoomAudio.play()
 }
 
@@ -91,7 +95,7 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/GameOver" element={<GameOver resetNodes={resetNodes} />} />
+            <Route path="/GameOver" element={<GameOver resetNodes={resetNodes} stopAudio={stopAudio}/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
