@@ -6,7 +6,6 @@ import ChoiceRoom from './components/game/choiceRoom';
 import Map from './components/game/Map';
 import Navbar from './components/screens/_navbar';
 import Options from './components/screens/options';
-import Deck from './components/screens/deck';
 import BattleRoom from "./components/game/BattleRoom";
 import TreasureRoom from "./components/game/TreasureRoom";
 import EventRoom from "./components/game/EventRoom";
@@ -16,8 +15,8 @@ import Victory from "./components/screens/Victory";
 import GameOver from './components/GameOver';
 import Login from "./components/login";
 import Register from "./components/register";
-
 import './App.css';
+
 const globalState = {
   user: {
     username: null,
@@ -72,6 +71,12 @@ function App() {
   const [clearedNodes, setClearedNodes] = useState(savedState ? savedState.clearedNodes : []);
   const [currentNode, setCurrentNode] = useState(savedState ? savedState.currentNode : 1);
 
+  const resetNodes = () => {
+    setClearedNodes([]);
+    setCurrentNode(1);
+  };
+
+
   const clearCurrentNode = () => {
     setClearedNodes(prev => [...prev, currentNode]);
     setCurrentNode(prev => prev + 1);
@@ -85,7 +90,7 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/GameOver" element={<GameOver />} />
+            <Route path="/GameOver" element={<GameOver resetNodes={resetNodes} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
@@ -120,7 +125,7 @@ function App() {
             />
             <Route
               path="/victory"
-              element={<Victory />}
+              element={<Victory resetNodes={resetNodes} />}
             />
             <Route path="/options" element={<Options
               currentNode={currentNode}

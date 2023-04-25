@@ -47,7 +47,7 @@ const Register = () => {
   return (
     <div className='background'>
     <div className="container">
-      <h1>Resigter </h1>
+      <h1>Register </h1>
       <input
         type="text"
         placeholder="Username"
@@ -62,7 +62,7 @@ const Register = () => {
       />
       <div className="buttons">
         <button onClick={handleRegister}>Register</button>
-        <button onClick={handleExist}>Exist</button>
+        <button onClick={handleExist}>Exit</button>
       </div>
     </div>
         </div>

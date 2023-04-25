@@ -121,7 +121,6 @@ const TreasureRoom = ({ clearRoom, currentNode, treastureRoomstop}) => {
         </div>
       )}
 
-
       {rewardMessage && <div className="reward-message">{rewardMessage}</div>}
 
       {!showChoices && (

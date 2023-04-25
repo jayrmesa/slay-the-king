@@ -34,6 +34,7 @@ const generatePlayerShield = (shieldValue) => {
 const FinalBoss = () => {
   const [bossSpeech, setBossSpeech] = useState('So you made it');
   const [showTalkButton, setShowTalkButton] = useState(true);
+  const [bossSpeech1, setBossSpeech1] = useState('Its not over!');
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const FinalBoss = () => {
   const bossMaxHealth = 40;
   const [bossGif, setBossGif] = useState(bossIdle);
   const [bossAttack, setBossAttack] = useState(generateBossDamage(3, 12));
-
+  const [showVictoryDialog, setShowVictoryDialog] = useState(false);
 
   //Player
   const [playerTurn, setPlayerTurn] = useState(true);
@@ -79,7 +80,7 @@ const FinalBoss = () => {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   //music import
-  const GameOverAudio = new Audio(require ('../../assets/sounds/music/game over.mp3'))
+  const GameOverAudio = new Audio(require('../../assets/sounds/music/game over.mp3'))
 
   useEffect(() => {
     setCharacter(selectedCharacter);
@@ -109,20 +110,31 @@ const FinalBoss = () => {
 
   useEffect(() => {
     if (bossHealth === 0 || bossHealth < 0) {
+      setBossAttack(0)
+      setShowBattleElements(false);
+      setShowVictoryDialog(true);
+    }
+  }, [bossHealth]);
+
+  const handleVictoryDialogClick = () => {
+    if (bossSpeech1 === 'Its not over!') {
+      setShowBattleElements(false);
+      setBossSpeech1("I'll be back");
+    } else {
       navigate('/victory');
     }
-  }, [bossHealth, navigate]);
+  };
 
   useEffect(() => {
 
     if (character.health <= 0) {
-      console.log('chara.health', character) 
+      console.log('chara.health', character)
       GameOverAudio.play()
       navigate('/GameOver');
 
     }
   }, [character.health, navigate]);
-  
+
 
   const handleTalkButtonClick = () => {
     if (bossSpeech === 'So you made it') {
@@ -134,7 +146,7 @@ const FinalBoss = () => {
     }
   };
 
-  const extraFuriousDamage = 5;
+  const extraFuriousDamage = 2;
 
   const handleBossAttack = async (defense = 0) => {
     // Show the Boss attack 
@@ -488,6 +500,22 @@ const FinalBoss = () => {
             />
           ))}
         </div>
+      )}
+
+      {showVictoryDialog && (
+        <div className="speech-bubble-container">
+          <img className="speech-bubble" src={speechBubble} alt="Speech Bubble" />
+          <p className="speech-text">{bossSpeech1}</p>
+        </div>
+      )}
+
+      {showVictoryDialog && (
+        <img
+          className="talk-button"
+          src={talkButton}
+          alt="Talk Button"
+          onClick={handleVictoryDialogClick}
+        />
       )}
 
       {showTalkButton && (
