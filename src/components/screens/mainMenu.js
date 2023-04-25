@@ -14,7 +14,7 @@ const Menu = () => {
   const [state, dispatch] = useGlobalState();
 
   const choiceAudio = new Audio(require('../../assets/sounds/music/theme-15.ogg'));
-
+  choiceAudio.volume = 0.1
   useEffect(() => {
     console.log(state)
     if (!state.user.username) {
