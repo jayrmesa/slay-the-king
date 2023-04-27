@@ -22,6 +22,11 @@
     "use-sound": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "axios/dist/node/axios.cjs"
+    }
+  },
   "proxy": "http://localhost:5001",
   "scripts": {
     "start": "react-scripts start",
