@@ -2,7 +2,6 @@ import React from "react";
 import '../../styles/screens/_navbar.css';
 import map from '../../assets/images/ui/map.png';
 import settings from '../../assets/images/ui/settings.png';
-import deck from '../../assets/images/ui/deck.png';
 import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -30,7 +29,7 @@ const Navbar = () => {
               />
             </a>
           </li>
-          <li className="navlist-item">
+          {/* <li className="navlist-item">
             <a href="/deck">
               <img
                 src={deck}
@@ -38,7 +37,7 @@ const Navbar = () => {
                 style={{ width: '40px', height: '40px', margin: '5px' }}
               />
             </a>
-          </li>
+          </li> */}
           <li className="navlist-item">
             <a href="/options">
               <img

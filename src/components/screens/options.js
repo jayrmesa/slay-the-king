@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import menuBackground from '../../assets/images/menu/menu-background.png';
-import optionsButton from '../../assets/images/menu/options-button.png';
+import resetButton from '../../assets/images/menu/reset-button.png';
 import backButtonImage from '../../assets/images/menu/back-button.png';
 import SaveButton from './saveButton';
 import '../../styles/screens/mainMenu.css';
@@ -34,8 +34,8 @@ const Options = (props) => {
         <input type="range" id="volume-slider" /> */}
 
         <img
-          src={optionsButton}
-          alt="Game Over"
+          src={resetButton}
+          alt="Reset"
           className="options-button"
           onClick={gameOver}
         />
